@@ -7,6 +7,7 @@ import {
   Heading,
   HStack,
   IconButton,
+  SimpleGrid,
   Text,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
@@ -70,7 +71,7 @@ const Posts: NextPage = () => {
           />
         </Box>
       </Container>
-      <Container maxW="container.md" position="relative">
+      <Container maxW="container.md" position="relative" mb="16">
         <HStack spacing={2} mb="8">
           <a
             href="https://twitter.com/share?text=How GitHub does take home technical interviews&amp;url=https://github.blog/2022-03-31-how-github-does-take-home-technical-interviews/"
@@ -183,6 +184,56 @@ const Posts: NextPage = () => {
           ad reiciendis architecto blanditiis illo.
         </Text>
       </Container>
+      <Box bg="gray.100" py="16">
+        <Container maxW="container.xl">
+          <Heading as="h2" size="lg" mb={4}>
+            Noticias Relacionadas
+          </Heading>
+          <SimpleGrid columns={[1, null, 2]} spacing={8}>
+            {[1, 2].map((item) => (
+              <Box
+                key={item}
+                p={8}
+                rounded="xl"
+                bg="white"
+                boxShadow="0 3px 2px rgb(0 0 0 / 4%), 0 7px 5px rgb(0 0 0 / 2%), 0 13px 10px rgb(0 0 0 / 2%), 0 22px 17px rgb(0 0 0 / 2%) !important"
+              >
+                <Link href="/posts/jean-paul-mayorga">
+                  <a>
+                    <Heading as="h3" size="lg" mb={4}>
+                      Mi noticia
+                    </Heading>
+                  </a>
+                </Link>
+                <Text mb={4}>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Dolore molestiae voluptates odit saepe eius. Soluta aperiam
+                  est quas at necessitatibus! Voluptates hic mollitia dolores
+                  dolorum, corporis exercitationem veritatis perspiciatis nihil!
+                </Text>
+                <Flex alignItems="center">
+                  <Avatar
+                    size="sm"
+                    name="Jean Mayorga"
+                    src="https://bit.ly/sage-adebayo"
+                    mr="1"
+                  />
+                  <Link href="/posts/jean-paul-mayorga">
+                    <a>
+                      <Text color="gray.700" lineHeight="1" mb="0.5">
+                        Jean Paul Mayorga
+                      </Text>
+                      <Text color="gray.600" fontSize="xs" lineHeight="1">
+                        Mi Ciudad Stereo
+                      </Text>
+                    </a>
+                  </Link>
+                </Flex>
+              </Box>
+            ))}
+          </SimpleGrid>
+        </Container>
+      </Box>
     </Box>
   );
 };

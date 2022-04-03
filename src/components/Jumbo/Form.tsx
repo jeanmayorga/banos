@@ -62,7 +62,7 @@ export function JumboForm() {
       <GridItem
         py={{ base: 2, lg: 0 }}
         px={4}
-        borderWidth={{ base: 0, lg: "1px" }}
+        borderWidth={{ base: 0, lg: "0 1px 0 0" }}
         borderColor="gray.100"
       >
         <Text
@@ -134,7 +134,7 @@ export function JumboForm() {
         borderColor="gray.100"
         py={{ base: 2, lg: 0 }}
         px={4}
-        borderWidth={{ base: 0, lg: "1px" }}
+        borderWidth={{ base: 0, lg: "0 1px 0 0" }}
       >
         <Text
           textColor="gray.600"
