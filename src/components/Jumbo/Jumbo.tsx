@@ -29,7 +29,7 @@ export function Jumbo({ title, description, image }: Props) {
       <Box
         position="absolute"
         zIndex={10}
-        bg="rgba(0,0,0,.5)"
+        bg={{ base: "rgba(0,0,0,.7)", lg: "rgba(0,0,0,.5)" }}
         w="full"
         h="full"
       />
