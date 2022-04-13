@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { CalendarDefaultTheme } from "@uselessdev/datepicker";
+import { Footer, Header } from "../components";
 
 const colors = {
   brand: {
@@ -46,7 +47,9 @@ const theme = extendTheme(CalendarDefaultTheme, { colors, components });
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
+      <Header />
       <Component {...pageProps} />
+      <Footer />
     </ChakraProvider>
   );
 }

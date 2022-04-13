@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  IconButton,
   Flex,
   Grid,
   GridItem,
@@ -74,8 +75,8 @@ export function JumboForm() {
           Personas:
         </Text>
         <Flex justifyContent="space-between" alignItems="center">
-          <Button
-            size="xs"
+          <IconButton
+            size="sm"
             rounded="full"
             disabled={people === 0}
             onClick={() => setPeople(people - 1)}
@@ -94,7 +95,7 @@ export function JumboForm() {
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M18 12H6" />
             </svg>
-          </Button>
+          </IconButton>
           <Text
             textColor="gray.600"
             fontWeight="bold"
@@ -104,8 +105,8 @@ export function JumboForm() {
           >
             {people}
           </Text>
-          <Button
-            size="xs"
+          <IconButton
+            size="sm"
             rounded="full"
             onClick={() => setPeople(people + 1)}
             aria-label="mas"
@@ -126,7 +127,7 @@ export function JumboForm() {
                 d="M12 6v6m0 0v6m0-6h6m-6 0H6"
               />
             </svg>
-          </Button>
+          </IconButton>
         </Flex>
       </GridItem>
       <GridItem
@@ -164,8 +165,8 @@ export function JumboForm() {
           >
             <PopoverTrigger>
               <Box onClick={onOpen} ref={initialRef}>
-                <Button
-                  size="xs"
+                <IconButton
+                  size="sm"
                   rounded="full"
                   aria-label="calendario"
                   variant="outline"
@@ -185,7 +186,7 @@ export function JumboForm() {
                       d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                     />
                   </svg>
-                </Button>
+                </IconButton>
               </Box>
             </PopoverTrigger>
 
@@ -221,7 +222,12 @@ export function JumboForm() {
           </Popover>
         </Flex>
       </GridItem>
-      <GridItem px={4} py={{ base: 2, lg: 0 }}>
+      <GridItem
+        px={4}
+        py={{ base: 2, lg: 0 }}
+        display="flex"
+        alignItems="center"
+      >
         <Button isFullWidth aria-label="reservar" colorScheme="brand">
           Reservar
         </Button>
