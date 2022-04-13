@@ -1,8 +1,8 @@
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { CalendarDefaultTheme } from "@uselessdev/datepicker";
-import { Footer, Header } from "../components";
+import { Footer, Header } from "../client/components";
+import "../client/styles/globals.css";
 
 const colors = {
   brand: {
