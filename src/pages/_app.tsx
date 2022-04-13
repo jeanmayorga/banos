@@ -3,6 +3,7 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { CalendarDefaultTheme } from "@uselessdev/datepicker";
 import { Footer, Header } from "../client/components";
 import "../client/styles/globals.css";
+import Script from "next/script";
 
 const colors = {
   brand: {
@@ -48,6 +49,18 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
       <Header />
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-4WJMRLZSCE"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-4WJMRLZSCE');
+        `}
+      </Script>
       <Component {...pageProps} />
       <Footer />
     </ChakraProvider>
