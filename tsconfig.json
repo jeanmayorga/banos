@@ -19,7 +19,8 @@
       "@server/*": ["./src/server/*"],
       "@utils": ["./src/utils"]
     },
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
