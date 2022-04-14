@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import Img from "next/image";
+import { Logo } from "../Logo";
 
 const footer = [
   {
@@ -94,13 +95,12 @@ export function Footer() {
       <Box w="full" height="3px" position="relative">
         <Img src="/bottombar.jpg" layout="fill" />
       </Box>
-      <Box marginY="16" textAlign="center" fontFamily="'Satisfy', cursive">
-        <Text fontSize="7xl" lineHeight="none" color="gray.500">
-          Banos
-        </Text>
-        {/* <Text fontSize="2xl" lineHeight="none" color="gray.500">
-          de Agua Santa
-        </Text> */}
+      <Box marginY="16" display="flex" justifyContent="center">
+        <Link href="/">
+          <a>
+            <Logo color="gray.500" />
+          </a>
+        </Link>
       </Box>
 
       <Container maxW="container.xl">

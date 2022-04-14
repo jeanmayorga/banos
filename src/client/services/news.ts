@@ -12,10 +12,10 @@ export async function getManyNews(params: GetManyNewsOptions) {
     params,
   });
 
-  return response.data;
+  return response.data.data;
 }
 
 export async function createNew(params: typeof News.prototype) {
-  const response = await api.post(`/news`, params);
-  return response;
+  const response = await api.post<Response<MongoData<News>>>(`/news`, params);
+  return response.data.data;
 }

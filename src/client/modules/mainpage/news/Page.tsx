@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 import {
   Avatar,
@@ -18,6 +17,7 @@ import { es } from "date-fns/locale";
 
 import type { News } from "server";
 import type { MongoData } from "types";
+import { Cover } from "client/components/Cover";
 
 interface Props {
   data: MongoData<News>;
@@ -42,7 +42,7 @@ export function NewsPage({ data }: Props) {
         <Heading as="h1" size="xl" mb={4}>
           {data.title}
         </Heading>
-        <Flex alignItems="center" justifyContent="space-between" mb={4}>
+        {/* <Flex alignItems="center" justifyContent="space-between" mb={4}>
           <Flex alignItems="center">
             <Avatar
               size="sm"
@@ -66,24 +66,11 @@ export function NewsPage({ data }: Props) {
               Editar
             </Button>
           </Box>
-        </Flex>
+        </Flex> */}
       </Container>
-      <Container maxW="container.xl" padding={{ base: "0", lg: "auto" }} mb="8">
-        <Box
-          position="relative"
-          height={{ base: "200px", lg: "500px" }}
-          bg="black"
-          overflow="hidden"
-          borderRadius={{ base: "none", lg: "lg" }}
-        >
-          <Image
-            src={data.cover}
-            alt={data.title}
-            layout="fill"
-            objectFit="cover"
-          />
-        </Box>
-      </Container>
+
+      <Cover src={data.cover} alt={data.title} />
+
       <Container maxW="container.md" position="relative" mb="16">
         <HStack spacing={2} mb="8">
           <a
