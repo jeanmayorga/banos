@@ -26,3 +26,9 @@ export async function connectDatabase() {
     return null;
   }
 }
+
+export async function closeDatabaseConnection() {
+  await mongoose.connection.close();
+  console.log("database: connection clossed");
+  isConnected = false;
+}

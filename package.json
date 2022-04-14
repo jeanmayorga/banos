@@ -14,13 +14,16 @@
     "@emotion/styled": "^11",
     "@typegoose/typegoose": "^9.7.1",
     "@uselessdev/datepicker": "^2.3.0",
+    "axios": "^0.26.1",
     "date-fns": "^2.28.0",
     "framer-motion": "^6",
     "mongoose": "^6.2.10",
     "next": "12.1.4",
     "react": "18.0.0",
     "react-dom": "18.0.0",
+    "react-hook-form": "^7.29.0",
     "slugify": "^1.6.5",
+    "yup": "^0.32.11",
     "zustand": "^3.7.1"
   },
   "devDependencies": {

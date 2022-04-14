@@ -14,11 +14,15 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl": "./src/",
     "paths": {
-      "@client/*": ["./src/client/*"],
-      "@server/*": ["./src/server/*"],
-      "@utils": ["./src/utils"]
+      "@/components/*": ["components/*"]
     },
+    // "paths": {
+    //   "@client/*": ["./src/client/*"],
+    //   "@server/*": ["./src/server/*"],
+    //   "@utils": ["./src/utils"]
+    // },
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },

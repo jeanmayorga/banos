@@ -47,22 +47,16 @@ export async function getNew(req: NextApiRequest, res: NextApiResponse) {
 
 export async function createNew(req: NextApiRequest, res: NextApiResponse) {
   try {
-    type Query = {
-      slug?: string;
+    type Body = {
+      title: string;
+      cover: string;
+      body: string;
     };
-    const query = req.query as unknown as Query;
+    const body = req.body as unknown as Body;
 
-    if (!query.slug) {
-      throw new Error("slug is required");
-    }
+    const newNews = await NewsModel.create(body);
 
-    const news = await NewsModel.findOne({ slug: query.slug }).exec();
-
-    if (!news) {
-      throw new Error("New not exists");
-    }
-
-    return res.status(200).json({ data: news?.toJSON() });
+    return res.status(200).json({ data: newNews.toJSON() });
   } catch (error: any) {
     return res.status(400).json({ data: null, error: error.message });
   }
