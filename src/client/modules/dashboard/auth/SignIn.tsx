@@ -17,7 +17,6 @@ import {
 import { Logo } from "client/components";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { CustomError } from "types";
 
 type Inputs = {
   email: string;
