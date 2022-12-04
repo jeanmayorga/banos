@@ -13,7 +13,11 @@ export function ItemCalendar({ date, isActive }: Props) {
   });
 
   return (
-    <Link href={`/events/${date}`} passHref>
+    <Link
+      href={`/events/${date}`}
+      passHref
+      id={isActive ? "link-active" : undefined}
+    >
       <div
         className={clsx(
           isActive

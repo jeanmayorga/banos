@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useRouter } from "next/router";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getCurrentDate } from "utils";
 import { ItemCalendar } from "./Item";
 
@@ -30,15 +30,23 @@ interface Props {
 export function Calendar({ withBorder }: Props) {
   const { query } = useRouter();
   const dateInUrl = query.date as string;
-  const ref = useRef<any>();
 
   useEffect(() => {
-    ref.current.scrollLeft = 100;
-  }, []);
+    const calendar = document.getElementById("calendar-parent");
+    const linkActive = document.getElementById("link-active");
+    const linkOffset = Number(linkActive?.offsetLeft);
+    const linkWidth = Number(linkActive?.offsetWidth) / 2;
+    const windowWidth = Number(window.innerWidth) / 2;
+
+    calendar?.scrollTo({
+      left: linkOffset - windowWidth + linkWidth,
+      behavior: "smooth",
+    });
+  });
 
   return (
     <div
-      ref={ref}
+      id="calendar-parent"
       className={clsx(
         withBorder && "border-b border-[rgba(255,255,255,.15)]",
         "bg-fuchsia-900 w-full px-4 flex md:justify-center overflow-y-hidden whitespace-nowrap"
