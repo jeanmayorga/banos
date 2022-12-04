@@ -59,11 +59,6 @@ export function Header() {
               Noticias
             </div>
           </Link>
-          <Link href="/" passHref onClick={closeMenu}>
-            <div className="w-full py-3 text-base font-semibold border-b border-[rgba(255,255,255,.15)]">
-              Fiestas
-            </div>
-          </Link>
         </div>
       )}
     </>

@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["bananomeridiano.com", "www.vistazo.com"],
+    domains: ["banos.s3.sa-east-1.amazonaws.com"],
   },
 };
 

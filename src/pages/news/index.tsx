@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Calendar } from "components";
+import Image from "next/image";
 import { supabase } from "api";
 import { Notice } from "modules";
 import Link from "next/link";
@@ -27,8 +27,13 @@ export default function Page() {
           news.map((notice) => (
             <Link key={notice.id} href={`/news/${notice.slug}`} passHref>
               <div className="shadow-md rounded overflow-hidden">
-                <div className="relative h-[150px] overflow-hidden flex items-center">
-                  <img src={notice.cover} />
+                <div className="relative h-[180px] overflow-hidden flex items-center">
+                  <Image
+                    src={notice.cover}
+                    alt={notice.title}
+                    fill
+                    className="object-cover"
+                  />
                   <div className="bg-[rgba(0,0,0,.5)] absolute w-full h-full" />
                 </div>
                 <div className="p-3">

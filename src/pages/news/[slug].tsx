@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Image from "next/image";
 import { NavBar } from "components";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
@@ -33,22 +34,28 @@ export default function Page({ notice }: { notice: Notice }) {
         }
       />
       <div className="container m-auto">
-        <div className="relative overflow-hidden flex items-center">
-          <img src={notice.cover} />
+        <div className="relative overflow-hidden flex items-center h-[600px] lg:h-[1000px]">
+          <Image
+            src={notice.cover}
+            alt={notice.title}
+            fill
+            className=" object-cover"
+          />
           <div className="bg-[rgba(0,0,0,.2)] absolute w-full h-full" />
         </div>
+        <div className="px-4 pt-4 text-xs">Foto: Alex Guevara</div>
         <div className="p-4">
           <h1 className="text-3xl font-semibold text-slate-800 mb-2">
             {notice.title}
           </h1>
-          <div className="text-sm text-gray-700 mb-3">
+          <div className="text-sm text-gray-400 mb-3">
             {format(
               new Date(`${notice.created_at}`),
               "EEEE, d 'de' LLLL 'del' yyyy",
               {
                 locale: es,
               }
-            )}
+            ).toLocaleUpperCase()}
           </div>
           <ReactMarkdown
             className="text-justify"
