@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { Event } from "modules";
+import Image from "next/image";
 
 function Place({ place, cover }: { place: string; cover: string | null }) {
   return (
@@ -73,9 +74,9 @@ export function Step({ event }: Props) {
           <div className="my-2 text-base text-gray-400">{description}</div>
         )}
         {cover && (
-          <div className="relative rounded-lg w-full overflow-hidden">
+          <div className="relative rounded-lg w-full overflow-hidden h-[200px]">
             <div className="absolute z-10 bg-[rgba(0,0,0,.3)] w-full h-full" />
-            <img src={cover} />
+            <Image src={cover} alt={title} fill className=" object-cover" />
           </div>
         )}
       </div>
