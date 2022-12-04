@@ -64,7 +64,24 @@ export default function Page({ notice }: { notice: Notice }) {
   );
 }
 
-export async function getServerSideProps({ params }: any) {
+export async function getStaticPaths() {
+  const { data: news } = await supabase.from("news").select("slug");
+
+  const paths = news?.map((notice) => {
+    return {
+      params: {
+        slug: notice.slug,
+      },
+    };
+  });
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+export async function getStaticProps({ params }: any) {
   const { data: notice } = await supabase
     .from("news")
     .select("*")
@@ -75,5 +92,6 @@ export async function getServerSideProps({ params }: any) {
     props: {
       notice,
     },
+    revalidate: 3600,
   };
 }
