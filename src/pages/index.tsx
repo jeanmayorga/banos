@@ -10,8 +10,9 @@ interface Event {
   created_at: string;
 }
 
-export default function Page({ event }: { event: Event }) {
-  const [liveUrl, setLiveUrl] = useState(event.live_url);
+export default function Page({ serverEvent }: { serverEvent: Event }) {
+  console.log({ serverEvent });
+  const [event, setEvent] = useState<Event>(serverEvent);
 
   useEffect(() => {
     const listener = supabase
@@ -20,7 +21,7 @@ export default function Page({ event }: { event: Event }) {
         "postgres_changes",
         { event: "UPDATE", schema: "public", table: "local_events" },
         (payload: { new: Event }) => {
-          setLiveUrl(payload.new.live_url);
+          setEvent(payload.new);
         }
       );
 
@@ -66,7 +67,7 @@ export default function Page({ event }: { event: Event }) {
       <div className="container m-auto">
         <div>
           <iframe
-            src={liveUrl}
+            src={event.live_url}
             style={{
               border: "none",
               overflow: "hidden",
@@ -74,7 +75,7 @@ export default function Page({ event }: { event: Event }) {
             scrolling="no"
             frameBorder="0"
             allowFullScreen
-            className="border-none w-full h-full lg:h-[865px]"
+            className="border-none w-full h-[220px] lg:h-[865px]"
             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
           />
         </div>
@@ -84,7 +85,7 @@ export default function Page({ event }: { event: Event }) {
 }
 
 export async function getServerSideProps() {
-  const { data: event } = await supabase
+  const { data: serverEvent } = await supabase
     .from("local_events")
     .select("*")
     .eq("slug", "eleccion_reina")
@@ -92,7 +93,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      event,
+      serverEvent,
     },
   };
 }
