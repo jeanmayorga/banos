@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import { NavBar } from "components";
+import { Calendar, NavBar } from "components";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { supabase } from "api";
@@ -26,6 +26,7 @@ export default function Page({ notice }: { notice: Notice }) {
         />
         <meta property="og:image" content={notice.cover} />
       </Head>
+      <Calendar withBorder />
       <NavBar
         title={
           notice.title.length > 38
