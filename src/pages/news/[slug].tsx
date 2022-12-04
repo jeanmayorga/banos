@@ -7,12 +7,23 @@ import { Notice } from "modules";
 import ReactMarkdown from "react-markdown";
 
 export default function Page({ notice }: { notice: Notice }) {
-  console.log({ notice });
-
   return (
     <div>
       <Head>
         <title>Baños de Agua Santa</title>
+        <meta name="title" content={notice.title} />
+        <meta name="description" content={notice.title.substring(0, 100)} />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content={`https://banos.app/news/${notice.slug}`}
+        />
+        <meta property="og:title" content={notice.title} />
+        <meta
+          property="og:description"
+          content={notice.title.substring(0, 100)}
+        />
+        <meta property="og:image" content={notice.cover} />
       </Head>
       <NavBar
         title={
