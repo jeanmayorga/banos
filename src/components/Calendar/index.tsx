@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useRouter } from "next/router";
-import { LegacyRef, MutableRefObject, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { getCurrentDate } from "utils";
 import { ItemCalendar } from "./Item";
 

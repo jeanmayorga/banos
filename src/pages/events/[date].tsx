@@ -52,6 +52,7 @@ export async function getServerSideProps({ params }: any) {
   const { data: events } = await supabase
     .from("events")
     .select("*")
+    .order("time")
     .eq("date", encodeURI(params.date));
 
   return {

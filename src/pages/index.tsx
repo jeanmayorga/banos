@@ -13,7 +13,8 @@ export default function Page({ events }: { events: Event[] }) {
       </Head>
       <Calendar />
       <div className="container m-auto">
-        <div className="my-8">
+        <div className="mt-4">
+          <div className="text-lg px-4 leading-none">Eventos para hoy</div>
           <Steps events={events} />
         </div>
       </div>
@@ -26,6 +27,7 @@ export async function getServerSideProps() {
   const { data: events } = await supabase
     .from("events")
     .select("*")
+    .order("time")
     .eq("date", encodeURI(currentDate));
 
   return {
