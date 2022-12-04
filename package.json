@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@next/font": "^13.0.5",
+    "@supabase/supabase-js": "^2.1.1",
     "axios": "^0.26.1",
     "clsx": "^1.2.1",
     "date-fns": "^2.29.3",

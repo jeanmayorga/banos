@@ -1,5 +1,18 @@
+import { supabase } from "api";
 import Head from "next/head";
-export default function Page() {
+import { useEffect } from "react";
+
+interface Event {
+  id: number;
+  slug: string;
+  name: string;
+  live_url: string;
+  created_at: string;
+}
+
+export default function Page({ event }: { event: Event }) {
+  if (!event) return;
+
   return (
     <div>
       <Head>
@@ -28,12 +41,12 @@ export default function Page() {
         />
       </Head>
       <div className="bg-fuchsia-900 text-white p-4 py-3 text-ellipsis whitespace-nowrap w-full">
-        Elección y Coronación de la Belleza Baneña
+        {event.name}
       </div>
       <div className="container m-auto">
         <div>
           <iframe
-            src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Fbanosturismo%2Fvideos%2F676028337395989%2F&show_text=false&width=560&t=0"
+            src={event.live_url}
             style={{
               border: "none",
               overflow: "hidden",
@@ -48,4 +61,18 @@ export default function Page() {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const { data: event } = await supabase
+    .from("local_events")
+    .select("*")
+    .eq("slug", "eleccion_reina")
+    .single();
+
+  return {
+    props: {
+      event,
+    },
+  };
 }
