@@ -9,29 +9,24 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@chakra-ui/react": "^1.8.7",
-    "@emotion/react": "^11",
-    "@emotion/styled": "^11",
-    "@typegoose/typegoose": "^9.7.1",
-    "@uselessdev/datepicker": "^2.3.0",
+    "@next/font": "^13.0.5",
     "axios": "^0.26.1",
-    "date-fns": "^2.28.0",
-    "framer-motion": "^6",
-    "mongoose": "^6.2.10",
-    "next": "12.1.4",
+    "clsx": "^1.2.1",
+    "date-fns": "^2.29.3",
+    "moment": "^2.29.4",
+    "next": "^13.0.0",
     "react": "18.0.0",
-    "react-dom": "18.0.0",
-    "react-hook-form": "^7.29.0",
-    "slugify": "^1.6.5",
-    "yup": "^0.32.11",
-    "zustand": "^3.7.1"
+    "react-dom": "18.0.0"
   },
   "devDependencies": {
     "@types/node": "17.0.23",
     "@types/react": "17.0.43",
     "@types/react-dom": "17.0.14",
+    "autoprefixer": "^10.4.12",
     "eslint": "8.12.0",
     "eslint-config-next": "12.1.4",
+    "postcss": "^8.4.17",
+    "tailwindcss": "^3.1.8",
     "typescript": "4.6.3"
   }
 }
