@@ -6,10 +6,14 @@ import clsx from "clsx";
 export function Header() {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
+  const closeMenu = () => {
+    setIsOpenMenu(false);
+  };
+
   return (
     <>
       <div className="bg-fuchsia-800 text-white w-full h-[60px] px-4 flex justify-between items-center border-b border-[rgba(255,255,255,.15)]">
-        <div />
+        <div className="w-8"></div>
         <Link href="/" passHref>
           <Logo size="sm" />
         </Link>
@@ -19,7 +23,7 @@ export function Header() {
             className={clsx(
               isOpenMenu &&
                 "bg-[rgba(255,255,255,.2)] hover:bg-[rgba(255,255,255,.4)]",
-              "mr-2 hover:bg-[rgba(255,255,255,.2)] rounded-full p-1 transition-all"
+              "hover:bg-[rgba(255,255,255,.2)] rounded-full p-1 transition-all"
             )}
           >
             <svg
@@ -45,17 +49,17 @@ export function Header() {
             "bg-fuchsia-900 text-white absolute w-full h-full z-20 text-center"
           )}
         >
-          <Link href="/" passHref>
+          <Link href="/" passHref onClick={closeMenu}>
             <div className="w-full py-3 text-base font-semibold border-b border-[rgba(255,255,255,.15)]">
               Inicio
             </div>
           </Link>
-          <Link href="/news" passHref>
+          <Link href="/news" passHref onClick={closeMenu}>
             <div className="w-full py-3 text-base font-semibold border-b border-[rgba(255,255,255,.15)]">
               Noticias
             </div>
           </Link>
-          <Link href="/party" passHref>
+          <Link href="/party" passHref onClick={closeMenu}>
             <div className="w-full py-3 text-base font-semibold border-b border-[rgba(255,255,255,.15)]">
               Fiestas
             </div>
