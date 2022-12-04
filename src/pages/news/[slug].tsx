@@ -24,7 +24,7 @@ export default function Page({ notice }: { notice: Notice }) {
           property="og:description"
           content={notice.title.substring(0, 100)}
         />
-        <meta property="og:image" content={notice.cover} />
+        <meta property="og:image" content={notice.ogCover || notice.cover} />
       </Head>
       <Calendar withBorder />
       <NavBar
