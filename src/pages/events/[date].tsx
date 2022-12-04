@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Calendar, NavBar, Steps } from "components";
 import { useRouter } from "next/router";
-import { format } from "date-fns";
+import { add, format } from "date-fns";
 import { es } from "date-fns/locale";
 import { supabase } from "api";
 import { Event } from "modules/events";
@@ -18,7 +18,9 @@ export default function Page({ events }: { events: Event[] }) {
       <Calendar withBorder />
       <NavBar
         title={format(
-          new Date(`${date} UTC-5`),
+          add(new Date(date as string), {
+            hours: 5,
+          }),
           "EEEE, d 'de' LLLL 'del' yyyy",
           {
             locale: es,
