@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "title": "Tradicional albazo",
+      "place": "Calles de la ciudad",
+      "time": "06H00"
+    },
+    {
+      "title": "Actividad cultural 'Minga de la Baneñidad'",
+      "place": "Calles de la ciudad",
+      "time": "06H00"
+    },
+    {
+      "title": "Presentación de la corona",
+      "place": "Salón de al ciudad dr. julio pazos",
+      "time": "10H00"
+    },
+    {
+      "title": "Espectáculo cultural 'rescate de la música ecuatoriana Nicolás Fiallos'",
+      "place": "Plaza cultural 5 de junio",
+      "time": "19H00"
+    }
+  ]
+}
