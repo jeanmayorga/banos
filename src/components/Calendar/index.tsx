@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { useRouter } from "next/router";
+import { LegacyRef, MutableRefObject, useEffect, useRef } from "react";
 import { getCurrentDate } from "utils";
 import { ItemCalendar } from "./Item";
 
@@ -29,27 +30,26 @@ interface Props {
 export function Calendar({ withBorder }: Props) {
   const { query } = useRouter();
   const dateInUrl = query.date as string;
+  const ref = useRef<any>();
+
+  useEffect(() => {
+    ref.current.scrollLeft = 100;
+  }, []);
 
   return (
     <div
+      ref={ref}
       className={clsx(
         withBorder && "border-b border-[rgba(255,255,255,.15)]",
         "bg-fuchsia-900 w-full px-4 flex md:justify-center overflow-y-hidden whitespace-nowrap"
       )}
     >
-      {calendar.map((dateWithUtc) => {
-        const date = dateWithUtc.split(":")[0];
+      {calendar.map((date) => {
         const isActive = dateInUrl
           ? date === dateInUrl
           : date === getCurrentDate();
 
-        return (
-          <ItemCalendar
-            date={dateWithUtc}
-            isActive={isActive}
-            key={dateWithUtc}
-          />
-        );
+        return <ItemCalendar date={date} isActive={isActive} key={date} />;
       })}
     </div>
   );

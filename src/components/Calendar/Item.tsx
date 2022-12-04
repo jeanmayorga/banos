@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { es } from "date-fns/locale";
-import { format } from "date-fns";
+import { add, format } from "date-fns";
 import clsx from "clsx";
 
 interface Props {
@@ -8,9 +8,11 @@ interface Props {
   isActive: boolean;
 }
 export function ItemCalendar({ date, isActive }: Props) {
-  const currentDate = new Date(date);
+  const currentDate = add(new Date(date), {
+    hours: 5,
+  });
   return (
-    <Link href={`/events/${date.split(":")[0]}`} passHref>
+    <Link href={`/events/${date}`} passHref>
       <div
         className={clsx(
           isActive
