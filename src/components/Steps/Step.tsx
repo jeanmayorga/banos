@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { Event } from "modules";
 
 interface Props {
@@ -29,7 +30,12 @@ export function Step({ event }: Props) {
       </div>
       <div className="ml-4 border-gray-200 border-b border-dashed group-last:border-0 pb-8 w-full">
         <h2 className="text-fuchsia-600 text-xl leading-none mb-2">{title}</h2>
-        <p className="text-gray-400 text-sm leading-none flex items-center mb-8">
+        <p
+          className={clsx(
+            "text-gray-400 text-sm leading-none flex items-center",
+            cover && "mb-8"
+          )}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

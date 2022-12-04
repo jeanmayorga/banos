@@ -42,6 +42,11 @@ export default function Page({ events }: { events: Event[] }) {
         }
       />
       <div className="container m-auto">
+        {events.length === 0 && (
+          <div className="text-lg px-4 mt-[100px] text-center leading-none">
+            No hay eventos.
+          </div>
+        )}
         <Steps events={events} />
       </div>
     </div>
