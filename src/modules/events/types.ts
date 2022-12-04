@@ -7,4 +7,5 @@ export interface Event {
   date: string;
   time: string;
   place: string;
+  placeUrl: string | null;
 }

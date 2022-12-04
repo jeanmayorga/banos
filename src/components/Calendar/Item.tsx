@@ -11,6 +11,7 @@ export function ItemCalendar({ date, isActive }: Props) {
   const currentDate = add(new Date(date), {
     hours: 5,
   });
+
   return (
     <Link href={`/events/${date}`} passHref>
       <div
