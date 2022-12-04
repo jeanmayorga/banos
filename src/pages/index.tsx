@@ -1,6 +1,6 @@
 import { supabase } from "api";
 import Head from "next/head";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface Event {
   id: number;
@@ -11,6 +11,26 @@ interface Event {
 }
 
 export default function Page({ event }: { event: Event }) {
+  const [liveUrl, setLiveUrl] = useState(event.live_url);
+
+  useEffect(() => {
+    const listener = supabase
+      .channel("public:local_events")
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "local_events" },
+        (payload: { new: Event }) => {
+          setLiveUrl(payload.new.live_url);
+        }
+      );
+
+    listener.subscribe();
+
+    return () => {
+      supabase.removeChannel(listener);
+    };
+  }, []);
+
   if (!event) return;
 
   return (
@@ -46,7 +66,7 @@ export default function Page({ event }: { event: Event }) {
       <div className="container m-auto">
         <div>
           <iframe
-            src={event.live_url}
+            src={liveUrl}
             style={{
               border: "none",
               overflow: "hidden",
