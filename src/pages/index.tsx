@@ -1,39 +1,49 @@
 import Head from "next/head";
-import { Header, Calendar } from "components";
-import { Steps } from "components/Steps";
-
 export default function Page() {
   return (
     <div>
       <Head>
-        <title>Baños de Agua Santa</title>
+        <title>Elección de la reina de Baños de Agua Santa</title>
+        <meta
+          name="title"
+          content="Elección de la reina de Baños de Agua Santa"
+        />
+        <meta
+          name="description"
+          content="Elección y Coronación de la Belleza y la Mujer Baneña - 2022"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://banos.app/" />
+        <meta
+          property="og:title"
+          content="Elección de la reina de Baños de Agua Santa"
+        />
+        <meta
+          property="og:description"
+          content="Elección y Coronación de la Belleza y la Mujer Baneña - 2022"
+        />
+        <meta
+          property="og:image"
+          content="https://metatags.io/assets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png"
+        />
       </Head>
-      <Calendar />
+      <div className="bg-fuchsia-900 text-white p-4 py-3 text-ellipsis whitespace-nowrap w-full">
+        Elección y Coronación de la Belleza Baneña
+      </div>
       <div className="container m-auto">
         <div>
-          <div className="">
-            <div className="ml-4 mb-8 flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6 text-indigo-500 mr-2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z"
-                />
-              </svg>
-
-              <h2 className="text-indigo-700 text-2xl leading-none">
-                30 de Noviembre del 2022
-              </h2>
-            </div>
-            <Steps />
-          </div>
+          <iframe
+            src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Fbanosturismo%2Fvideos%2F676028337395989%2F&show_text=false&width=560&t=0"
+            style={{
+              border: "none",
+              overflow: "hidden",
+            }}
+            scrolling="no"
+            frameBorder="0"
+            allowFullScreen
+            className="border-none w-full h-[500px]"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+          />
         </div>
       </div>
     </div>
