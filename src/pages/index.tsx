@@ -60,7 +60,7 @@ export default function Page({ event }: { event: Event }) {
           content="https://metatags.io/assets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png"
         />
       </Head>
-      <div className="bg-fuchsia-900 text-white p-4 py-3 text-ellipsis whitespace-nowrap w-full">
+      <div className="bg-fuchsia-900 text-white p-4 py-3 text-ellipsis whitespace-nowrap w-full text-center">
         {event.name}
       </div>
       <div className="container m-auto">
@@ -74,7 +74,7 @@ export default function Page({ event }: { event: Event }) {
             scrolling="no"
             frameBorder="0"
             allowFullScreen
-            className="border-none w-full h-[500px]"
+            className="border-none w-full h-full lg:h-[865px]"
             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
           />
         </div>
