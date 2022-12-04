@@ -46,19 +46,32 @@ export function Header() {
       {isOpenMenu && (
         <div
           className={clsx(
-            "bg-fuchsia-900 text-white absolute w-full h-full z-20 text-center"
+            "bg-fuchsia-900 text-white absolute w-full h-[calc(100%-60px)] z-20 text-center flex flex-col justify-between top-[60px]"
           )}
         >
-          <Link href="/" passHref onClick={closeMenu}>
-            <div className="w-full py-3 text-base font-semibold border-b border-[rgba(255,255,255,.15)]">
-              Inicio
-            </div>
-          </Link>
-          <Link href="/news" passHref onClick={closeMenu}>
-            <div className="w-full py-3 text-base font-semibold border-b border-[rgba(255,255,255,.15)]">
-              Noticias
-            </div>
-          </Link>
+          <div>
+            <Link href="/" passHref onClick={closeMenu}>
+              <div className="w-full py-3 text-base font-semibold border-b border-[rgba(255,255,255,.15)]">
+                Inicio
+              </div>
+            </Link>
+            <Link href="/news" passHref onClick={closeMenu}>
+              <div className="w-full py-3 text-base font-semibold border-b border-[rgba(255,255,255,.15)]">
+                Noticias
+              </div>
+            </Link>
+          </div>
+          <div>
+            <a
+              href="https://github.com/jeanmayorga/banos"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div className="w-full py-3 text-base font-semibold">
+                Codigo fuente de app
+              </div>
+            </a>
+          </div>
         </div>
       )}
     </>
