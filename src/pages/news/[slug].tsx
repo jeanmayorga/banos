@@ -11,7 +11,7 @@ export default function Page({ notice }: { notice: Notice }) {
   return (
     <div>
       <Head>
-        <title>Baños de Agua Santa</title>
+        <title>{notice.title} | Baños de Agua Santa</title>
         <meta name="title" content={notice.title} />
         <meta name="description" content={notice.title.substring(0, 100)} />
         <meta property="og:type" content="website" />
