@@ -4,20 +4,23 @@ import { format } from "date-fns";
 import clsx from "clsx";
 
 interface Props {
-  day: Date;
+  date: string;
   isActive: boolean;
 }
-export function ItemCalendar({ day, isActive }: Props) {
+export function ItemCalendar({ date, isActive }: Props) {
+  const currentDate = new Date(date);
   return (
-    <Link href={`/day/${day.toISOString().split("T")[0]}`} passHref>
+    <Link href={`/events/${date.split(":")[0]}`} passHref>
       <div
         className={clsx(
-          isActive && "bg-white text-fuchsia-800",
-          "my-2 px-4 py-1 text-gray-100 text-center hover:bg-fuchsia-700 active:bg-white active:text-fuchsia-800 rounded-lg transition-all"
+          isActive
+            ? "bg-white text-fuchsia-800"
+            : "text-gray-100 active:text-fuchsia-800 hover:bg-fuchsia-700",
+          "my-2 px-4 py-1 text-center active:bg-white rounded-lg transition-all"
         )}
       >
-        <div className="text-2xl">{format(day, "dd")}</div>
-        <div>{format(day, "E", { locale: es }).toUpperCase()}</div>
+        <div className="text-2xl">{format(currentDate, "dd")}</div>
+        <div>{format(currentDate, "E", { locale: es }).toUpperCase()}</div>
       </div>
     </Link>
   );

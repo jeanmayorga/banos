@@ -1,11 +1,10 @@
+import { Event } from "modules";
+
 interface Props {
-  title: string;
-  description?: string;
-  image?: string;
-  place: string;
-  time: string;
+  event: Event;
 }
-export function Step({ title, time, place }: Props) {
+export function Step({ event }: Props) {
+  const { title, time, cover, place } = event;
   return (
     <div className="p-4 flex relative group">
       <div>
@@ -52,10 +51,12 @@ export function Step({ title, time, place }: Props) {
           </svg>
           {place}
         </p>
-        <div className="relative rounded-lg w-full h-[200px] overflow-hidden">
-          <div className="absolute" />
-          <img src="https://scontent.fltx1-1.fna.fbcdn.net/v/t39.30808-6/259036830_265782372246788_5845530142606591163_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=8bfeb9&_nc_eui2=AeF1gXUjg25DhaSqb8gRlZH3JMSF-2tczT8kxIX7a1zNP_I5yWt7t_UoCqlOJKw5W3UnHQvGObm3RKDcvTWOfyvP&_nc_ohc=hkWdT17iE-sAX9YJXrM&_nc_ht=scontent.fltx1-1.fna&oh=00_AfDLq67OslGoOBfw1XV6ZSFmiPWHBYvgOlodC6a_34zPdA&oe=638C0B14" />
-        </div>
+        {cover && (
+          <div className="relative rounded-lg w-full h-[200px] overflow-hidden">
+            <div className="absolute" />
+            <img src={cover} />
+          </div>
+        )}
       </div>
     </div>
   );

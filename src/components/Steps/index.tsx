@@ -1,16 +1,14 @@
-import data from "../../data/30-01-2022.json";
+import { Event } from "modules";
 import { Step } from "./Step";
 
-export function Steps() {
+interface Props {
+  events: Event[];
+}
+export function Steps({ events }: Props) {
   return (
     <>
-      {data.data.map((item) => (
-        <Step
-          key={item.title}
-          title={item.title}
-          place={item.place}
-          time={item.time}
-        />
+      {events.map((event) => (
+        <Step key={event.id} event={event} />
       ))}
     </>
   );
