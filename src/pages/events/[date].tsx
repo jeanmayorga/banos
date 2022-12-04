@@ -13,7 +13,7 @@ export default function Page({ events }: { events: Event[] }) {
   return (
     <div>
       <Head>
-        <title>Baños de Agua Santa</title>
+        <title>{date} | Baños de Agua Santa</title>
       </Head>
       <Calendar withBorder />
       <NavBar
