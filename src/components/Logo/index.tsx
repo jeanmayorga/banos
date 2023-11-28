@@ -1,3 +1,11 @@
+import { Satisfy } from "next/font/google";
+
+const satisfy = Satisfy({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 interface Props {
   size?: "sm";
 }
@@ -5,7 +13,9 @@ export function Logo({ size }: Props) {
   if (size === "sm") {
     return (
       <div className="relative select-none">
-        <div className="font-satisfy text-4xl leading-none text-gray-50">
+        <div
+          className={`text-4xl leading-none text-gray-50 ${satisfy.className}`}
+        >
           Banos
         </div>
       </div>
@@ -14,10 +24,14 @@ export function Logo({ size }: Props) {
 
   return (
     <div className="w-[200px] relative select-none">
-      <div className="font-satisfy text-7xl leading-none text-gray-50">
+      <div
+        className={`text-7xl leading-none text-gray-50 ${satisfy.className}`}
+      >
         Banos
       </div>
-      <div className="font-satisfy text-3xl leading-none text-gray-50 mt-[-12px] ml-[30px]">
+      <div
+        className={`text-3xl leading-none text-gray-50 mt-[-12px] ml-[30px] ${satisfy.className}`}
+      >
         de Agua Santa
       </div>
     </div>

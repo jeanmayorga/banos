@@ -1,11 +1,33 @@
+import Script from "next/script";
+import { Inter } from "next/font/google";
+
+import "#/styles/global.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+});
+
 interface Props {
   children: React.ReactNode;
 }
 
 export default function RootLayout({ children }: Props) {
   return (
-    <html lang="es">
+    <html lang="es" className={inter.className}>
       <body>{children}</body>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-4WJMRLZSCE"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-4WJMRLZSCE');
+        `}
+      </Script>
     </html>
   );
 }
