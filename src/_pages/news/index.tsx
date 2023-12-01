@@ -1,7 +1,7 @@
+import { supabase } from '#/api';
+import { Notice } from '#/modules';
 import Head from 'next/head';
 import Image from 'next/image';
-import { supabase } from 'api';
-import { Notice } from 'modules';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 

@@ -1,10 +1,12 @@
 import Head from 'next/head';
-import { Calendar, NavBar, Steps } from 'components';
 import { useRouter } from 'next/router';
 import { add, format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { supabase } from 'api';
-import { Event } from 'modules/events';
+import { supabase } from '#/api';
+import { NavBar } from '#/components/NavBar';
+import { Steps } from '#/components/Steps';
+import { Calendar } from '#/components/Calendar';
+import { Event } from '#/modules/events';
 
 export default function Page({ events }: { events: Event[] }) {
   const router = useRouter();

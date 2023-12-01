@@ -1,4 +1,5 @@
-import { supabase } from 'api';
+
+import { supabase } from '#/api';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 

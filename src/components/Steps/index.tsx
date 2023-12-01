@@ -1,4 +1,4 @@
-import { Event } from 'modules';
+import { Event } from '#/modules/events';
 import { Step } from './Step';
 
 interface Props {

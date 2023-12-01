@@ -1,9 +1,10 @@
-import { supabase } from 'api';
-import { Calendar } from 'components';
-import { Steps } from 'components/Steps';
-import { Event } from 'modules';
-import Head from 'next/head';
-import { getCurrentDate } from 'utils';
+import { supabase } from "#/api";
+import { Steps } from "#/components/Steps";
+import { getCurrentDate } from "#/utils";
+import { Calendar } from "lucide-react";
+import Head from "next/head";
+import { Event } from "#/modules/events";
+
 
 export default function Page({ events }: { events: Event[] }) {
   return (

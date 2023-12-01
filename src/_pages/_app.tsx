@@ -1,10 +1,9 @@
 import type { AppProps } from 'next/app';
-
-import { Layout } from 'components';
 import Script from 'next/script';
 import '../styles/global.css';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Layout from '#/app/layout';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();

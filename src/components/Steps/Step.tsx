@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Event } from 'modules';
+import { Event } from '#/modules/events';
 import Image from 'next/image';
 
 function Place({ place, cover }: { place: string; cover: string | null }) {
