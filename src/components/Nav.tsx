@@ -39,17 +39,31 @@ function Item({ href, icon, name }: ItemProps) {
 
 export function Nav() {
   return (
-    <nav className="w-full bg-white dark:bg-black shadow-sm border-b-gray-100">
-      <div className="container mx-auto flex items-center gap-2">
-        <Item href="/places" icon={<MountainSnowIcon className="w-6 h-6 mb-2" />} name="Lugares" />
-        <Item href="/activities" icon={<BikeIcon className="w-6 h-6 mb-2" />} name="Actividades" />
-        <Item href="/hotels" icon={<BedDoubleIcon className="w-6 h-6 mb-2" />} name="Hoteles" />
-        <Item
-          href="/restaurants"
-          icon={<SoupIcon className="w-6 h-6 mb-2" />}
-          name="Restaurantes"
-        />
-        <Item href="/events" icon={<CalendarDaysIcon className="w-6 h-6 mb-2" />} name="Eventos" />
+    <nav className="w-full bg-white dark:bg-black shadow-sm border-b-gray-100 sticky top-0 z-50 overflow-y-hidden whitespace-nowrap">
+      <div className="container mx-auto">
+        <div className="flex items-center gap-2">
+          <Item
+            href="/places"
+            icon={<MountainSnowIcon className="w-6 h-6 mb-2" />}
+            name="Lugares"
+          />
+          <Item
+            href="/activities"
+            icon={<BikeIcon className="w-6 h-6 mb-2" />}
+            name="Actividades"
+          />
+          <Item href="/hotels" icon={<BedDoubleIcon className="w-6 h-6 mb-2" />} name="Hoteles" />
+          <Item
+            href="/restaurants"
+            icon={<SoupIcon className="w-6 h-6 mb-2" />}
+            name="Restaurantes"
+          />
+          <Item
+            href="/events"
+            icon={<CalendarDaysIcon className="w-6 h-6 mb-2" />}
+            name="Eventos"
+          />
+        </div>
       </div>
     </nav>
   );

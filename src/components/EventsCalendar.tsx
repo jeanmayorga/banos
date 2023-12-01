@@ -1,8 +1,10 @@
+"use client";
+
 import { useEffect } from "react";
 
 import { cn, getCurrentDate } from "#/utils";
 
-import { ItemCalendar } from "./Item";
+import { EventsCalendarItem } from "./EventsCalendarItem";
 
 const calendar = [
   "2023-12-01",
@@ -23,7 +25,7 @@ const calendar = [
   "2023-12-16",
 ];
 
-export function Calendar() {
+export function EventsCalendar() {
   // const { query } = useRouter();
   const dateInUrl = "" as string;
 
@@ -50,7 +52,7 @@ export function Calendar() {
       {calendar.map((date) => {
         const isActive = dateInUrl ? date === dateInUrl : date === getCurrentDate();
 
-        return <ItemCalendar date={date} isActive={isActive} key={date} />;
+        return <EventsCalendarItem date={date} isActive={isActive} key={date} />;
       })}
     </div>
   );

@@ -18,7 +18,7 @@ export default function Page({ events }: { events: Event[] }) {
       <Head>
         <title>{date} | Baños de Agua Santa</title>
       </Head>
-      <Calendar withBorder />
+      <Calendar />
       <NavBar
         title={format(
           add(new Date(date as string), {
