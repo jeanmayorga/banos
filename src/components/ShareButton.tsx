@@ -1,4 +1,7 @@
-'use client';
+"use client";
+
+import { ClipboardDocumentCheckIcon, ShareIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import toast from "react-hot-toast";
 
 import {
   AlertDialog,
@@ -8,23 +11,17 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '#/components/ui/alert-dialog';
-import { Button } from '#/components/ui/button';
-import {
-  ClipboardDocumentCheckIcon,
-  ShareIcon,
-  XMarkIcon,
-} from '@heroicons/react/24/solid';
-import toast from 'react-hot-toast';
+} from "#/components/ui/alert-dialog";
+import { Button } from "#/components/ui/button";
 
 export function ShareButton() {
   const handleCopyClipboard = () => {
-    console.log('copy clipboard');
-    toast.success('Enlace copiado.');
+    console.log("copy clipboard");
+    toast.success("Enlace copiado.");
   };
 
   const handleCopyWhatsapp = () => {
-    console.log('copy whatsapp');
+    console.log("copy whatsapp");
   };
 
   return (

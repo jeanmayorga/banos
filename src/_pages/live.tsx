@@ -1,7 +1,7 @@
+import Head from "next/head";
+import { useEffect, useState } from "react";
 
-import { supabase } from '#/api';
-import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { supabase } from "#/api";
 
 interface Event {
   id: number;
@@ -16,10 +16,10 @@ export default function Page({ serverEvent }: { serverEvent: Event }) {
 
   useEffect(() => {
     const listener = supabase
-      .channel('public:local_events')
+      .channel("public:local_events")
       .on(
-        'postgres_changes',
-        { event: 'UPDATE', schema: 'public', table: 'local_events' },
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "local_events" },
         (payload: { new: Event }) => {
           setEvent(payload.new);
         },
@@ -38,20 +38,14 @@ export default function Page({ serverEvent }: { serverEvent: Event }) {
     <div>
       <Head>
         <title>Elección de la reina de Baños de Agua Santa</title>
-        <meta
-          name="title"
-          content="Elección de la reina de Baños de Agua Santa"
-        />
+        <meta name="title" content="Elección de la reina de Baños de Agua Santa" />
         <meta
           name="description"
           content="Elección y Coronación de la Belleza y la Mujer Baneña - 2022"
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://banos.app/" />
-        <meta
-          property="og:title"
-          content="Elección de la reina de Baños de Agua Santa"
-        />
+        <meta property="og:title" content="Elección de la reina de Baños de Agua Santa" />
         <meta
           property="og:description"
           content="Elección y Coronación de la Belleza y la Mujer Baneña - 2022"
@@ -73,9 +67,9 @@ export default function Page({ serverEvent }: { serverEvent: Event }) {
 
 export async function getServerSideProps() {
   const { data: serverEvent } = await supabase
-    .from('local_events')
-    .select('*')
-    .eq('slug', 'eleccion_reina')
+    .from("local_events")
+    .select("*")
+    .eq("slug", "eleccion_reina")
     .single();
 
   return {

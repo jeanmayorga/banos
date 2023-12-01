@@ -1,20 +1,21 @@
-import { Metadata } from 'next';
+import { Metadata } from "next";
 
-import { Header } from '#/components/Header';
-import { supabase } from '#/api';
-import { Activity } from '../types';
-import { Nav } from '#/components/Nav';
-import { Button } from '#/components/ui/button';
+import { supabase } from "#/api";
+import { Header } from "#/components/Header";
+import { Nav } from "#/components/Nav";
+import { Button } from "#/components/ui/button";
+
+import { Activity } from "../types";
 
 export const metadata: Metadata = {
-  title: 'Banos de Agua Santa | Ecuador',
+  title: "Banos de Agua Santa | Ecuador",
 };
 
 export default async function Page() {
   const request = await supabase
-    .from('activities')
-    .select('*')
-    .eq('slug', 'la-casa-del-arbol')
+    .from("activities")
+    .select("*")
+    .eq("slug", "la-casa-del-arbol")
     .single();
 
   const data = request.data as Activity;

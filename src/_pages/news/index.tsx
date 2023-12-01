@@ -1,17 +1,18 @@
-import { supabase } from '#/api';
-import { Notice } from '#/modules';
-import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+
+import { supabase } from "#/api";
+import { Notice } from "#/modules";
 
 export default function Page() {
   const [news, setNews] = useState<Notice[]>([]);
 
   useEffect(() => {
     supabase
-      .from('news')
-      .select('*')
+      .from("news")
+      .select("*")
       .then(({ data }) => {
         setNews(data as Notice[]);
       });
@@ -28,12 +29,7 @@ export default function Page() {
             <Link key={notice.id} href={`/news/${notice.slug}`} passHref>
               <div className="shadow-md rounded overflow-hidden">
                 <div className="relative h-[180px] overflow-hidden flex items-center">
-                  <Image
-                    src={notice.cover}
-                    alt={notice.title}
-                    fill
-                    className="object-cover"
-                  />
+                  <Image src={notice.cover} alt={notice.title} fill className="object-cover" />
                   <div className="bg-[rgba(0,0,0,.5)] absolute w-full h-full" />
                 </div>
                 <div className="p-3">
@@ -67,7 +63,7 @@ export default function Page() {
 }
 
 export async function getServerSideProps() {
-  const { data: news } = await supabase.from('news').select('*');
+  const { data: news } = await supabase.from("news").select("*");
 
   return {
     props: {

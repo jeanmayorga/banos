@@ -1,2 +1,2 @@
-export * from './getCurrentDate';
-export * from './cn';
+export * from "./getCurrentDate";
+export * from "./cn";

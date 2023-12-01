@@ -1,11 +1,11 @@
-import { Metadata } from 'next';
+import { Metadata } from "next";
 
-import { Header } from '#/components/Header';
-import { Nav } from '#/components/Nav';
-import { Input } from '#/components/ui/input';
+import { Header } from "#/components/Header";
+import { Nav } from "#/components/Nav";
+import { Input } from "#/components/ui/input";
 
 export const metadata: Metadata = {
-  title: 'Banos de Agua Santa | Ecuador',
+  title: "Banos de Agua Santa | Ecuador",
 };
 
 interface Props {
@@ -21,7 +21,8 @@ export default function Page({ searchParams }: Props) {
       <Nav />
       <div className="container mx-auto my-8">
         <div>
-          <Input defaultValue={searchParams.q}
+          <Input
+            defaultValue={searchParams.q}
             autoFocus
             className="rounded-full"
             placeholder="Búscar..."

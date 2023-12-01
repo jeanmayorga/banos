@@ -1,5 +1,6 @@
-import { Event } from '#/modules/events';
-import { Step } from './Step';
+import { Event } from "#/modules/events";
+
+import { Step } from "./Step";
 
 interface Props {
   events: Event[];

@@ -1,13 +1,13 @@
-import Script from 'next/script';
-import { Inter } from 'next/font/google';
-import { Toaster } from 'react-hot-toast';
+import { Inter } from "next/font/google";
+import Script from "next/script";
+import { Toaster } from "react-hot-toast";
 
-import '#/styles/global.css';
-import { ThemeProvider } from './theme-provider';
+import "#/styles/global.css";
+import { ThemeProvider } from "./theme-provider";
 
 const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
+  subsets: ["latin"],
+  display: "swap",
 });
 
 interface Props {

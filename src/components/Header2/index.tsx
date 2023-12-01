@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
-import { Logo } from '#/components/Logo';
-import Link from 'next/link';
-import { useState } from 'react';
-import clsx from 'clsx';
+import clsx from "clsx";
+import Link from "next/link";
+import { useState } from "react";
+
+import { Logo } from "#/components/Logo";
 
 export function Header() {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -23,9 +24,8 @@ export function Header() {
           <div
             onClick={() => setIsOpenMenu(!isOpenMenu)}
             className={clsx(
-              isOpenMenu &&
-                'bg-[rgba(255,255,255,.2)] hover:bg-[rgba(255,255,255,.4)]',
-              'hover:bg-[rgba(255,255,255,.2)] rounded-full p-1 transition-all',
+              isOpenMenu && "bg-[rgba(255,255,255,.2)] hover:bg-[rgba(255,255,255,.4)]",
+              "hover:bg-[rgba(255,255,255,.2)] rounded-full p-1 transition-all",
             )}
           >
             <svg
@@ -48,7 +48,7 @@ export function Header() {
       {isOpenMenu && (
         <div
           className={clsx(
-            'bg-fuchsia-900 text-white absolute w-full h-[calc(100%-60px)] z-20 text-center flex flex-col justify-between top-[60px]',
+            "bg-fuchsia-900 text-white absolute w-full h-[calc(100%-60px)] z-20 text-center flex flex-col justify-between top-[60px]",
           )}
         >
           <div>
@@ -64,14 +64,8 @@ export function Header() {
             </Link>
           </div>
           <div>
-            <a
-              href="https://github.com/jeanmayorga/banos"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div className="w-full py-3 text-base font-semibold">
-                Codigo fuente de app
-              </div>
+            <a href="https://github.com/jeanmayorga/banos" target="_blank" rel="noreferrer">
+              <div className="w-full py-3 text-base font-semibold">Codigo fuente de app</div>
             </a>
           </div>
         </div>

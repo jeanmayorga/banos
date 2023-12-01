@@ -1,5 +1,5 @@
-import { ChevronRight } from 'lucide-react';
-import Link from 'next/link';
+import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 interface Props {
   items: {
@@ -13,12 +13,7 @@ export function Breadcrumds({ items }: Props) {
       {items.map((item, idx) => {
         if (idx === items.length - 1) {
           return (
-            <Link
-              key={item.href}
-              href={item.href}
-              passHref
-              className="font-medium text-foreground"
-            >
+            <Link key={item.href} href={item.href} passHref className="font-medium text-foreground">
               {item.text}
             </Link>
           );

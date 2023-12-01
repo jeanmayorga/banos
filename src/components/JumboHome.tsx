@@ -1,29 +1,31 @@
-'use client';
+"use client";
 
-import clsx from 'clsx';
-import { useState } from 'react';
-import { Logo } from './Logo';
-import { JumboHomeForm } from './JumboHomeForm';
-import { Typography } from '#/components/ui/typography';
+import clsx from "clsx";
+import { useState } from "react";
+
+import { Typography } from "#/components/ui/typography";
+
+import { JumboHomeForm } from "./JumboHomeForm";
+import { Logo } from "./Logo";
 
 const places = [
   {
-    id: '1',
-    slug: 'la-casa-del-arbol',
-    title: 'La Casa del Arbol',
+    id: "1",
+    slug: "la-casa-del-arbol",
+    title: "La Casa del Arbol",
     description:
-      'Una atracción única que ofrece vistas impresionantes del volcán Tungurahua y una emocionante oportunidad de balancearse en el Columpio del Fin del Mundo',
+      "Una atracción única que ofrece vistas impresionantes del volcán Tungurahua y una emocionante oportunidad de balancearse en el Columpio del Fin del Mundo",
     image:
-      'https://images.squarespace-cdn.com/content/v1/5d23b57617786c0001fcbeda/1571161059661-1TOZDKTU1IEP5E5XUBC7/Casa+del+Arbol+Atardecer+Banos+Ecuador.jpg?format=1000w',
+      "https://images.squarespace-cdn.com/content/v1/5d23b57617786c0001fcbeda/1571161059661-1TOZDKTU1IEP5E5XUBC7/Casa+del+Arbol+Atardecer+Banos+Ecuador.jpg?format=1000w",
   },
   {
-    id: '2',
-    slug: 'el-pailon-del-diablo',
-    title: 'El Pailon de Diablo',
+    id: "2",
+    slug: "el-pailon-del-diablo",
+    title: "El Pailon de Diablo",
     description:
-      'Una majestuosa cascada natural, escondida entre las verdes montañas de los Andes ecuatorianos.',
+      "Una majestuosa cascada natural, escondida entre las verdes montañas de los Andes ecuatorianos.",
     image:
-      'https://images.squarespace-cdn.com/content/v1/5d23b57617786c0001fcbeda/1571158999045-KFSVWEW1M4TI030D4D5B/Cascada+Pailon+del+Diablo.jpg?format=2500w',
+      "https://images.squarespace-cdn.com/content/v1/5d23b57617786c0001fcbeda/1571158999045-KFSVWEW1M4TI030D4D5B/Cascada+Pailon+del+Diablo.jpg?format=2500w",
   },
 ];
 
@@ -34,9 +36,7 @@ export function JumboHome({ className }: Props) {
   const [showVideo, setShowVideo] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [place, setPlace] = useState(places[0]);
-  const currentIndex = places.findIndex(
-    (currentPlace) => currentPlace?.id === place?.id,
-  );
+  const currentIndex = places.findIndex((currentPlace) => currentPlace?.id === place?.id);
 
   // useEffect(() => {
   //   setTimeout(() => {
@@ -98,7 +98,7 @@ export function JumboHome({ className }: Props) {
   };
 
   return (
-    <div className={clsx(className, 'relative overflow-hidden bg-black')}>
+    <div className={clsx(className, "relative overflow-hidden bg-black")}>
       <div className="bg-black/30 absolute top-0 left-0 w-full h-full z-10" />
       <div className="relative z-20 py-12 lg:pl-[100px] px-4 flex justify-between flex-col h-screen">
         <Logo />
@@ -108,9 +108,7 @@ export function JumboHome({ className }: Props) {
               {place?.title}
             </Typography>
             <div className="h-2 w-16 bg-white mb-4" />
-            <p className="text-lg text-gray-200 mb-8 leading-tight">
-              {place?.description}
-            </p>
+            <p className="text-lg text-gray-200 mb-8 leading-tight">{place?.description}</p>
           </div>
           <JumboHomeForm />
         </div>
@@ -127,11 +125,7 @@ export function JumboHome({ className }: Props) {
               stroke="currentColor"
               className="w-6 h-6"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.75 19.5L8.25 12l7.5-7.5"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
             </svg>
           </div>
           <div
@@ -146,20 +140,12 @@ export function JumboHome({ className }: Props) {
               stroke="currentColor"
               className="w-6 h-6"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M8.25 4.5l7.5 7.5-7.5 7.5"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
             </svg>
           </div>
         </div>
       </div>
-      <div
-        className={`z-0 transition-all duration-200 ${
-          loaded ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
+      <div className={`z-0 transition-all duration-200 ${loaded ? "opacity-100" : "opacity-0"}`}>
         <img
           src={place?.image}
           className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-[120%] h-full"

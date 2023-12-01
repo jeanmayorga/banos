@@ -8,10 +8,8 @@ export default function NotFound() {
       <Header />
       <Nav />
       <div className="flex items-center justify-center h-60">
-        <Typography variant="h1">
-          No se encontro esa página.
-        </Typography>
+        <Typography variant="h1">No se encontro esa página.</Typography>
       </div>
     </div>
-  )
+  );
 }

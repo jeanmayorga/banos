@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 interface Props {
   title: string;
@@ -8,7 +8,7 @@ export function NavBar({ title, icon }: Props) {
   const router = useRouter();
 
   const handleBack = () => {
-    return router.push('/');
+    return router.push("/");
   };
 
   return (
@@ -16,10 +16,7 @@ export function NavBar({ title, icon }: Props) {
       {icon ? (
         <div className="mr-2">{icon}</div>
       ) : (
-        <div
-          className="mr-2 bg-[rgba(255,255,255,.2)] rounded-full p-1"
-          onClick={handleBack}
-        >
+        <div className="mr-2 bg-[rgba(255,255,255,.2)] rounded-full p-1" onClick={handleBack}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

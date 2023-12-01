@@ -1,12 +1,13 @@
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { add, format } from 'date-fns';
-import { es } from 'date-fns/locale';
-import { supabase } from '#/api';
-import { NavBar } from '#/components/NavBar';
-import { Steps } from '#/components/Steps';
-import { Calendar } from '#/components/Calendar';
-import { Event } from '#/modules/events';
+import { add, format } from "date-fns";
+import { es } from "date-fns/locale";
+import Head from "next/head";
+import { useRouter } from "next/router";
+
+import { supabase } from "#/api";
+import { Calendar } from "#/components/Calendar";
+import { NavBar } from "#/components/NavBar";
+import { Steps } from "#/components/Steps";
+import { Event } from "#/modules/events";
 
 export default function Page({ events }: { events: Event[] }) {
   const router = useRouter();
@@ -47,9 +48,7 @@ export default function Page({ events }: { events: Event[] }) {
       />
       <div className="container m-auto">
         {events.length === 0 && (
-          <div className="text-lg px-4 mt-[100px] text-center leading-none">
-            No hay eventos.
-          </div>
+          <div className="text-lg px-4 mt-[100px] text-center leading-none">No hay eventos.</div>
         )}
         <Steps events={events} />
       </div>
@@ -59,10 +58,10 @@ export default function Page({ events }: { events: Event[] }) {
 
 export async function getStaticProps({ params }: any) {
   const { data: events } = await supabase
-    .from('events')
-    .select('*')
-    .order('time')
-    .eq('date', encodeURI(params.date));
+    .from("events")
+    .select("*")
+    .order("time")
+    .eq("date", encodeURI(params.date));
 
   return {
     props: {
@@ -73,23 +72,23 @@ export async function getStaticProps({ params }: any) {
 
 export async function getStaticPaths() {
   const calendar = [
-    '2022-11-30',
-    '2022-12-01',
-    '2022-12-02',
-    '2022-12-03',
-    '2022-12-04',
-    '2022-12-05',
-    '2022-12-06',
-    '2022-12-07',
-    '2022-12-08',
-    '2022-12-09',
-    '2022-12-10',
-    '2022-12-11',
-    '2022-12-12',
-    '2022-12-13',
-    '2022-12-14',
-    '2022-12-15',
-    '2022-12-16',
+    "2022-11-30",
+    "2022-12-01",
+    "2022-12-02",
+    "2022-12-03",
+    "2022-12-04",
+    "2022-12-05",
+    "2022-12-06",
+    "2022-12-07",
+    "2022-12-08",
+    "2022-12-09",
+    "2022-12-10",
+    "2022-12-11",
+    "2022-12-12",
+    "2022-12-13",
+    "2022-12-14",
+    "2022-12-15",
+    "2022-12-16",
   ];
 
   const paths = calendar?.map((event) => {

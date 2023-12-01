@@ -1,13 +1,14 @@
-import clsx from 'clsx';
-import { Event } from '#/modules/events';
-import Image from 'next/image';
+import clsx from "clsx";
+import Image from "next/image";
+
+import { Event } from "#/modules/events";
 
 function Place({ place, cover }: { place: string; cover: string | null }) {
   return (
     <span
       className={clsx(
-        'text-slate-400 cursor-pointer text-xs leading-none inline-flex items-center bg-slate-200 rounded px-2 py-1 font-bold hover:bg-slate-300 transition-all',
-        cover && 'mb-4',
+        "text-slate-400 cursor-pointer text-xs leading-none inline-flex items-center bg-slate-200 rounded px-2 py-1 font-bold hover:bg-slate-300 transition-all",
+        cover && "mb-4",
       )}
     >
       <svg
@@ -18,11 +19,7 @@ function Place({ place, cover }: { place: string; cover: string | null }) {
         stroke="currentColor"
         className="w-5 h-5 mr-1"
       >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-        />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -70,9 +67,7 @@ export function Step({ event }: Props) {
         ) : (
           <Place place={place} cover={cover} />
         )}
-        {description && (
-          <div className="my-2 text-base text-gray-400">{description}</div>
-        )}
+        {description && <div className="my-2 text-base text-gray-400">{description}</div>}
         {cover && (
           <div className="relative rounded-lg w-full overflow-hidden h-[200px]">
             <div className="absolute z-10 bg-[rgba(0,0,0,.3)] w-full h-full" />

@@ -1,10 +1,10 @@
-import { supabase } from "#/api";
-import { Steps } from "#/components/Steps";
-import { getCurrentDate } from "#/utils";
 import { Calendar } from "lucide-react";
 import Head from "next/head";
-import { Event } from "#/modules/events";
 
+import { supabase } from "#/api";
+import { Steps } from "#/components/Steps";
+import { Event } from "#/modules/events";
+import { getCurrentDate } from "#/utils";
 
 export default function Page({ events }: { events: Event[] }) {
   return (
@@ -26,10 +26,10 @@ export default function Page({ events }: { events: Event[] }) {
 export async function getServerSideProps() {
   const currentDate = getCurrentDate();
   const { data: events } = await supabase
-    .from('events')
-    .select('*')
-    .order('time')
-    .eq('date', encodeURI(currentDate));
+    .from("events")
+    .select("*")
+    .order("time")
+    .eq("date", encodeURI(currentDate));
 
   return {
     props: {

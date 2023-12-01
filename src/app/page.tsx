@@ -1,12 +1,12 @@
-import { Metadata } from 'next';
-import { Bars3Icon } from '@heroicons/react/24/solid';
+import { Bars3Icon } from "@heroicons/react/24/solid";
+import { Metadata } from "next";
 
-import { JumboHome } from '#/components/JumboHome';
-import { Button } from '#/components/ui/button';
-import { Typography } from '#/components/ui/typography';
+import { JumboHome } from "#/components/JumboHome";
+import { Button } from "#/components/ui/button";
+import { Typography } from "#/components/ui/typography";
 
 export const metadata: Metadata = {
-  title: 'Banos de Agua Santa | Ecuador',
+  title: "Banos de Agua Santa | Ecuador",
 };
 
 export default function Page() {
@@ -76,8 +76,7 @@ export default function Page() {
                 <div className="py-4 px-4">
                   <Typography variant="h4">Las manos de Dios</Typography>
                   <Typography className="mt-0">
-                    Una atracción única que ofrece vistas impresionantes del
-                    volcán Tungurahua{' '}
+                    Una atracción única que ofrece vistas impresionantes del volcán Tungurahua
                   </Typography>
                 </div>
               </div>
