@@ -1,6 +1,6 @@
-import { supabase } from "api";
-import Head from "next/head";
-import { useEffect, useState } from "react";
+import { supabase } from 'api';
+import Head from 'next/head';
+import { useEffect, useState } from 'react';
 
 interface Event {
   id: number;
@@ -15,13 +15,13 @@ export default function Page({ serverEvent }: { serverEvent: Event }) {
 
   useEffect(() => {
     const listener = supabase
-      .channel("public:local_events")
+      .channel('public:local_events')
       .on(
-        "postgres_changes",
-        { event: "UPDATE", schema: "public", table: "local_events" },
+        'postgres_changes',
+        { event: 'UPDATE', schema: 'public', table: 'local_events' },
         (payload: { new: Event }) => {
           setEvent(payload.new);
-        }
+        },
       );
 
     listener.subscribe();
@@ -72,9 +72,9 @@ export default function Page({ serverEvent }: { serverEvent: Event }) {
 
 export async function getServerSideProps() {
   const { data: serverEvent } = await supabase
-    .from("local_events")
-    .select("*")
-    .eq("slug", "eleccion_reina")
+    .from('local_events')
+    .select('*')
+    .eq('slug', 'eleccion_reina')
     .single();
 
   return {

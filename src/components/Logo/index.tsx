@@ -1,20 +1,26 @@
-import { Satisfy } from "next/font/google";
+import { cn } from '#/utils';
+import { Satisfy } from 'next/font/google';
 
 const satisfy = Satisfy({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
 });
 
 interface Props {
-  size?: "sm";
+  size?: 'sm';
+  className?: string;
 }
-export function Logo({ size }: Props) {
-  if (size === "sm") {
+export function Logo({ size, className }: Props) {
+  if (size === 'sm') {
     return (
       <div className="relative select-none">
         <div
-          className={`text-4xl leading-none text-gray-50 ${satisfy.className}`}
+          className={cn(
+            'text-4xl leading-none text-gray-50',
+            satisfy.className,
+            className,
+          )}
         >
           Banos
         </div>

@@ -1,7 +1,9 @@
-import { Logo } from "components";
-import Link from "next/link";
-import { useState } from "react";
-import clsx from "clsx";
+'use client';
+
+import { Logo } from '#/components/Logo';
+import Link from 'next/link';
+import { useState } from 'react';
+import clsx from 'clsx';
 
 export function Header() {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -22,8 +24,8 @@ export function Header() {
             onClick={() => setIsOpenMenu(!isOpenMenu)}
             className={clsx(
               isOpenMenu &&
-                "bg-[rgba(255,255,255,.2)] hover:bg-[rgba(255,255,255,.4)]",
-              "hover:bg-[rgba(255,255,255,.2)] rounded-full p-1 transition-all"
+                'bg-[rgba(255,255,255,.2)] hover:bg-[rgba(255,255,255,.4)]',
+              'hover:bg-[rgba(255,255,255,.2)] rounded-full p-1 transition-all',
             )}
           >
             <svg
@@ -46,7 +48,7 @@ export function Header() {
       {isOpenMenu && (
         <div
           className={clsx(
-            "bg-fuchsia-900 text-white absolute w-full h-[calc(100%-60px)] z-20 text-center flex flex-col justify-between top-[60px]"
+            'bg-fuchsia-900 text-white absolute w-full h-[calc(100%-60px)] z-20 text-center flex flex-col justify-between top-[60px]',
           )}
         >
           <div>

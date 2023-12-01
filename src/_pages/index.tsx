@@ -1,9 +1,9 @@
-import { supabase } from "api";
-import { Calendar } from "components";
-import { Steps } from "components/Steps";
-import { Event } from "modules";
-import Head from "next/head";
-import { getCurrentDate } from "utils";
+import { supabase } from 'api';
+import { Calendar } from 'components';
+import { Steps } from 'components/Steps';
+import { Event } from 'modules';
+import Head from 'next/head';
+import { getCurrentDate } from 'utils';
 
 export default function Page({ events }: { events: Event[] }) {
   return (
@@ -25,10 +25,10 @@ export default function Page({ events }: { events: Event[] }) {
 export async function getServerSideProps() {
   const currentDate = getCurrentDate();
   const { data: events } = await supabase
-    .from("events")
-    .select("*")
-    .order("time")
-    .eq("date", encodeURI(currentDate));
+    .from('events')
+    .select('*')
+    .order('time')
+    .eq('date', encodeURI(currentDate));
 
   return {
     props: {

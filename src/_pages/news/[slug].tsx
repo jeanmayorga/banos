@@ -1,11 +1,11 @@
-import Head from "next/head";
-import Image from "next/image";
-import { Calendar, NavBar } from "components";
-import { format } from "date-fns";
-import { es } from "date-fns/locale";
-import { supabase } from "api";
-import { Notice } from "modules";
-import ReactMarkdown from "react-markdown";
+import Head from 'next/head';
+import Image from 'next/image';
+import { Calendar, NavBar } from 'components';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
+import { supabase } from 'api';
+import { Notice } from 'modules';
+import ReactMarkdown from 'react-markdown';
 
 export default function Page({ notice }: { notice: Notice }) {
   return (
@@ -55,7 +55,7 @@ export default function Page({ notice }: { notice: Notice }) {
               "EEEE, d 'de' LLLL 'del' yyyy",
               {
                 locale: es,
-              }
+              },
             ).toLocaleUpperCase()}
           </div>
           <ReactMarkdown
@@ -73,7 +73,7 @@ export default function Page({ notice }: { notice: Notice }) {
 }
 
 export async function getStaticPaths() {
-  const { data: news } = await supabase.from("news").select("slug");
+  const { data: news } = await supabase.from('news').select('slug');
 
   const paths = news?.map((notice) => {
     return {
@@ -91,9 +91,9 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: any) {
   const { data: notice } = await supabase
-    .from("news")
-    .select("*")
-    .eq("slug", encodeURI(params.slug))
+    .from('news')
+    .select('*')
+    .eq('slug', encodeURI(params.slug))
     .single();
 
   return {

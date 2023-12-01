@@ -1,10 +1,10 @@
-import type { AppProps } from "next/app";
+import type { AppProps } from 'next/app';
 
-import { Layout } from "components";
-import Script from "next/script";
-import "../styles/global.css";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { Layout } from 'components';
+import Script from 'next/script';
+import '../styles/global.css';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -14,12 +14,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     const handleStart = () => setIsAppLoading(true);
     const handleComplete = () => setIsAppLoading(false);
 
-    router.events.on("routeChangeStart", handleStart);
-    router.events.on("routeChangeComplete", handleComplete);
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleComplete);
 
     return () => {
-      router.events.off("routeChangeStart", handleStart);
-      router.events.off("routeChangeComplete", handleComplete);
+      router.events.off('routeChangeStart', handleStart);
+      router.events.off('routeChangeComplete', handleComplete);
     };
   });
 

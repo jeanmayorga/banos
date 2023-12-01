@@ -1,11 +1,13 @@
-import Script from "next/script";
-import { Inter } from "next/font/google";
+import Script from 'next/script';
+import { Inter } from 'next/font/google';
+import { Toaster } from 'react-hot-toast';
 
-import "#/styles/global.css";
+import '#/styles/global.css';
+import { ThemeProvider } from './theme-provider';
 
 const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
+  subsets: ['latin'],
+  display: 'swap',
 });
 
 interface Props {
@@ -15,7 +17,17 @@ interface Props {
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="es" className={inter.className}>
-      <body>{children}</body>
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <Toaster />
+        </ThemeProvider>
+      </body>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-4WJMRLZSCE"
         strategy="afterInteractive"

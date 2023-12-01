@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 
 interface Props {
   title: string;
@@ -8,7 +8,7 @@ export function NavBar({ title, icon }: Props) {
   const router = useRouter();
 
   const handleBack = () => {
-    return router.push("/");
+    return router.push('/');
   };
 
   return (

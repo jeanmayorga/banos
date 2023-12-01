@@ -1,17 +1,17 @@
-import Head from "next/head";
-import Image from "next/image";
-import { supabase } from "api";
-import { Notice } from "modules";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import Head from 'next/head';
+import Image from 'next/image';
+import { supabase } from 'api';
+import { Notice } from 'modules';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export default function Page() {
   const [news, setNews] = useState<Notice[]>([]);
 
   useEffect(() => {
     supabase
-      .from("news")
-      .select("*")
+      .from('news')
+      .select('*')
       .then(({ data }) => {
         setNews(data as Notice[]);
       });
@@ -67,7 +67,7 @@ export default function Page() {
 }
 
 export async function getServerSideProps() {
-  const { data: news } = await supabase.from("news").select("*");
+  const { data: news } = await supabase.from('news').select('*');
 
   return {
     props: {

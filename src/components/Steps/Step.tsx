@@ -1,13 +1,13 @@
-import clsx from "clsx";
-import { Event } from "modules";
-import Image from "next/image";
+import clsx from 'clsx';
+import { Event } from 'modules';
+import Image from 'next/image';
 
 function Place({ place, cover }: { place: string; cover: string | null }) {
   return (
     <span
       className={clsx(
-        "text-slate-400 cursor-pointer text-xs leading-none inline-flex items-center bg-slate-200 rounded px-2 py-1 font-bold hover:bg-slate-300 transition-all",
-        cover && "mb-4"
+        'text-slate-400 cursor-pointer text-xs leading-none inline-flex items-center bg-slate-200 rounded px-2 py-1 font-bold hover:bg-slate-300 transition-all',
+        cover && 'mb-4',
       )}
     >
       <svg
