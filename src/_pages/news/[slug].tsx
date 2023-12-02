@@ -22,7 +22,7 @@ export default function Page({ notice }: { notice: Notice }) {
         <meta property="og:description" content={notice.title.substring(0, 100)} />
         <meta property="og:image" content={notice.ogCover || notice.cover} />
       </Head>
-      <Calendar withBorder />
+      <Calendar />
       <NavBar
         title={notice.title.length > 38 ? `${notice.title.substring(0, 39)}...` : notice.title}
       />

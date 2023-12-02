@@ -12,7 +12,9 @@ export function Header({ hideSearch }: Props) {
   return (
     <header className="w-full bg-white dark:bg-black border-b border-b-gray-100">
       <div className="container mx-auto flex items-center justify-between h-[80px]">
-        <Logo size="sm" className=" text-fuchsia-700 dark:text-white" />
+        <Link href="/" passHref>
+          <Logo size="sm" className=" text-fuchsia-700 dark:text-white" />
+        </Link>
 
         {!hideSearch && (
           <Link
