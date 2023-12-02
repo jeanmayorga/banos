@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { isBrowser } from "react-device-detect";
 
 import { Typography } from "#/components/ui/typography";
@@ -38,11 +38,11 @@ export function JumboHome({ className }: Props) {
   const [place, setPlace] = useState(places[0]);
   const currentIndex = places.findIndex((currentPlace) => currentPlace?.id === place?.id);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setShowVideo(true);
-  //   }, 4000);
-  // }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      setShowVideo(true);
+    }, 5000);
+  }, []);
 
   // useEffect(() => {
   //   setInterval(() => {
@@ -152,7 +152,7 @@ export function JumboHome({ className }: Props) {
           onLoad={() => setLoaded(true)}
         />
       </div>
-      {isBrowser && (
+      {isBrowser && showVideo && (
         <div
         // className={`z-0 transition-all duration-200 ${
         //   showVideo ? "opacity-100" : "opacity-0"
