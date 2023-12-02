@@ -6,7 +6,6 @@ import ReactMarkdown from "react-markdown";
 
 import { supabase } from "#/api";
 import { Calendar } from "#/components/Calendar";
-import { NavBar } from "#/components/NavBar";
 import { Notice } from "#/modules";
 
 export default function Page({ notice }: { notice: Notice }) {
@@ -23,9 +22,7 @@ export default function Page({ notice }: { notice: Notice }) {
         <meta property="og:image" content={notice.ogCover || notice.cover} />
       </Head>
       <Calendar />
-      <NavBar
-        title={notice.title.length > 38 ? `${notice.title.substring(0, 39)}...` : notice.title}
-      />
+
       <div className="container m-auto">
         <div className="relative overflow-hidden flex items-center h-[600px] lg:h-[1000px]">
           <Image src={notice.cover} alt={notice.title} fill className=" object-cover" />

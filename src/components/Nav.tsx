@@ -1,7 +1,7 @@
 "use client";
 
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
-import { BedDoubleIcon, BikeIcon, MountainSnowIcon, SoupIcon } from "lucide-react";
+import { BedDoubleIcon, BikeIcon, HomeIcon, MountainSnowIcon, SoupIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -14,7 +14,7 @@ interface ItemProps {
 }
 function Item({ href, icon, name }: ItemProps) {
   const pathname = usePathname();
-  const isActive = pathname.includes(href);
+  const isActive = href === "/" ? pathname === href : pathname.includes(href);
 
   return (
     <Link
@@ -22,18 +22,29 @@ function Item({ href, icon, name }: ItemProps) {
       passHref
       className={cn(
         "border-b-2 border-b-transparent transition-all",
-        "hover:border-b-gray-700 text-gray-400 hover:text-gray-700",
+        "hover:border-b-gray-700 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 dark:hover:border-b-gray-300",
         isActive &&
           "border-b-fuchsia-700 hover:border-b-fuchsia-700 text-fuchsia-700 hover:text-fuchsia-700",
       )}
     >
       <div className="flex flex-col items-center px-2 py-2 my-1 rounded-lg">
         {icon}
-        <div className={cn("text-xs font-light transition-all", isActive && "font-medium")}>
-          {name}
-        </div>
+        <div className={cn("text-xs font-light", isActive && "font-medium")}>{name}</div>
       </div>
     </Link>
+  );
+}
+
+export function NavItems() {
+  return (
+    <div className="flex items-center gap-2">
+      {/* <Item href="/" icon={<HomeIcon className="w-6 h-6 mb-2" />} name="Inicio" /> */}
+      <Item href="/places" icon={<MountainSnowIcon className="w-6 h-6 mb-2" />} name="Lugares" />
+      <Item href="/activities" icon={<BikeIcon className="w-6 h-6 mb-2" />} name="Actividades" />
+      <Item href="/hotels" icon={<BedDoubleIcon className="w-6 h-6 mb-2" />} name="Hoteles" />
+      <Item href="/restaurants" icon={<SoupIcon className="w-6 h-6 mb-2" />} name="Restaurantes" />
+      <Item href="/events" icon={<CalendarDaysIcon className="w-6 h-6 mb-2" />} name="Eventos" />
+    </div>
   );
 }
 
@@ -41,29 +52,7 @@ export function Nav() {
   return (
     <nav className="w-full bg-white dark:bg-black shadow-sm border-b-gray-100 sticky top-0 z-50 overflow-y-hidden whitespace-nowrap">
       <div className="container mx-auto">
-        <div className="flex items-center gap-2">
-          <Item
-            href="/places"
-            icon={<MountainSnowIcon className="w-6 h-6 mb-2" />}
-            name="Lugares"
-          />
-          <Item
-            href="/activities"
-            icon={<BikeIcon className="w-6 h-6 mb-2" />}
-            name="Actividades"
-          />
-          <Item href="/hotels" icon={<BedDoubleIcon className="w-6 h-6 mb-2" />} name="Hoteles" />
-          <Item
-            href="/restaurants"
-            icon={<SoupIcon className="w-6 h-6 mb-2" />}
-            name="Restaurantes"
-          />
-          <Item
-            href="/events"
-            icon={<CalendarDaysIcon className="w-6 h-6 mb-2" />}
-            name="Eventos"
-          />
-        </div>
+        <NavItems />
       </div>
     </nav>
   );

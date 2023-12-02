@@ -22,7 +22,7 @@ export function EventsCalendarItem({ date, isActive }: Props) {
           "my-2 px-4 py-1 text-center active:bg-white rounded-lg transition-all",
         )}
       >
-        <div className="text-gray-200 text-sm">{format(currentDate, "MMM", { locale: es })}</div>
+        <div className="text-xs font-light">{format(currentDate, "MMM", { locale: es })}</div>
         <div className="text-2xl">{format(currentDate, "dd")}</div>
         <div>{format(currentDate, "E", { locale: es }).toUpperCase()}</div>
       </div>

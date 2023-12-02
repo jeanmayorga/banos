@@ -1,5 +1,6 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import { useEffect } from "react";
 
 import { cn, getCurrentDate } from "#/utils";
@@ -26,8 +27,8 @@ const calendar = [
 ];
 
 export function EventsCalendar() {
-  // const { query } = useRouter();
-  const dateInUrl = "" as string;
+  const params = useParams<{ date: string }>();
+  const dateInUrl = params.date;
 
   useEffect(() => {
     const calendar = document.getElementById("calendar-parent");

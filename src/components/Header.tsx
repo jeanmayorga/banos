@@ -2,8 +2,9 @@ import { Bars3Icon, MagnifyingGlassIcon, UserIcon } from "@heroicons/react/24/so
 import Link from "next/link";
 
 import { Logo } from "./Logo";
-import { ModeToggle } from "./ModeButton";
+import { ThemeButton } from "./ThemeButton";
 import { Button } from "./ui/button";
+import { UserButton } from "./UserButton";
 
 interface Props {
   hideSearch?: boolean;
@@ -31,13 +32,8 @@ export function Header({ hideSearch }: Props) {
         )}
 
         <div className="flex items-center gap-4">
-          <ModeToggle />
-          <Button size="icon" variant="ghost" aria-label="menu">
-            <Bars3Icon />
-          </Button>
-          <Button size="icon" variant="outline" aria-label="menu">
-            <UserIcon className="h-4 w-4" />
-          </Button>
+          <ThemeButton />
+          <UserButton />
         </div>
       </div>
     </header>

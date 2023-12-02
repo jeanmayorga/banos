@@ -1,10 +1,15 @@
 import { Bars3Icon } from "@heroicons/react/24/solid";
+import { SearchIcon } from "lucide-react";
 import { Metadata } from "next";
+import Link from "next/link";
 
 import { JumboHome } from "#/components/JumboHome";
-import { Nav } from "#/components/Nav";
+import { NavItems } from "#/components/Nav";
+import { ThemeButton } from "#/components/ThemeButton";
 import { Button } from "#/components/ui/button";
+import { Separator } from "#/components/ui/separator";
 import { Typography } from "#/components/ui/typography";
+import { UserButton } from "#/components/UserButton";
 
 export const metadata: Metadata = {
   title: "Banos de Agua Santa | Ecuador",
@@ -16,40 +21,35 @@ export default function Page() {
       <div className="lg:grid lg:grid-cols-12 bg-grey-lighter min-h-screen">
         <JumboHome className="lg:col-span-9 w-full h-screen" />
         <div className="lg:col-span-3">
-          <div className="w-full mb-8 p-4 shadow-sm">
-            <div className="mb-4 flex items-center justify-between">
-              <Typography variant="h4">Explorar</Typography>
+          <div className="px-4 py-2 flex items-center justify-between">
+            <Typography variant="h4" component="h4">
+              Explorar
+            </Typography>
 
-              <Button size="icon" variant="ghost">
-                <Bars3Icon />
-              </Button>
-            </div>
-
-            <Nav />
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="h-5 w-5 text-gray-500"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                  />
-                </svg>
-              </div>
-              <input
-                type="text"
-                placeholder="Búscar..."
-                className="pl-10 block w-full bg-gray-50 border border-gray-300 rounded-full py-2 text-gray-700 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              />
+            <div className="flex items-center gap-2">
+              <ThemeButton />
+              <UserButton />
             </div>
           </div>
+          <Separator />
+
+          <div className="px-4 overflow-y-hidden whitespace-nowrap">
+            <NavItems />
+          </div>
+          <Separator />
+
+          <div className="px-4 py-3">
+            <Link
+              href="search"
+              passHref
+              prefetch
+              className="relative flex w-full bg-gray-50 dark:bg-gray-950 hover:bg-gray-100 dark:hover:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-full py-2 px-3 text-gray-500 transition-all"
+            >
+              <SearchIcon className="h-5 w-5 mr-2" />
+              <span className="font-light text-sm">¿Qué hacer en Banos?</span>
+            </Link>
+          </div>
+          <Separator />
 
           {/* <div className="w-full h-[200px] bg-fuchsia-800 mb-8 grid grid-cols-6">
             <div className="col-span-4 p-4">

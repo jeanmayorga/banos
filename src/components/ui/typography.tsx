@@ -29,7 +29,7 @@ export interface TypographyProps
 
 const Typography = React.forwardRef<HTMLButtonElement, TypographyProps>(
   ({ className, variant, component, ...props }, ref) => {
-    const Comp: React.ElementType = component ? component : variant ? variant : "p";
+    const Comp: React.ElementType = component ? component : "p";
 
     return <Comp className={cn(typographyVariants({ variant, className }))} ref={ref} {...props} />;
   },
