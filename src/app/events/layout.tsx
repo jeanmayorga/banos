@@ -1,4 +1,4 @@
-import { EventsCalendar } from "#/components/EventsCalendar";
+import { EventsNavCalendarList } from "#/components/EventsNavCalendarList";
 import { Header } from "#/components/Header";
 import { Nav } from "#/components/Nav";
 
@@ -11,7 +11,7 @@ export default function Layout({ children }: Props) {
     <section>
       <Header />
       <Nav />
-      <EventsCalendar />
+      <EventsNavCalendarList />
       {children}
     </section>
   );

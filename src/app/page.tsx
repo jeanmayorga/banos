@@ -1,8 +1,9 @@
-import { Bars3Icon } from "@heroicons/react/24/solid";
 import { SearchIcon } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 
+import { supabase } from "#/api";
+import { EventsSectionList } from "#/components/EventsSectionList";
 import { JumboHome } from "#/components/JumboHome";
 import { NavItems } from "#/components/Nav";
 import { ThemeButton } from "#/components/ThemeButton";
@@ -10,18 +11,29 @@ import { Button } from "#/components/ui/button";
 import { Separator } from "#/components/ui/separator";
 import { Typography } from "#/components/ui/typography";
 import { UserButton } from "#/components/UserButton";
+import { Event } from "#/modules";
+import { getCurrentDate } from "#/utils";
 
 export const metadata: Metadata = {
   title: "Banos de Agua Santa | Ecuador",
 };
 
-export default function Page() {
+export default async function Page() {
+  const currentDate = getCurrentDate();
+  const { data: eventsData } = await supabase
+    .from("events")
+    .select("*")
+    .order("time")
+    .eq("date", currentDate);
+  const events = eventsData as Event[];
+
   return (
     <>
-      <div className="lg:grid lg:grid-cols-12 bg-grey-lighter min-h-screen">
-        <JumboHome className="lg:col-span-9 w-full h-screen" />
-        <div className="lg:col-span-3">
-          <div className="px-4 py-2 flex items-center justify-between">
+      <div className="lg:grid lg:grid-cols-10 min-h-screen">
+        <JumboHome className="lg:col-span-7 w-full h-screen" />
+        {/* <div className="lg:col-span-7" /> */}
+        <div className="lg:col-span-3 bg-white dark:bg-slate-950 lg:border-l lg:relative lg:z-20">
+          <div className="px-4 py-2 flex items-center justify-between dark:bg-slate-900">
             <Typography variant="h4" component="h4">
               Explorar
             </Typography>
@@ -33,7 +45,7 @@ export default function Page() {
           </div>
           <Separator />
 
-          <div className="px-4 overflow-y-hidden whitespace-nowrap">
+          <div className="px-4 overflow-y-hidden whitespace-nowrap scrollbar-hide dark:bg-slate-900">
             <NavItems />
           </div>
           <Separator />
@@ -51,26 +63,33 @@ export default function Page() {
           </div>
           <Separator />
 
-          {/* <div className="w-full h-[200px] bg-fuchsia-800 mb-8 grid grid-cols-6">
-            <div className="col-span-4 p-4">
-              <h1 className="font-extrabold text-4xl tracking-tight text-white mb-4">
-                Compras tus entradas aqui
-              </h1>
-              <p className="text-lg text-slate-300">
-                Somos el unico portal autorizado para vender entradas.
-              </p>
+          <div className="mb-8">
+            <div className="flex items-center justify-between px-4 py-3">
+              <Typography variant="h4" component="h4">
+                Fiestas de Baños
+              </Typography>
+              <Link href="/events" passHref>
+                <Button variant="link" size="sm">
+                  Ver todos
+                </Button>
+              </Link>
             </div>
-            <div className="col-span-2 overflow-hidden p-4">
-              <img src="/hands.png" className="h-full" />
+            <EventsSectionList events={events} />
+          </div>
+          <Separator />
+
+          <div className="mb-8">
+            <div className="flex items-center justify-between px-4 py-3">
+              <Typography variant="h4" component="h4">
+                Los lugares mas visitados
+              </Typography>
+              <Link href="/events" passHref>
+                <Button variant="link" size="sm">
+                  Ver todos
+                </Button>
+              </Link>
             </div>
-          </div> */}
-          <div>
-            <div className="mx-4 mb-4 flex items-center justify-between">
-              <Typography variant="h2">Mas visitados</Typography>
-              <Button variant="link" size="sm">
-                Ver todos
-              </Button>
-            </div>
+
             <div className="flex pl-4">
               <div className="rounded-2xl bg-white shadow-lg w-[310px] overflow-hidden">
                 <div className="w-full">
@@ -85,6 +104,20 @@ export default function Page() {
               </div>
             </div>
           </div>
+
+          {/* <div className="w-full h-[200px] bg-fuchsia-800 mb-8 grid grid-cols-6">
+            <div className="col-span-4 p-4">
+              <h1 className="font-extrabold text-4xl tracking-tight text-white mb-4">
+                Compras tus entradas aqui
+              </h1>
+              <p className="text-lg text-slate-300">
+                Somos el unico portal autorizado para vender entradas.
+              </p>
+            </div>
+            <div className="col-span-2 overflow-hidden p-4">
+              <img src="/hands.png" className="h-full" />
+            </div>
+          </div> */}
         </div>
       </div>
     </>

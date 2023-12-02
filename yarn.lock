@@ -3109,6 +3109,13 @@ react-day-picker@^8.9.1:
   resolved "https://registry.yarnpkg.com/react-day-picker/-/react-day-picker-8.9.1.tgz#62dcc2bc1282ac72d057266112d9c8558334e757"
   integrity sha512-W0SPApKIsYq+XCtfGeMYDoU0KbsG3wfkYtlw8l+vZp6KoBXGOlhzBUp4tNx1XiwiOZwhfdGOlj7NGSCKGSlg5Q==
 
+react-device-detect@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/react-device-detect/-/react-device-detect-2.2.3.tgz#97a7ae767cdd004e7c3578260f48cf70c036e7ca"
+  integrity sha512-buYY3qrCnQVlIFHrC5UcUoAj7iANs/+srdkwsnNjI7anr3Tt7UY6MqNxtMLlr0tMBied0O49UZVK8XKs3ZIiPw==
+  dependencies:
+    ua-parser-js "^1.0.33"
+
 react-dom@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.2.0.tgz#22aaf38708db2674ed9ada224ca4aa708d821e3d"
@@ -3545,6 +3552,11 @@ tailwind-merge@^2.0.0:
   dependencies:
     "@babel/runtime" "^7.23.1"
 
+tailwind-scrollbar-hide@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/tailwind-scrollbar-hide/-/tailwind-scrollbar-hide-1.1.7.tgz#90b481fb2e204030e3919427416650c54f56f847"
+  integrity sha512-X324n9OtpTmOMqEgDUEA/RgLrNfBF/jwJdctaPZDzB3mppxJk7TLIDmOreEDm1Bq4R9LSPu4Epf8VSdovNU+iA==
+
 tailwindcss-animate@^1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/tailwindcss-animate/-/tailwindcss-animate-1.0.7.tgz#318b692c4c42676cc9e67b19b78775742388bef4"
@@ -3733,6 +3745,11 @@ typescript@4.6.3:
   version "4.6.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.6.3.tgz#eefeafa6afdd31d725584c67a0eaba80f6fc6c6c"
   integrity sha512-yNIatDa5iaofVozS/uQJEl3JRWLKKGJKh6Yaiv0GLGSuhpFJe7P3SbHZ8/yjAHRQwKRoA6YZqlfjXWmVzoVSMw==
+
+ua-parser-js@^1.0.33:
+  version "1.0.37"
+  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-1.0.37.tgz#b5dc7b163a5c1f0c510b08446aed4da92c46373f"
+  integrity sha512-bhTyI94tZofjo+Dn8SN6Zv8nBDvyXTymAdM3LDI/0IboIUwTu1rEhW7v2TfiVsoYWgkQ4kOVqnI8APUFbIQIFQ==
 
 unbox-primitive@^1.0.2:
   version "1.0.2"

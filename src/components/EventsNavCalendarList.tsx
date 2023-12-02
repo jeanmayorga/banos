@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 import { cn, getCurrentDate } from "#/utils";
 
-import { EventsCalendarItem } from "./EventsCalendarItem";
+import { EventsNavCalendarItem } from "./EventsNavCalendarItem";
 
 const calendar = [
   "2023-12-01",
@@ -26,7 +26,7 @@ const calendar = [
   "2023-12-16",
 ];
 
-export function EventsCalendar() {
+export function EventsNavCalendarList() {
   const params = useParams<{ date: string }>();
   const dateInUrl = params.date;
 
@@ -47,13 +47,13 @@ export function EventsCalendar() {
     <div
       id="calendar-parent"
       className={cn(
-        "bg-fuchsia-900 w-full px-4 flex md:justify-center overflow-y-hidden whitespace-nowrap",
+        "bg-fuchsia-900 w-full px-4 flex md:justify-center overflow-y-hidden whitespace-nowrap scrollbar-hide",
       )}
     >
       {calendar.map((date) => {
         const isActive = dateInUrl ? date === dateInUrl : date === getCurrentDate();
 
-        return <EventsCalendarItem date={date} isActive={isActive} key={date} />;
+        return <EventsNavCalendarItem date={date} isActive={isActive} key={date} />;
       })}
     </div>
   );

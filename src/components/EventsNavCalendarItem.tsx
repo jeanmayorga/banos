@@ -7,7 +7,7 @@ interface Props {
   date: string;
   isActive: boolean;
 }
-export function EventsCalendarItem({ date, isActive }: Props) {
+export function EventsNavCalendarItem({ date, isActive }: Props) {
   const currentDate = add(new Date(date), {
     hours: 5,
   });

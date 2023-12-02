@@ -2,6 +2,8 @@ import { supabase } from "#/api";
 import { EventsCard } from "#/components/EventsCard";
 import { Event } from "#/modules";
 
+export const revalidate = 3600;
+
 interface Props {
   params: {
     date: string;
@@ -10,8 +12,6 @@ interface Props {
 export default async function Page({ params }: Props) {
   const date = params.date;
   const request = await supabase.from("events").select("*").order("time").eq("date", date);
-
-  console.log({ request });
 
   const events = request.data as Event[];
 

@@ -2,6 +2,7 @@
 
 import clsx from "clsx";
 import { useState } from "react";
+import { isBrowser } from "react-device-detect";
 
 import { Typography } from "#/components/ui/typography";
 
@@ -16,7 +17,7 @@ const places = [
     description:
       "Una atracción única que ofrece vistas impresionantes del volcán Tungurahua y una emocionante oportunidad de balancearse en el Columpio del Fin del Mundo",
     image:
-      "https://images.squarespace-cdn.com/content/v1/5d23b57617786c0001fcbeda/1571161059661-1TOZDKTU1IEP5E5XUBC7/Casa+del+Arbol+Atardecer+Banos+Ecuador.jpg?format=1000w",
+      "https://images.myguide-cdn.com/ecuador/companies/from-quito-waterfalls-of-banos-de-agua-santa-guided-tour/large/from-quito-waterfalls-of-banos-de-agua-santa-guided-tour-965611.jpg",
   },
   {
     id: "2",
@@ -24,8 +25,7 @@ const places = [
     title: "El Pailon de Diablo",
     description:
       "Una majestuosa cascada natural, escondida entre las verdes montañas de los Andes ecuatorianos.",
-    image:
-      "https://images.squarespace-cdn.com/content/v1/5d23b57617786c0001fcbeda/1571158999045-KFSVWEW1M4TI030D4D5B/Cascada+Pailon+del+Diablo.jpg?format=2500w",
+    image: "https://samarispa.com/wp-content/uploads/2021/04/video.jpg",
   },
 ];
 
@@ -99,7 +99,7 @@ export function JumboHome({ className }: Props) {
 
   return (
     <div className={clsx(className, "relative overflow-hidden bg-black")}>
-      <div className="bg-black/30 absolute top-0 left-0 w-full h-full z-10" />
+      <div className="bg-black/50 absolute top-0 left-0 w-full h-full z-10" />
       <div className="relative z-20 py-12 lg:pl-[100px] px-4 flex justify-between flex-col h-screen">
         <Logo />
         <div>
@@ -152,20 +152,21 @@ export function JumboHome({ className }: Props) {
           onLoad={() => setLoaded(true)}
         />
       </div>
-      {/* <div
-        className={`z-0 transition-all duration-200 ${
-          showVideo ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        <iframe
-          className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-[140%] h-full"
-          src="https://www.youtube.com/embed/vZYhHC93GoQ?start=65&end=117&autoplay=1&mute=1&playlist=vZYhHC93GoQ&loop=1"
-          title="YouTube video"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
-      </div> */}
+      {isBrowser && (
+        <div
+        // className={`z-0 transition-all duration-200 ${
+        //   showVideo ? "opacity-100" : "opacity-0"
+        // }`}
+        >
+          <iframe
+            className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-[160%] h-full"
+            src="https://www.youtube.com/embed/vZYhHC93GoQ?start=65&end=117&autoplay=1&mute=1&playlist=vZYhHC93GoQ&loop=1"
+            title="YouTube video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+      )}
     </div>
   );
 }

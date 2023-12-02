@@ -3,7 +3,7 @@ import React from "react";
 
 import { cn } from "#/utils";
 
-const typographyVariants = cva("text-black", {
+const typographyVariants = cva("", {
   variants: {
     variant: {
       h1: "scroll-m-20 text-4xl font-extrabold sm:text-5xl lg:text-6xl tracking-tight",
@@ -13,6 +13,8 @@ const typographyVariants = cva("text-black", {
       h5: "",
       h6: "",
       p: "[&:not(:first-child)]:mt-6",
+      large: "text-lg font-semibold",
+      muted: "text-sm text-muted-foreground",
     },
   },
   defaultVariants: {

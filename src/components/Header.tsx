@@ -11,7 +11,7 @@ interface Props {
 }
 export function Header({ hideSearch }: Props) {
   return (
-    <header className="w-full bg-white dark:bg-black border-b border-b-gray-100">
+    <header className="w-full bg-white dark:bg-slate-900 border-b border-b-gray-100 dark:border-b-gray-800">
       <div className="container mx-auto flex items-center justify-between h-[80px]">
         <Link href="/" passHref>
           <Logo size="sm" className=" text-fuchsia-700 dark:text-white" />
