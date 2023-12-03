@@ -43,10 +43,10 @@ export function ShareButton({ imageUrl, name, description }: Props) {
               <XMarkIcon className="w-6 h-6" />
             </AlertDialogCancel>
           </div>
-          <AlertDialogTitle>Compartir este enlace</AlertDialogTitle>
+          <AlertDialogTitle className="text-left">Compartir este enlace</AlertDialogTitle>
           <AlertDialogDescription>
             {imageUrl && name && description && (
-              <div className="flex items-center mb-4 bg-slate-100 dark:bg-slate-800 p-4 rounded-xl">
+              <div className="flex items-center mb-4 bg-slate-100 dark:bg-slate-800 p-4 rounded-xl text-left">
                 <Image
                   src={imageUrl}
                   alt={name}
@@ -61,7 +61,7 @@ export function ShareButton({ imageUrl, name, description }: Props) {
                 </div>
               </div>
             )}
-            <div className="grid grid-cols-2 gap-4 mt-4">
+            <div className="sm:grid sm:grid-cols-2 gap-4 sm:space-y-0 space-y-4 mt-4">
               <div
                 className="rounded-xl border px-4 py-3 flex items-center hover:bg-gray-100 dark:hover:bg-gray-800 hover:scale-[.99] active:scale-[.97] transition-all cursor-pointer select-none"
                 onClick={handleCopyClipboard}
