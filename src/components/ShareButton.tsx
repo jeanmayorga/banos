@@ -46,7 +46,7 @@ export function ShareButton({ imageUrl, name, description }: Props) {
           <AlertDialogTitle>Compartir este enlace</AlertDialogTitle>
           <AlertDialogDescription>
             {imageUrl && name && description && (
-              <div className="flex items-center mb-4 bg-slate-100 p-4 rounded-xl">
+              <div className="flex items-center mb-4 bg-slate-100 dark:bg-slate-800 p-4 rounded-xl">
                 <Image
                   src={imageUrl}
                   alt={name}
