@@ -140,7 +140,7 @@ export function ActivityCtaForm({ price }: Props) {
       </div>
 
       <div className="mx-4 mb-4">
-        <Button className="sm:rounded-full w-full">Reserva</Button>
+        <Button className="rounded-full w-full">Reserva</Button>
       </div>
 
       <Separator />

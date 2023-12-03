@@ -14,6 +14,8 @@ import { UserButton } from "#/components/UserButton";
 import { Event } from "#/modules";
 import { getCurrentDate } from "#/utils";
 
+export const revalidate = 3600 / 60;
+
 export const metadata: Metadata = {
   title: "Banos de Agua Santa | Ecuador",
 };

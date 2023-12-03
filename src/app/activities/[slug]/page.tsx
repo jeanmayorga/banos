@@ -89,7 +89,7 @@ export default async function Page({ params }: Props) {
         <ActivityImage src={activity.cover_picture_url} />
 
         <div className="sm:grid sm:grid-cols-6 gap-8 relative pb-4">
-          <div className="col-span-4">
+          <div className="col-span-4 mb-8 sm:mb-0">
             <article>
               <Markdown content={activity.body} />
             </article>
