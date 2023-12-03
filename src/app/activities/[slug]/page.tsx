@@ -16,7 +16,7 @@ import { Typography } from "#/components/ui/typography";
 
 import { getActivity } from "../services";
 
-export const revalidate = 3600 / 60;
+// export const revalidate = 3600 / 60;
 
 interface Props {
   params: {
