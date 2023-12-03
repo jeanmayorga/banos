@@ -5,7 +5,6 @@ import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 
 import { supabase } from "#/api";
-import { Calendar } from "#/components/Calendar";
 import { Notice } from "#/modules";
 
 export default function Page({ notice }: { notice: Notice }) {
@@ -21,7 +20,6 @@ export default function Page({ notice }: { notice: Notice }) {
         <meta property="og:description" content={notice.title.substring(0, 100)} />
         <meta property="og:image" content={notice.ogCover || notice.cover} />
       </Head>
-      <Calendar />
 
       <div className="container m-auto">
         <div className="relative overflow-hidden flex items-center h-[600px] lg:h-[1000px]">

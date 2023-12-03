@@ -1,6 +1,7 @@
 "use client";
 
 import { ClipboardDocumentCheckIcon, ShareIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import Image from "next/image";
 import toast from "react-hot-toast";
 
 import {
@@ -14,20 +15,23 @@ import {
 } from "#/components/ui/alert-dialog";
 import { Button } from "#/components/ui/button";
 
-export function ShareButton() {
-  const handleCopyClipboard = () => {
-    console.log("copy clipboard");
-    toast.success("Enlace copiado.");
-  };
+import { Typography } from "./ui/typography";
 
-  const handleCopyWhatsapp = () => {
-    console.log("copy whatsapp");
+interface Props {
+  imageUrl?: string;
+  name?: string;
+  description?: string;
+}
+export function ShareButton({ imageUrl, name, description }: Props) {
+  const handleCopyClipboard = async () => {
+    await navigator.clipboard.writeText(window.location.href);
+    toast.success("Enlace copiado.");
   };
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline" aria-label="compartir">
+        <Button variant="outline" aria-label="compartir" className="rounded-full">
           <ShareIcon className="mr-2 h-4 w-4" />
           Compartir
         </Button>
@@ -39,8 +43,24 @@ export function ShareButton() {
               <XMarkIcon className="w-6 h-6" />
             </AlertDialogCancel>
           </div>
-          <AlertDialogTitle>Compartir este link</AlertDialogTitle>
+          <AlertDialogTitle>Compartir este enlace</AlertDialogTitle>
           <AlertDialogDescription>
+            {imageUrl && name && description && (
+              <div className="flex items-center mb-4 bg-slate-100 p-4 rounded-xl">
+                <Image
+                  src={imageUrl}
+                  alt={name}
+                  width={100}
+                  height={70}
+                  quality={40}
+                  className="object-cover rounded-2xl mr-4"
+                />
+                <div>
+                  <Typography variant="lead">{name}</Typography>
+                  <Typography variant="muted">{description.slice(0, 83)}...</Typography>
+                </div>
+              </div>
+            )}
             <div className="grid grid-cols-2 gap-4 mt-4">
               <div
                 className="rounded-xl border px-4 py-3 flex items-center hover:bg-gray-100 dark:hover:bg-gray-800 hover:scale-[.99] active:scale-[.97] transition-all cursor-pointer select-none"
@@ -51,9 +71,11 @@ export function ShareButton() {
                   Copiar enlace
                 </div>
               </div>
-              <div
+              <a
+                href={`https://wa.me/?text=${window.location.href}`}
+                target="_blank"
                 className="rounded-xl border px-4 py-3 flex items-center hover:bg-gray-100 dark:hover:bg-gray-800 hover:scale-[.99] active:scale-[.97] transition-all cursor-pointer select-none"
-                onClick={handleCopyWhatsapp}
+                rel="noreferrer"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +94,7 @@ export function ShareButton() {
                 <div className="ml-4 text-base font-medium text-gray-600 dark:text-gray-400">
                   Whatsapp
                 </div>
-              </div>
+              </a>
             </div>
           </AlertDialogDescription>
         </AlertDialogHeader>

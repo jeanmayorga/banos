@@ -1,5 +1,6 @@
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { Fragment } from "react";
 
 interface Props {
   items: {
@@ -20,9 +21,8 @@ export function Breadcrumds({ items }: Props) {
         }
 
         return (
-          <>
+          <Fragment key={item.href}>
             <Link
-              key={item.href}
               href={item.href}
               passHref
               className="overflow-hidden text-ellipsis whitespace-nowrap"
@@ -30,7 +30,7 @@ export function Breadcrumds({ items }: Props) {
               {item.text}
             </Link>
             <ChevronRight className="h-4 w-4" />
-          </>
+          </Fragment>
         );
       })}
     </div>

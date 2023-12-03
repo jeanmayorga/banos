@@ -11,7 +11,11 @@ interface Props {
 }
 export default async function Page({ params }: Props) {
   const date = params.date;
-  const request = await supabase.from("events").select("*").order("time").eq("date", date);
+  const request = await supabase
+    .from("events")
+    .select("*, places:places(*)")
+    .order("time")
+    .eq("date", date);
 
   const events = request.data as Event[];
 
