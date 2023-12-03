@@ -72,7 +72,9 @@ export function ShareButton({ imageUrl, name, description }: Props) {
                 </div>
               </div>
               <a
-                href={`https://wa.me/?text=${window.location.href}`}
+                href={`https://web.whatsapp.com/send?text=${encodeURIComponent(
+                  window.location.href,
+                )}`}
                 target="_blank"
                 className="rounded-xl border px-4 py-3 flex items-center hover:bg-gray-100 dark:hover:bg-gray-800 hover:scale-[.99] active:scale-[.97] transition-all cursor-pointer select-none"
                 rel="noreferrer"
