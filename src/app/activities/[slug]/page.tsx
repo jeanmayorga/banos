@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${activity?.title} | Baños de agua santa`,
-    description: activity?.title.substring(0, 100),
+    description: activity?.body.substring(0, 100),
     applicationName: "Banos de agua santa app",
     keywords: activity?.keywords,
     robots: "index, follow",
