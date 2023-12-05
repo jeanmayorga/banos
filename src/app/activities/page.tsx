@@ -7,7 +7,7 @@ import { Typography } from "#/components/ui/typography";
 
 import { getActivities } from "./services";
 
-export const revalidate = 3600 / 60;
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Actividades en Banos de Agua Santa | Ecuador",
@@ -26,7 +26,7 @@ export default async function Page() {
         </Typography>
         <div className="grid sm:grid-cols-4 gap-4">
           {activities.map((activity) => (
-            <ActivityCard key={activity.id} activity={activity} />
+            <ActivityCard key={activity.id} activity={activity} v2 />
           ))}
         </div>
       </div>

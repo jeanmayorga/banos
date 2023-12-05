@@ -38,7 +38,7 @@ export function ActivitiesSectionList({ activities }: Props) {
         id="activity-list"
       >
         {activities.map((activity) => (
-          <ActivityCard activity={activity} key={activity.id} className="w-[280px]" />
+          <ActivityCard activity={activity} key={activity.id} className="w-[280px]" v2 />
         ))}
       </div>
       <div className="flex justify-end mx-4 space-x-2">

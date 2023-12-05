@@ -9,6 +9,7 @@ import { SelectSingleEventHandler } from "react-day-picker";
 
 import { Activity } from "#/app/activities/types";
 import { Popover, PopoverContent, PopoverTrigger } from "#/components/ui/popover";
+import { getWhatsappUrl } from "#/utils/get-whatsapp-url";
 
 import { Button } from "./ui/button";
 import { Calendar } from "./ui/calendar";
@@ -140,10 +141,18 @@ export function ActivityCtaForm({ price }: Props) {
       </div>
 
       <div className="mx-4 mb-4">
-        <Button className="rounded-full w-full">
-          <SendIcon className="w-4 h-4 mr-2" />
-          Reserva ahora
-        </Button>
+        <a
+          href={getWhatsappUrl({
+            text: `Quiero reservar para ${peopleCount || 0} para la fecha ${date}`,
+          })}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Button className="rounded-full w-full">
+            <SendIcon className="w-4 h-4 mr-2" />
+            Reserva ahora
+          </Button>
+        </a>
       </div>
 
       <Separator />

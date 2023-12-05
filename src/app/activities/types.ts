@@ -13,6 +13,9 @@ export interface Activity {
   map_url: string;
   cover_picture_url: string;
   has_free_parking: string;
+  tik_tok_video_id: string | null;
+  youtube_video_id: string | null;
+  keywords: string | null;
 
   place: Place;
 }

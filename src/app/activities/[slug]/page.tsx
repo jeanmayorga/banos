@@ -1,4 +1,4 @@
-import { Clock4Icon, MapPinIcon, ParkingCircle } from "lucide-react";
+import { Clock4Icon, MapPinIcon, MonitorStopIcon, ParkingCircle } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -16,7 +16,7 @@ import { Typography } from "#/components/ui/typography";
 
 import { getActivity } from "../services";
 
-export const revalidate = 3600 / 60;
+export const revalidate = 3600;
 
 interface Props {
   params: {
@@ -29,6 +29,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${activity?.title} | Baños de agua santa`,
+    description: activity?.title.substring(0, 100),
+    applicationName: "Banos de agua santa app",
+    keywords: activity?.keywords,
+    robots: "index, follow",
+    openGraph: {
+      type: "website",
+      url: `https://banos.app/activities/${activity?.slug}`,
+      title: `${activity?.title} | Baños de agua santa`,
+      description: activity?.title.substring(0, 100),
+      siteName: "Banos app",
+      images: [
+        {
+          url: activity?.cover_picture_url
+            ? `https://banos.app/_next/image?url=${encodeURIComponent(
+                activity?.cover_picture_url,
+              )}&w=640&q=75`
+            : "",
+        },
+      ],
+    },
   };
 }
 
@@ -116,7 +136,7 @@ export default async function Page({ params }: Props) {
                 </div>
               )}
               {activity.has_free_parking && (
-                <div className="flex">
+                <div className="flex mb-8">
                   <div className="mr-8">
                     <ParkingCircle className="w-6 h-6" />
                   </div>
@@ -127,6 +147,25 @@ export default async function Page({ params }: Props) {
                     <Typography variant="muted">
                       Este es uno de los pocos lugares en la zona con estacionamiento gratuito.
                     </Typography>
+                  </div>
+                </div>
+              )}
+              {activity.tik_tok_video_id && (
+                <div className="flex">
+                  <div className="mr-8">
+                    <MonitorStopIcon className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <Typography variant="h5" component="h5">
+                      Tiktok
+                    </Typography>
+                    <iframe
+                      src={`https://www.tiktok.com/embed/${activity.tik_tok_video_id}`}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      className=" h-[574px]"
+                    />
                   </div>
                 </div>
               )}
