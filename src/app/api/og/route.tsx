@@ -8,17 +8,7 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
 
-    let image: ArrayBuffer | undefined = undefined;
-
-    if (searchParams.has("image")) {
-      try {
-        image = await fetch(new URL(searchParams.get("image") || "", import.meta.url)).then((res) =>
-          res.arrayBuffer(),
-        );
-      } catch (e) {
-        console.log(e);
-      }
-    }
+    const image = searchParams.get("image");
 
     // ?title=<title>
     const hasTitle = searchParams.has("title");
