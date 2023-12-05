@@ -16,7 +16,7 @@ import { Typography } from "#/components/ui/typography";
 
 import { getActivity } from "../services";
 
-// export const revalidate = 3600 / 60;
+export const revalidate = 3600 / 60;
 
 interface Props {
   params: {
@@ -112,7 +112,7 @@ export default async function Page({ params }: Props) {
                 referrerPolicy="no-referrer-when-downgrade"
                 className="w-full sm:h-[500px] h-[250px] mb-4"
               />
-              <Typography variant="lead">
+              <Typography variant="muted">
                 {activity.place.name}, Banos de agua santa, Tungurahua, Ecuador
               </Typography>
             </section>

@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 import { supabase } from "#/api";
+import { ActivitiesSectionList } from "#/components/ActivitySectionList";
 import { EventsSectionList } from "#/components/EventsSectionList";
 import { JumboHome } from "#/components/JumboHome";
 import { NavItems } from "#/components/Nav";
@@ -13,6 +14,8 @@ import { Typography } from "#/components/ui/typography";
 import { UserButton } from "#/components/UserButton";
 import { Event } from "#/modules";
 import { getCurrentDate } from "#/utils";
+
+import { getActivities } from "./activities/services";
 
 // export const revalidate = 3600 / 60;
 
@@ -28,6 +31,8 @@ export default async function Page() {
     .order("time")
     .eq("date", currentDate);
   const events = eventsData as Event[];
+
+  const activities = await getActivities({});
 
   return (
     <>
@@ -63,49 +68,45 @@ export default async function Page() {
               <span className="font-light text-sm">¿Qué hacer en Banos?</span>
             </Link>
           </div>
-          <Separator />
 
-          <div className="mb-8">
-            <div className="flex items-center justify-between px-4 py-3">
-              <Typography variant="h4" component="h4">
-                Fiestas de Baños
-              </Typography>
-              <Link href="/events" passHref>
-                <Button variant="link" size="sm">
-                  Ver todos
-                </Button>
-              </Link>
-            </div>
-            <EventsSectionList events={events} />
-          </div>
-          <Separator />
-
-          <div className="mb-8">
-            <div className="flex items-center justify-between px-4 py-3">
-              <Typography variant="h4" component="h4">
-                Los lugares mas visitados
-              </Typography>
-              <Link href="/events" passHref>
-                <Button variant="link" size="sm">
-                  Ver todos
-                </Button>
-              </Link>
-            </div>
-
-            <div className="flex pl-4">
-              <div className="rounded-2xl bg-white shadow-lg w-[310px] overflow-hidden">
-                <div className="w-full">
-                  <img src="/manoDios.jpg" className="w-full" />
-                </div>
-                <div className="py-4 px-4">
-                  <Typography variant="h4">Las manos de Dios</Typography>
-                  <Typography className="mt-0">
-                    Una atracción única que ofrece vistas impresionantes del volcán Tungurahua
+          {events.length > 0 && (
+            <>
+              <Separator />
+              <div className="mb-8">
+                <div className="flex items-center justify-between px-4 py-3">
+                  <Typography variant="h4" component="h4">
+                    Fiestas de Baños
                   </Typography>
+                  <Link href="/events" passHref>
+                    <Button variant="link" size="sm">
+                      Ver todos
+                    </Button>
+                  </Link>
                 </div>
+                <EventsSectionList events={events} />
               </div>
-            </div>
-          </div>
+            </>
+          )}
+
+          {activities.length > 0 && (
+            <>
+              <Separator />
+
+              <div className="mb-8">
+                <div className="flex items-center justify-between px-4 py-3">
+                  <Typography variant="h4" component="h4">
+                    Actividades
+                  </Typography>
+                  <Link href="/activities" passHref>
+                    <Button variant="link" size="sm">
+                      Ver todos
+                    </Button>
+                  </Link>
+                </div>
+                <ActivitiesSectionList activities={activities} />
+              </div>
+            </>
+          )}
 
           {/* <div className="w-full h-[200px] bg-fuchsia-800 mb-8 grid grid-cols-6">
             <div className="col-span-4 p-4">
