@@ -28,6 +28,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const activity = await getActivity({ slug: params.slug });
 
   return {
+    metadataBase: new URL("https://banos.app"),
+    alternates: {
+      canonical: "/",
+    },
     title: `${activity?.title} | Baños de agua santa`,
     description: activity?.body.substring(0, 100),
     applicationName: "Banos de agua santa app",
@@ -41,11 +45,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: "Banos app",
       images: [
         {
-          url: activity?.cover_picture_url
-            ? `https://banos.app/_next/image?url=${encodeURIComponent(
-                activity?.cover_picture_url,
-              )}&w=640&q=75`
-            : "",
+          url: `https://banos.app/api/og?title?=${activity?.title}&image=${
+            activity?.cover_picture_url
+              ? encodeURIComponent(activity?.cover_picture_url)
+              : undefined
+          }`,
         },
       ],
     },
