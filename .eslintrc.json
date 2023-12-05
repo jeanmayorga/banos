@@ -1,20 +1,20 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "plugin:prettier/recommended"
-  ],
+  "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
   "rules": {
-    "import/order": ["error", {
-      "pathGroups": [
-        {
-          "pattern": "#/**",
-          "group": "internal",
-          "position": "after"
-        }
-      ],
-      "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object"],
-      "newlines-between": "always",
-      "alphabetize": { "order": "asc", "caseInsensitive": true }
-    }]
+    "import/order": [
+      "error",
+      {
+        "pathGroups": [
+          {
+            "pattern": "#/**",
+            "group": "internal",
+            "position": "after"
+          }
+        ],
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object"],
+        "newlines-between": "always",
+        "alphabetize": { "order": "asc", "caseInsensitive": true }
+      }
+    ]
   }
 }
