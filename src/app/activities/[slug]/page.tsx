@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         {
           url: `https://banos.app/api/og?title?=${activity?.title}&image=${
             activity?.cover_picture_url
-              ? encodeURIComponent(activity?.cover_picture_url)
+              ? encodeURIComponent(`https://www.banos.app/${activity?.cover_picture_url}`)
               : undefined
           }`,
         },
