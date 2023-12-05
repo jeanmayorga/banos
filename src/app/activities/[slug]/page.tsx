@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "website",
       url: `https://banos.app/activities/${activity?.slug}`,
       title: `${activity?.title} | Baños de agua santa`,
-      description: activity?.title.substring(0, 100),
+      description: activity?.body.substring(0, 100),
       siteName: "Banos app",
       images: [
         {
