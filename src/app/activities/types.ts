@@ -12,6 +12,7 @@ export interface Activity {
   create_at: string;
   map_url: string;
   cover_picture_url: string;
+  has_free_parking: string;
 
   place: Place;
 }

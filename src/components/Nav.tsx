@@ -29,7 +29,7 @@ function Item({ href, icon, name }: ItemProps) {
     >
       <div className="flex flex-col items-center px-2 py-2 my-1 rounded-lg">
         {icon}
-        <div className={cn("text-xs font-light", isActive && "font-medium")}>{name}</div>
+        <div className={cn("text-xs font-normal", isActive && "font-medium")}>{name}</div>
       </div>
     </Link>
   );

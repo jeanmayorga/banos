@@ -2,7 +2,7 @@
 
 import { CalendarDaysIcon, UserGroupIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { AnimatePresence, motion } from "framer-motion";
-import { MinusIcon, PlusIcon } from "lucide-react";
+import { MinusIcon, PlusIcon, SendIcon } from "lucide-react";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { SelectSingleEventHandler } from "react-day-picker";
@@ -140,18 +140,23 @@ export function ActivityCtaForm({ price }: Props) {
       </div>
 
       <div className="mx-4 mb-4">
-        <Button className="rounded-full w-full">Reserva</Button>
+        <Button className="rounded-full w-full">
+          <SendIcon className="w-4 h-4 mr-2" />
+          Reserva ahora
+        </Button>
       </div>
 
       <Separator />
 
       <div className="mx-4 flex items-center justify-between pt-6">
         <div className="flex items-center">
-          <Typography variant="lead" className="font-light">
+          <Typography variant="lead" className="font-normal">
             Total
           </Typography>
         </div>
-        <Typography variant="lead">${total.toFixed(2)} USD</Typography>
+        <Typography variant="lead" className="font-medium">
+          ${total.toFixed(2)} USD
+        </Typography>
       </div>
     </div>
   );

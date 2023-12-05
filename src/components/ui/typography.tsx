@@ -10,7 +10,7 @@ const typographyVariants = cva("", {
       h2: "scroll-m-20 text-3xl font-semibold tracking-tight",
       h3: "scroll-m-20 text-2xl font-semibold tracking-tight",
       h4: "scroll-m-20 text-xl font-semibold tracking-tight",
-      h5: "",
+      h5: "scroll-m-20 text-base font-semibold tracking-tight",
       h6: "",
       p: "leading-7 [&:not(:first-child)]:mt-6 font-light",
       lead: "text-xl text-muted-foreground",

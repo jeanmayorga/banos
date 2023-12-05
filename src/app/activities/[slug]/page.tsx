@@ -1,4 +1,4 @@
-import { MapPinIcon } from "lucide-react";
+import { Clock4Icon, MapPinIcon, ParkingCircle } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -91,7 +91,45 @@ export default async function Page({ params }: Props) {
         <div className="sm:grid sm:grid-cols-6 gap-8 relative pb-4">
           <div className="col-span-4 mb-8 sm:mb-0">
             <article>
+              <Typography variant="h4">
+                {activity.title} en {activity.place.name}, Banos, Ecuador
+              </Typography>
+              <Separator className="my-8" />
+              <Typography variant="h5" component="h5">
+                Descripción
+              </Typography>
               <Markdown content={activity.body} />
+              <Separator className="my-8" />
+              {activity.open_time && activity.close_time && (
+                <div className="flex mb-8">
+                  <div className="mr-8">
+                    <Clock4Icon className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <Typography variant="h5" component="h5">
+                      Horario
+                    </Typography>
+                    <Typography variant="muted">
+                      Desde {activity.open_time} hasta {activity.close_time}
+                    </Typography>
+                  </div>
+                </div>
+              )}
+              {activity.has_free_parking && (
+                <div className="flex">
+                  <div className="mr-8">
+                    <ParkingCircle className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <Typography variant="h5" component="h5">
+                      Estacionamiento gratuito
+                    </Typography>
+                    <Typography variant="muted">
+                      Este es uno de los pocos lugares en la zona con estacionamiento gratuito.
+                    </Typography>
+                  </div>
+                </div>
+              )}
             </article>
           </div>
           <div className="col-span-2">
@@ -101,7 +139,7 @@ export default async function Page({ params }: Props) {
         <div>
           <Separator className="my-4" />
           {activity.map_url && (
-            <section className="py-4">
+            <section className="py-4 rounded-xl overflow-hidden">
               <Typography variant="h4" component="h2" className="mb-4">
                 Ubicación
               </Typography>
