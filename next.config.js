@@ -2,7 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["banos.s3.sa-east-1.amazonaws.com"],
+    loader: "custom",
+    loaderFile: "./src/utils/cloudinary-loader.ts",
   },
 };
 

@@ -33,7 +33,7 @@ export function ActivityImage({ src }: Props) {
       className="relative w-full h-[250px] sm:h-[400px] rounded-3xl overflow-hidden mb-8"
       id="coverContainer"
     >
-      <Image src={src} alt="Header" id="cover" fill className="object-cover" />
+      <Image src={src} alt="Header" id="cover" fill className="object-cover" quality={50} />
     </div>
   );
 }

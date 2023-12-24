@@ -14,7 +14,7 @@ import { Badge } from "#/components/ui/badge";
 import { Separator } from "#/components/ui/separator";
 import { Typography } from "#/components/ui/typography";
 
-import { getActivity } from "../services";
+import { getActivity, getActivityPhotos } from "../services";
 
 export const revalidate = 3600;
 
@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "website",
       url: `https://banos.app/activities/${activity?.slug}`,
       title: `${activity?.title} | Baños de agua santa`,
-      description: activity?.body.substring(0, 100),
+      description: activity?.description,
       siteName: "Banos app",
       images: [
         {
@@ -58,10 +58,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
   const activity = await getActivity({ slug: params.slug });
-
-  if (!activity) {
+  if (!activity || !activity.is_active) {
     return notFound();
   }
+
+  const photos = await getActivityPhotos({ activityId: activity?.id });
 
   return (
     <>
@@ -110,18 +111,15 @@ export default async function Page({ params }: Props) {
           />
         </div>
 
-        <ActivityImage src={activity.cover_picture_url} />
+        <ActivityImage src={photos[0].path} />
 
         <div className="sm:grid sm:grid-cols-6 gap-8 relative pb-4">
           <div className="col-span-4 mb-8 sm:mb-0">
             <article>
-              <Typography variant="h4">
+              <Typography variant="h4" component="p">
                 {activity.title} en {activity.place.name}, Banos, Ecuador
               </Typography>
               <Separator className="my-8" />
-              <Typography variant="h5" component="h5">
-                Descripción
-              </Typography>
               <Markdown content={activity.body} />
               <Separator className="my-8" />
               {activity.open_time && activity.close_time && (

@@ -3,6 +3,10 @@ import Script from "next/script";
 import { Toaster } from "react-hot-toast";
 
 import "#/styles/global.css";
+
+import { Footer } from "#/components/Footer";
+
+import { LayoutReactQuery } from "./layout-react-query";
 import { ThemeProvider } from "./theme-provider";
 
 const inter = Inter({
@@ -18,15 +22,18 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang="es" className={inter.className}>
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-          <Toaster />
-        </ThemeProvider>
+        <LayoutReactQuery>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <Toaster />
+            <Footer />
+          </ThemeProvider>
+        </LayoutReactQuery>
       </body>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-4WJMRLZSCE"
@@ -40,6 +47,8 @@ export default function RootLayout({ children }: Props) {
           gtag('config', 'G-4WJMRLZSCE');
         `}
       </Script>
+
+      <Script src="https://upload-widget.cloudinary.com/global/all.js" />
     </html>
   );
 }
