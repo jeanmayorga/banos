@@ -29,8 +29,18 @@ import {
 } from "#/components/ui/table";
 import { Typography } from "#/components/ui/typography";
 
-export default async function Page() {
-  const activities = await getActivities();
+interface Props {
+  searchParams: {
+    sortBy: string;
+    sortOrder: string;
+  };
+}
+export default async function Page({ searchParams }: Props) {
+  const activities = await getActivities({
+    sortBy: searchParams?.sortBy,
+    sortOrder: searchParams?.sortOrder,
+  });
+
   return (
     <>
       <main className="container mx-auto max-w-7xl my-8">
@@ -49,6 +59,7 @@ export default async function Page() {
               <TableHead>Listing</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Location</TableHead>
+              <TableHead>Visits</TableHead>
               <TableHead>Last modified</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
@@ -85,6 +96,7 @@ export default async function Page() {
                 <TableCell>
                   <Badge variant="outline">{activity.place.name.toLowerCase()}</Badge>
                 </TableCell>
+                <TableCell>{activity.visits}</TableCell>
                 <TableCell>{activity.updated_at}</TableCell>
                 <TableCell className="text-right">
                   <DropdownMenu>

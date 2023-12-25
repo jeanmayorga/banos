@@ -1,8 +1,17 @@
 "use client";
 
 import { ArrowLeft, ArrowLeftIcon, ArrowRight } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, use, useCallback, useEffect, useState } from "react";
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DroppableProvided,
+  DroppableStateSnapshot,
+  DropResult,
+} from "react-beautiful-dnd";
 import toast from "react-hot-toast";
 
 import {
@@ -10,18 +19,26 @@ import {
   getActivity,
   getActivityPhotos,
   createActivityPhoto,
+  updateActivityPhoto,
 } from "#/app/activities/services";
 import { Activity, ActivityPhoto } from "#/app/activities/types";
 import { deletePhoto } from "#/app/cloudinary/services";
 import { revalidate } from "#/app/revalidate/services";
 import { ActivityStepper } from "#/components/ActivityStepper";
 import { CreateImageButton } from "#/components/CreateImageButton";
-import { Header } from "#/components/Header";
-import { Nav } from "#/components/Nav";
 import { Photo } from "#/components/Photo";
 import { Button } from "#/components/ui/button";
 import { Typography } from "#/components/ui/typography";
 import { CloudinaryResult, CloudinaryWidget } from "#/types";
+import { cn } from "#/utils";
+
+const reorder = (list: ActivityPhoto[], startIndex: number, endIndex: number) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result.map((item, index) => ({ ...item, index }));
+};
 
 function PhotoRendered({
   photo,
@@ -99,6 +116,8 @@ export default function Page({ searchParams }: Props) {
       uploadPreset: "xfq6u64u",
       cropping: true,
       // croppingAspectRatio: 2,
+      defaultSource: "url",
+      multiple: true,
       showSkipCropButton: true,
       croppingShowDimensions: true,
       sources: ["local", "url"],
@@ -143,6 +162,16 @@ export default function Page({ searchParams }: Props) {
     replace(`/dashboard/activities/create/details?slug=${activity?.slug}`);
   };
 
+  const onDragEnd = useCallback(
+    async (result: DropResult) => {
+      if (!result.destination) return;
+      const items = reorder(photos, result.source.index, result.destination.index);
+      setPhotos(items);
+      await updateActivityPhoto(items);
+    },
+    [photos],
+  );
+
   return (
     <>
       <main className="container max-w-6xl mx-auto my-16">
@@ -152,7 +181,7 @@ export default function Page({ searchParams }: Props) {
             Regresar
           </Button>
         </div>
-        <section className="flex gap-40">
+        <section className="flex gap-20">
           <ActivityStepper step={2} />
           <div className="w-full">
             <Typography variant="h2" className="mb-8">
@@ -166,16 +195,50 @@ export default function Page({ searchParams }: Props) {
               />
             </div>
             <div
-              className="border-dashed border-2 h-[150px] rounded-xl flex items-center justify-center hover:bg-slate-100 transition-all mb-8 cursor-pointer"
+              className="border-dashed border-2 h-[200px] rounded-xl flex items-center justify-center hover:bg-slate-50 transition-all mb-8 cursor-pointer"
               onClick={onLoadPictures}
             >
               <Typography variant="h5">Subir fotos</Typography>
             </div>
-            <div className="gap-4">
+
+            <DragDropContext onDragEnd={onDragEnd}>
+              <Droppable droppableId="droppable" direction="horizontal">
+                {(provided) => (
+                  <div
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                    className="flex overflow-auto mb-8"
+                  >
+                    {photos.map((photo, index) => (
+                      <Draggable key={photo.path} draggableId={photo.path} index={index}>
+                        {(provided) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                          >
+                            <Image
+                              src={photo.path}
+                              alt={photo.alt}
+                              width={300}
+                              height={300}
+                              className="object-cover aspect-square"
+                            />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+
+            {/* <div className="gap-4">
               {photos.map((photo) => (
                 <PhotoRendered key={photo.id} photo={photo} photos={photos} setPhotos={setPhotos} />
               ))}
-            </div>
+            </div> */}
 
             <div className="flex justify-between bg-slate-100 dark:bg-slate-900 p-4 rounded-xl">
               <Button

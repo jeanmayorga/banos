@@ -36,7 +36,7 @@ export function ActivityCtaForm({ price }: Props) {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 shadow border dark:border-slate-700 rounded-lg w-full py-6 sticky top-[90px]">
+    <div className="bg-gray-50/90 dark:bg-slate-900 dark:border-slate-700 rounded-xl w-full py-6 sticky top-[90px]">
       <div className="px-4 mb-4">
         <Typography variant="h3" className="flex items-center">
           $ {price.toFixed(2)}{" "}
@@ -47,7 +47,7 @@ export function ActivityCtaForm({ price }: Props) {
         <Typography variant="lead">por persona</Typography>
       </div>
 
-      <div className="mx-4 flex flex-none items-center overflow-hidden border dark:border-slate-600 dark:hover:bg-slate-700 rounded-full mb-4">
+      <div className="mx-4 flex flex-none items-center overflow-hidden bg-white border dark:border-slate-600 dark:hover:bg-slate-700 rounded-full mb-4">
         <Popover onOpenChange={(e) => setIsDateOpen(e)} open={isDateOpen}>
           <PopoverTrigger className="h-full w-full flex items-center justify-start py-3 px-4 text-gray-400">
             <CalendarDaysIcon className="h-6 w-6 mr-2" />
@@ -84,7 +84,7 @@ export function ActivityCtaForm({ price }: Props) {
         </AnimatePresence>
       </div>
 
-      <div className="mx-4 flex flex-none items-center overflow-hidden border dark:border-slate-600 dark:hover:bg-slate-700 rounded-full mb-4">
+      <div className="mx-4 flex flex-none items-center overflow-hidden border bg-white dark:border-slate-600 dark:hover:bg-slate-700 rounded-full mb-4">
         <Popover onOpenChange={(e) => setIsPeopleCountOpen(e)} open={isPeopleCountOpen}>
           <PopoverTrigger className="h-full w-full flex items-center justify-start py-3 px-4 text-gray-400">
             <UserGroupIcon className="h-6 w-6 mr-2" />
@@ -148,7 +148,7 @@ export function ActivityCtaForm({ price }: Props) {
           target="_blank"
           rel="noreferrer"
         >
-          <Button className="rounded-full w-full bg-fuchsia-800">
+          <Button className="rounded-full w-full">
             <SendIcon className="w-4 h-4 mr-2" />
             Reserva ahora
           </Button>

@@ -54,8 +54,8 @@ export function ActivityCard({ activity }: Props) {
               <Link href={`/activities/${activity.slug}`} passHref>
                 <Image
                   src={photo.path}
-                  width={480}
-                  height={480}
+                  width={380}
+                  height={380}
                   alt={activity.title}
                   className="object-cover h-full w-full"
                 />

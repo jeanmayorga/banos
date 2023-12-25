@@ -14,7 +14,7 @@ export default function Page() {
           </Typography>
         </div>
         <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {Array.from(Array(10).keys()).map((item) => (
+          {Array.from(Array(18).keys()).map((item) => (
             <ActivityCardLoading key={item} />
           ))}
         </div>

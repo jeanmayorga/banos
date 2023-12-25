@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { ActivityContent } from "#/components/ActivityContent";
 import { ActivityCtaForm } from "#/components/ActivityCtaForm";
 import { ActivityPhotos } from "#/components/ActivityPhotos";
 import { ActivityPhotosLoading } from "#/components/ActivityPhotosLoading";
@@ -115,11 +116,10 @@ export default async function Page({ params }: Props) {
         <div className="sm:grid sm:grid-cols-6 gap-8 relative pb-4">
           <div className="col-span-4 mb-8 sm:mb-0">
             <article>
-              <Typography variant="h4" component="p">
+              <Typography variant="h4" component="h2" className="mb-4">
                 {activity.title} en {activity.place.name}, Banos, Ecuador
               </Typography>
-              <Separator className="my-8" />
-              <Markdown content={activity.body} />
+              <ActivityContent content={activity.body} />
               <Separator className="my-8" />
               {activity.open_time && activity.close_time && (
                 <div className="flex mb-8">
@@ -196,16 +196,6 @@ export default async function Page({ params }: Props) {
           <div className="col-span-2">
             <ActivityCtaForm price={activity.price} />
           </div>
-        </div>
-        <div>
-          <Separator className="my-4" />
-          <section className="py-4 rounded-xl overflow-hidden">
-            <Typography variant="h4" component="h2" className="mb-4">
-              Fotos
-            </Typography>
-
-            <ActivityPhotosMansory photos={photos} />
-          </section>
         </div>
       </div>
     </>

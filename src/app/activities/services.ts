@@ -19,8 +19,8 @@ export async function getActivity(options?: { slug?: string }) {
 export async function getActivities(options?: {
   slug?: string;
   isActive?: boolean;
-  sortBy?: "visits" | "name";
-  sortOrder?: "asc" | "desc";
+  sortBy?: "visits" | "name" | string;
+  sortOrder?: "asc" | "desc" | string;
 }) {
   const sortOrderDefault = options?.sortOrder || "asc";
 
@@ -80,6 +80,7 @@ export async function getActivityPhotos(options: { activityId?: number; limit?: 
     .from("activities_photos")
     .select("*")
     .eq("activity_id", options.activityId)
+    .order("index", { ascending: true })
     .select("*");
 
   if (options.limit) query.limit(options.limit);
@@ -103,6 +104,14 @@ export async function createActivityPhoto(options: Omit<ActivityPhoto, "id">) {
   if (error) return null;
 
   return data as ActivityPhoto;
+}
+export async function updateActivityPhoto(options: ActivityPhoto[]) {
+  let query = supabase.from("activities_photos").upsert(options).select("*");
+
+  const { data, error } = await query;
+  if (error) return null;
+
+  return data as ActivityPhoto[];
 }
 
 export async function deleteActivityPhoto(photoId: number) {

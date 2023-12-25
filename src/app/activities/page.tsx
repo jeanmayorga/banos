@@ -34,11 +34,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Page() {
+interface Props {
+  searchParams: {
+    sortBy: string;
+    sortOrder: string;
+  };
+}
+export default async function Page({ searchParams }: Props) {
   const activities = await getActivities({
+    sortBy: searchParams?.sortBy || "visits",
+    sortOrder: searchParams?.sortOrder || "desc",
     isActive: true,
-    sortBy: "visits",
-    sortOrder: "desc",
   });
 
   return (

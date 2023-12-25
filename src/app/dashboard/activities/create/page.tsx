@@ -146,7 +146,7 @@ export default function Page({ searchParams }: Props) {
             </Button>
           )}
         </div>
-        <section className="flex gap-40">
+        <section className="flex gap-20">
           <ActivityStepper step={1} />
           <div className="w-full">
             <Typography variant="h2" className="mb-8">

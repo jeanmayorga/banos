@@ -1,6 +1,6 @@
 "use client";
 
-import { FileEditIcon, PencilIcon, Sparkles } from "lucide-react";
+import { PencilIcon, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { createContent } from "#/app/openia/services";
@@ -49,14 +49,7 @@ export function CreateContentButton({ prompt, onCreate, disabled }: Props) {
             onChange={(e) => setFinalPrompt(e.target.value)}
           />
           <DialogFooter>
-            <Button
-              onClick={() => {
-                setDialogOpen(false);
-                onCreateFn();
-              }}
-            >
-              Guardar
-            </Button>
+            <Button onClick={() => setDialogOpen(false)}>Guardar</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
