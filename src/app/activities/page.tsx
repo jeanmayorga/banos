@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 
 import { ActivityCard } from "#/components/ActivityCard";
+import { ActivityCardLoading } from "#/components/ActivityCardLoading";
 import { Header } from "#/components/Header";
 import { Nav } from "#/components/Nav";
 import { Typography } from "#/components/ui/typography";
@@ -36,9 +37,6 @@ export default async function Page() {
 
   return (
     <>
-      <Header />
-      <Nav />
-
       <div className="container mx-auto py-16">
         <div className="mb-12">
           <Typography variant="h2" component="h1">

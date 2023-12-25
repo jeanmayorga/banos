@@ -1,9 +1,8 @@
 "use client";
 
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 import { getActivityPhotos } from "#/app/activities/services";
 import { Activity, ActivityPhoto } from "#/app/activities/types";
@@ -36,7 +35,7 @@ export function ActivityCard({ activity }: Props) {
 
   return (
     <div className="group" onMouseOver={handleLoadPhotos}>
-      <Carousel className="rounded-xl overflow-hidden">
+      <Carousel className="rounded-xl overflow-hidden aspect-square">
         <CarouselContent>
           <CarouselItem className="aspect-square">
             <Link href={`/activities/${activity.slug}`} passHref>
@@ -70,11 +69,9 @@ export function ActivityCard({ activity }: Props) {
       </Carousel>
 
       <Link href={`/activities/${activity.slug}`} passHref>
-        <div className="w-full">
-          <Typography variant="p" className="pt-2 font-medium">
-            {activity.title.substring(0, 30)}
-          </Typography>
-        </div>
+        <Typography variant="p" className="pt-2 font-medium">
+          {activity.title.substring(0, 30)}
+        </Typography>
         <Typography variant="muted">{activity.place?.name}</Typography>
         <Typography variant="muted" className="font-semibold">
           ${activity.price?.toFixed(2)} USD

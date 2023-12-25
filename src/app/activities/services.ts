@@ -31,6 +31,7 @@ export async function getActivities(options?: { slug?: string; is_active?: boole
   const { data, error } = await query;
 
   if (error) return [];
+  // await new Promise((r) => setTimeout(r, 5000));
 
   return data as Activity[];
 }

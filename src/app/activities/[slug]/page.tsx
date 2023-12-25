@@ -66,9 +66,6 @@ export default async function Page({ params }: Props) {
 
   return (
     <>
-      <Header />
-      <Nav />
-
       <div className="container max-w-6xl mx-auto">
         <Breadcrumds
           items={[

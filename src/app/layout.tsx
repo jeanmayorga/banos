@@ -47,8 +47,6 @@ export default function RootLayout({ children }: Props) {
           gtag('config', 'G-4WJMRLZSCE');
         `}
       </Script>
-
-      <Script src="https://upload-widget.cloudinary.com/global/all.js" />
     </html>
   );
 }

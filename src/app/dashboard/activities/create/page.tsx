@@ -123,8 +123,6 @@ export default function Page({ searchParams }: Props) {
 
   return (
     <>
-      <Header />
-      <Nav />
       <main className="container max-w-6xl mx-auto my-16">
         <section className="flex gap-40">
           <ActivityStepper step={1} />

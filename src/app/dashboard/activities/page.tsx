@@ -33,8 +33,6 @@ export default async function Page() {
 
   return (
     <>
-      <Header />
-      <Nav />
       <main className="container mx-auto max-w-7xl my-8">
         <div className="flex items-center justify-between mb-8">
           <Typography variant="h2">Activities</Typography>
