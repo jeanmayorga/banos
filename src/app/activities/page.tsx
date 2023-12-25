@@ -8,6 +8,8 @@ import { Typography } from "#/components/ui/typography";
 
 import { getActivities } from "./services";
 
+export const revalidate = 3600 * 60;
+
 export const metadata: Metadata = {
   title: "Que hacer en Banos de Agua Santa | Ecuador",
   metadataBase: new URL("https://banos.app"),
