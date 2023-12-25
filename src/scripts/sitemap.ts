@@ -29,7 +29,7 @@ async function main() {
   </urlset>
   `;
 
-  await fs.appendFile("./public/sitemap.xml", xml);
+  await fs.writeFile("./public/sitemap.xml", xml);
 }
 
 main();
