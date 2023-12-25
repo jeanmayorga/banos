@@ -94,9 +94,9 @@ export default async function Page({ params }: Props) {
           </div>
 
           <ShareButton
-            imageUrl={activity.cover_picture_url}
+            imageUrl={photos[0].path}
             name={activity.title}
-            description={activity.body}
+            description={activity.description}
           />
         </div>
       </div>

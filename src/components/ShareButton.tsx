@@ -66,7 +66,7 @@ export function ShareButton({ imageUrl, name, description }: Props) {
                 />
                 <div>
                   <Typography variant="lead">{name}</Typography>
-                  <Typography variant="muted">{description.slice(0, 83)}...</Typography>
+                  <Typography variant="muted">{description}</Typography>
                 </div>
               </div>
             )}
