@@ -19,8 +19,9 @@ export async function getActivity(options?: { slug?: string }) {
 export async function getActivities(options?: {
   slug?: string;
   isActive?: boolean;
-  sortBy?: "visits" | "name" | string;
+  sortBy?: "visits" | "name" | "price" | string;
   sortOrder?: "asc" | "desc" | string;
+  search?: string;
 }) {
   const sortOrderDefault = options?.sortOrder || "asc";
 
@@ -32,12 +33,16 @@ export async function getActivities(options?: {
 
   if (options?.slug) query = query.eq("slug", options.slug);
   if (options?.isActive) query = query.eq("is_active", options.isActive);
+  if (options?.search) query = query.textSearch("title", options.search);
 
   if (options?.sortBy === "visits") {
     query = query.order("visits", { ascending: sortOrderDefault === "asc" });
   }
   if (options?.sortBy === "name") {
     query = query.order("title", { ascending: sortOrderDefault === "asc" });
+  }
+  if (options?.sortBy === "price") {
+    query = query.order("price", { ascending: sortOrderDefault === "asc" });
   }
 
   query.limit(1, { referencedTable: "activities_photos" });
