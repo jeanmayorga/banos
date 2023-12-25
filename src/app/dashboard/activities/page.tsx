@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { getActivities } from "#/app/activities/services";
+import { revalidate } from "#/app/revalidate/services";
 import { Header } from "#/components/Header";
 import { Nav } from "#/components/Nav";
 import { Photo } from "#/components/Photo";
@@ -30,7 +31,6 @@ import { Typography } from "#/components/ui/typography";
 
 export default async function Page() {
   const activities = await getActivities();
-
   return (
     <>
       <main className="container mx-auto max-w-7xl my-8">
@@ -57,19 +57,21 @@ export default async function Page() {
             {activities.map((activity) => (
               <TableRow key={activity.id}>
                 <TableCell className="font-medium">
-                  <div className="flex items-center">
-                    {activity.photos && activity.photos.length > 0 && activity.photos[0].path && (
-                      <Photo
-                        path={activity.photos[0].path}
-                        alt={activity.photos[0].alt}
-                        width={45}
-                        height={33}
-                        className="mr-2 rounded-lg object-cover"
-                      />
-                    )}
+                  <Link href={`/dashboard/activities/create?slug=${activity.slug}`} passHref>
+                    <div className="flex items-center">
+                      {activity.photos && activity.photos.length > 0 && activity.photos[0].path && (
+                        <Photo
+                          path={activity.photos[0].path}
+                          alt={activity.photos[0].alt}
+                          width={45}
+                          height={33}
+                          className="mr-2 rounded-lg object-cover"
+                        />
+                      )}
 
-                    {activity.title}
-                  </div>
+                      {activity.title}
+                    </div>
+                  </Link>
                 </TableCell>
                 <TableCell>
                   {activity.is_active ? (

@@ -70,7 +70,7 @@ export function ActivityCard({ activity }: Props) {
 
       <Link href={`/activities/${activity.slug}`} passHref>
         <Typography variant="p" className="pt-2 font-medium">
-          {activity.title.substring(0, 30)}
+          {activity.title}
         </Typography>
         <Typography variant="muted">{activity.place?.name}</Typography>
         <Typography variant="muted" className="font-semibold">

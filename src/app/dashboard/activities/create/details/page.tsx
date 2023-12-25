@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowLeftIcon, ArrowRight } from "lucide-react";
 import { revalidatePath } from "next/cache";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -75,7 +75,7 @@ export default function Page({ searchParams }: Props) {
       setActivity(activity);
 
       reset({
-        map_url: activity?.map_url,
+        map_url: activity?.map_url || "",
         has_free_parking: activity?.has_free_parking || false,
         is_active: activity?.is_active,
         tik_tok_video_id: activity?.tik_tok_video_id || "",
@@ -89,6 +89,12 @@ export default function Page({ searchParams }: Props) {
   return (
     <>
       <main className="container max-w-6xl mx-auto my-16">
+        <div className="flex justify-between bg-slate-100 dark:bg-slate-900 p-4 rounded-xl mb-8">
+          <Button variant="ghost" onClick={() => replace("/dashboard/activities")}>
+            <ArrowLeftIcon className="w-4 h-4 mr-1" />
+            Regresar
+          </Button>
+        </div>
         <section className="flex gap-40">
           <ActivityStepper step={3} />
           <div className="w-full">

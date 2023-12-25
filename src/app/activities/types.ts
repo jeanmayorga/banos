@@ -24,6 +24,7 @@ export interface Activity {
   photos_count: {
     count: number;
   }[];
+  visits: number;
 }
 
 export interface ActivityPhoto {

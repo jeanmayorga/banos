@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeftIcon, ArrowRight, RefreshCcw, RefreshCcwIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import * as z from "zod";
 
 import { createActivity, getActivity, updateActivity } from "#/app/activities/services";
+import { Activity } from "#/app/activities/types";
 import { usePlaces } from "#/app/places/hooks";
 import { revalidate } from "#/app/revalidate/services";
 import { ActivityStepper } from "#/components/ActivityStepper";
@@ -60,7 +61,9 @@ export default function Page({ searchParams }: Props) {
   const isUpdating = Boolean(slug);
 
   const { places } = usePlaces();
+  const [activity, setActivity] = useState<Activity | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isRevalidating, setIsRevalidating] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: "all",
@@ -104,6 +107,7 @@ export default function Page({ searchParams }: Props) {
     async function load() {
       if (slug) {
         const activity = await getActivity({ slug });
+        setActivity(activity);
 
         reset({
           title: activity?.title,
@@ -121,9 +125,27 @@ export default function Page({ searchParams }: Props) {
     load();
   }, [reset, setValue, slug]);
 
+  async function handleRevalidate() {
+    setIsRevalidating(true);
+    await revalidate(`/activities/${activity?.slug}`);
+    setIsRevalidating(false);
+  }
+
   return (
     <>
       <main className="container max-w-6xl mx-auto my-16">
+        <div className="flex justify-between bg-slate-100 dark:bg-slate-900 p-4 rounded-xl mb-8">
+          <Button variant="ghost" onClick={() => replace("/dashboard/activities")}>
+            <ArrowLeftIcon className="w-4 h-4 mr-1" />
+            Regresar
+          </Button>
+          {isUpdating && (
+            <Button variant="outline" isLoading={isRevalidating} onClick={handleRevalidate}>
+              <RefreshCcwIcon className="w-4 h-4 mr-1" />
+              Revalidar
+            </Button>
+          )}
+        </div>
         <section className="flex gap-40">
           <ActivityStepper step={1} />
           <div className="w-full">
@@ -148,6 +170,7 @@ export default function Page({ searchParams }: Props) {
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
                   name="body"
@@ -163,6 +186,50 @@ export default function Page({ searchParams }: Props) {
                       </div>
                       <FormControl>
                         <Textarea {...field} rows={11} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <div className="flex items-center justify-between">
+                        <FormLabel>OpenGraph Description:</FormLabel>
+                        <CreateContentButton
+                          disabled={!watch("title")}
+                          prompt={`Crea una descripcion rapida, corta, menos de un parrafo, y el resultado sin comillas para usar en google search basada en esta descripcion:
+\n"${watch("body")}"`}
+                          onCreate={(content) => setValue("description", content)}
+                        />
+                      </div>
+                      <FormControl>
+                        <Textarea {...field} rows={4} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="keywords"
+                  render={({ field }) => (
+                    <FormItem>
+                      <div className="flex items-center justify-between">
+                        <FormLabel>OpenGraph Keywords:</FormLabel>
+                        <CreateContentButton
+                          disabled={!watch("title")}
+                          prompt={`Crea keywords claves para google search sobre ${watch(
+                            "title",
+                          )}, separados por comas no uses comillas ni ningun otro tipo de simbolos, todas en lowercase.`}
+                          onCreate={(content) => setValue("keywords", content)}
+                        />
+                      </div>
+                      <FormControl>
+                        <Textarea {...field} rows={4} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -243,50 +310,6 @@ export default function Page({ searchParams }: Props) {
                   />
                 </div>
 
-                <FormField
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem>
-                      <div className="flex items-center justify-between">
-                        <FormLabel>OpenGraph Description:</FormLabel>
-                        <CreateContentButton
-                          disabled={!watch("title")}
-                          prompt={`Crea una descripcion para el buscador de google que sea rapida y menos de un parrafo sobre ${watch(
-                            "title",
-                          )} usando esta descripcion ${watch("body")}`}
-                          onCreate={(content) => setValue("description", content)}
-                        />
-                      </div>
-                      <FormControl>
-                        <Textarea {...field} rows={4} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="keywords"
-                  render={({ field }) => (
-                    <FormItem>
-                      <div className="flex items-center justify-between">
-                        <FormLabel>OpenGraph Keywords:</FormLabel>
-                        <CreateContentButton
-                          disabled={!watch("title")}
-                          prompt={`Crea keywords claves para google search sobre ${watch(
-                            "title",
-                          )}, separados por comas no uses comillas ni ningun otro tipo de simbolos, todas en lowercase.`}
-                          onCreate={(content) => setValue("keywords", content)}
-                        />
-                      </div>
-                      <FormControl>
-                        <Textarea {...field} rows={4} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
                 <div className="flex justify-end bg-slate-100 dark:bg-slate-900 p-4 rounded-xl">
                   <Button type="submit" disabled={!isValid || isLoading} isLoading={isLoading}>
                     Continuar

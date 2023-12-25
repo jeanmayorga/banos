@@ -148,7 +148,7 @@ export function ActivityCtaForm({ price }: Props) {
           target="_blank"
           rel="noreferrer"
         >
-          <Button className="rounded-full w-full">
+          <Button className="rounded-full w-full bg-fuchsia-800">
             <SendIcon className="w-4 h-4 mr-2" />
             Reserva ahora
           </Button>

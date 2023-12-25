@@ -5,7 +5,7 @@ import { Fragment } from "react";
 interface Props {
   items: {
     href: string;
-    text: string;
+    text: string | React.ReactNode;
   }[];
 }
 export function Breadcrumds({ items }: Props) {

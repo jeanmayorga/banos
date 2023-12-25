@@ -33,7 +33,11 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const activities = await getActivities({ is_active: true });
+  const activities = await getActivities({
+    isActive: true,
+    sortBy: "visits",
+    sortOrder: "desc",
+  });
 
   return (
     <>

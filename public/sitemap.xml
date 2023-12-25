@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
+  <?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <!--We manually set the two URLs we know already-->
     <url>
@@ -7,18 +8,11 @@
     <url>
       <loc>https://banos.app/activities</loc>
     </url>
-    
-    <url>
-      <loc>https://banos.app/activity/los-pies-de-dios</loc>
-    </url>
     <url>
       <loc>https://banos.app/activity/camino-de-la-serpiente</loc>
     </url>
     <url>
-      <loc>https://banos.app/activity/las-manos-de-dios</loc>
-    </url>
-    <url>
-      <loc>https://banos.app/activity/animal-park</loc>
+      <loc>https://banos.app/activity/los-pies-de-dios</loc>
     </url>
     <url>
       <loc>https://banos.app/activity/la-casa-del-arbol</loc>
@@ -27,22 +21,31 @@
       <loc>https://banos.app/activity/el-pailon-del-diablo</loc>
     </url>
     <url>
-      <loc>https://banos.app/activity/mirador-bellavista</loc>
-    </url>
-    <url>
       <loc>https://banos.app/activity/canyoning</loc>
-    </url>
-    <url>
-      <loc>https://banos.app/activity/rafting</loc>
     </url>
     <url>
       <loc>https://banos.app/activity/canopy</loc>
     </url>
     <url>
-      <loc>https://banos.app/activity/santuario-nuestra-senora-del-rosario-de-agua-santa</loc>
+      <loc>https://banos.app/activity/rafting</loc>
+    </url>
+    <url>
+      <loc>https://banos.app/activity/las-manos-de-dios</loc>
+    </url>
+    <url>
+      <loc>https://banos.app/activity/mirador-bellavista</loc>
     </url>
     <url>
       <loc>https://banos.app/activity/canopy-mega-adventure-park</loc>
+    </url>
+    <url>
+      <loc>https://banos.app/activity/animal-park</loc>
+    </url>
+    <url>
+      <loc>https://banos.app/activity/el-pailon-del-diablo-en-la-noche</loc>
+    </url>
+    <url>
+      <loc>https://banos.app/activity/santuario-nuestra-senora-del-rosario-de-agua-santa</loc>
     </url>
   </urlset>
   

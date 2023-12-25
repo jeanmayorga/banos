@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowLeftIcon, ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -98,8 +98,9 @@ export default function Page({ searchParams }: Props) {
       cloudName: "da3uyv9xp",
       uploadPreset: "xfq6u64u",
       cropping: true,
-      croppingAspectRatio: 2,
-      croppingShowDimensions: false,
+      // croppingAspectRatio: 2,
+      showSkipCropButton: true,
+      croppingShowDimensions: true,
       sources: ["local", "url"],
     };
     const cloudinaryCallback = async (error: Error | null, result: CloudinaryResult) => {
@@ -145,6 +146,12 @@ export default function Page({ searchParams }: Props) {
   return (
     <>
       <main className="container max-w-6xl mx-auto my-16">
+        <div className="flex justify-between bg-slate-100 dark:bg-slate-900 p-4 rounded-xl mb-8">
+          <Button variant="ghost" onClick={() => replace("/dashboard/activities")}>
+            <ArrowLeftIcon className="w-4 h-4 mr-1" />
+            Regresar
+          </Button>
+        </div>
         <section className="flex gap-40">
           <ActivityStepper step={2} />
           <div className="w-full">
@@ -153,7 +160,7 @@ export default function Page({ searchParams }: Props) {
             </Typography>
             <div className="flex items-center justify-end mb-4">
               <CreateImageButton
-                prompt={activity?.description || ""}
+                prompt={`Crea una imagen con esta description:\n${activity?.title}\n\n${activity?.body}`}
                 onCreate={handleIaPhoto}
                 disabled={!activity?.description}
               />

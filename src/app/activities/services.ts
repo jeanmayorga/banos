@@ -16,7 +16,14 @@ export async function getActivity(options?: { slug?: string }) {
   return data as Activity;
 }
 
-export async function getActivities(options?: { slug?: string; is_active?: boolean }) {
+export async function getActivities(options?: {
+  slug?: string;
+  isActive?: boolean;
+  sortBy?: "visits" | "name";
+  sortOrder?: "asc" | "desc";
+}) {
+  const sortOrderDefault = options?.sortOrder || "asc";
+
   let query = supabase
     .from("activities")
     .select(
@@ -24,14 +31,20 @@ export async function getActivities(options?: { slug?: string; is_active?: boole
     );
 
   if (options?.slug) query = query.eq("slug", options.slug);
-  if (options?.is_active) query = query.eq("is_active", options.is_active);
+  if (options?.isActive) query = query.eq("is_active", options.isActive);
+
+  if (options?.sortBy === "visits") {
+    query = query.order("visits", { ascending: sortOrderDefault === "asc" });
+  }
+  if (options?.sortBy === "name") {
+    query = query.order("title", { ascending: sortOrderDefault === "asc" });
+  }
 
   query.limit(1, { referencedTable: "activities_photos" });
 
   const { data, error } = await query;
 
   if (error) return [];
-  // await new Promise((r) => setTimeout(r, 5000));
 
   return data as Activity[];
 }

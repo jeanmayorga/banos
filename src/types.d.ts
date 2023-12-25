@@ -32,7 +32,7 @@ interface CloudinaryOptions {
   cloudName: string;
   uploadPreset: string;
   cropping: boolean;
-  croppingAspectRatio: number;
+  croppingAspectRatio?: number;
   sources: string[];
 }
 
