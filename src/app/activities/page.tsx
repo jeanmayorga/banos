@@ -7,8 +7,6 @@ import { Typography } from "#/components/ui/typography";
 
 import { getActivities } from "./services";
 
-export const revalidate = 100;
-
 export const metadata: Metadata = {
   title: "Que hacer en Banos de Agua Santa | Ecuador",
   metadataBase: new URL("https://banos.app"),
@@ -23,7 +21,6 @@ export const metadata: Metadata = {
     type: "website",
     url: `https://banos.app/activities`,
     title: "Que hacer en Banos de Agua Santa | Ecuador",
-
     description: "Aqui tienes una lista de actividades para hacer en Banos de agua santa Ecuador",
     siteName: "Banos app",
     images: [
