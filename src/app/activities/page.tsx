@@ -1,14 +1,11 @@
 import { Metadata } from "next";
 
 import { ActivityCard } from "#/components/ActivityCard";
-import { ActivityCardLoading } from "#/components/ActivityCardLoading";
-import { Header } from "#/components/Header";
-import { Nav } from "#/components/Nav";
 import { Typography } from "#/components/ui/typography";
 
 import { getActivities } from "./services";
 
-export const revalidate = 3600 * 60;
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Que hacer en Banos de Agua Santa | Ecuador",

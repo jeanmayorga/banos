@@ -1,18 +1,13 @@
 import { Clock4Icon, MapPinIcon, MonitorStopIcon, ParkingCircle } from "lucide-react";
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ActivityContent } from "#/components/ActivityContent";
 import { ActivityCtaForm } from "#/components/ActivityCtaForm";
 import { ActivityPhotos } from "#/components/ActivityPhotos";
-import { ActivityPhotosLoading } from "#/components/ActivityPhotosLoading";
-import { ActivityPhotosMansory } from "#/components/ActivityPhotosMansory";
 import { Breadcrumds } from "#/components/Breadcrumb";
-import { Markdown } from "#/components/Markdown";
 import { ShareButton } from "#/components/ShareButton";
-// import { Badge } from "#/components/ui/badge";
 import { Separator } from "#/components/ui/separator";
 import { Typography } from "#/components/ui/typography";
 
@@ -35,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       canonical: "/",
     },
     title: `${activity?.title} | Baños de agua santa`,
-    description: activity?.body.substring(0, 100),
+    description: activity?.description,
     applicationName: "Banos de agua santa app",
     keywords: activity?.keywords,
     robots: "index, follow",
@@ -47,11 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: "Banos app",
       images: [
         {
-          url: `https://banos.app/api/og?title?=${activity?.title}&image=${
-            activity?.cover_picture_url
-              ? encodeURIComponent(`https://www.banos.app/${activity?.cover_picture_url}`)
-              : undefined
-          }`,
+          url: `https://res.cloudinary.com/da3uyv9xp/image/upload/${activity?.photos?.[0].path}`,
         },
       ],
     },
