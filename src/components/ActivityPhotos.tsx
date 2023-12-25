@@ -10,7 +10,7 @@ interface Props {
 }
 export function ActivityPhotos({ photos }: Props) {
   return (
-    <div className="w-full bg-slate-100 mb-8 py-8">
+    <div className="w-full bg-slate-100 dark:bg-slate-900 mb-8 py-8">
       <div className="container max-w-6xl mx-auto relative">
         <div className="lg:h-[336px] grid grid-rows-2 md:grid-cols-4 grid-cols-2 gap-2 rounded-xl overflow-hidden">
           <div className="row-span-2 col-span-2 bg-slate-200">
