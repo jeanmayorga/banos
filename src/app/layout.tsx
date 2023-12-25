@@ -1,3 +1,4 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import { Toaster } from "react-hot-toast";
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: Props) {
             <Footer />
           </ThemeProvider>
         </LayoutReactQuery>
+        <SpeedInsights />
       </body>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-4WJMRLZSCE"
