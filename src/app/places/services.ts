@@ -1,4 +1,4 @@
-import { supabase } from "#/api";
+import { supabase } from "#/utils/supabase";
 
 import { Place } from "./types";
 

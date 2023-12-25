@@ -1,6 +1,6 @@
-import { supabase } from "#/api";
 import { EventsCard } from "#/components/EventsCard";
 import { Event } from "#/modules";
+import { supabase } from "#/utils/supabase";
 
 export const revalidate = 3600;
 

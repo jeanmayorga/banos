@@ -2,7 +2,6 @@ import { SearchIcon } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 
-import { supabase } from "#/api";
 import { ActivitiesSectionList } from "#/components/ActivitySectionList";
 import { EventsSectionList } from "#/components/EventsSectionList";
 import { JumboHome } from "#/components/JumboHome";
@@ -14,6 +13,7 @@ import { Typography } from "#/components/ui/typography";
 import { UserButton } from "#/components/UserButton";
 import { Event } from "#/modules";
 import { getCurrentDate } from "#/utils";
+import { supabase } from "#/utils/supabase";
 
 import { getActivities } from "./activities/services";
 
