@@ -27,9 +27,9 @@ function CarouselImage({ photo, activity, isLoaded }: CarouselImageProps) {
       <Link href={`/activities/${activity.slug}`} passHref>
         <Image
           src={photo.path}
-          width={isLoaded ? 450 : 280}
-          height={isLoaded ? 450 : 280}
-          quality={isLoaded ? 100 : 90}
+          width={270}
+          height={270}
+          quality={isLoaded ? 90 : 15}
           className="object-cover h-full w-full"
           alt={activity.title}
         />
