@@ -45,7 +45,7 @@ export async function getActivities(options?: {
     query = query.order("price", { ascending: sortOrderDefault === "asc" });
   }
 
-  query.limit(1, { referencedTable: "activities_photos" });
+  // query.limit(5, { referencedTable: "activities_photos" });
 
   const { data, error } = await query;
 

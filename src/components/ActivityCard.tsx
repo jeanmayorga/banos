@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-import { getActivityPhotos } from "#/app/activities/services";
 import { Activity, ActivityPhoto } from "#/app/activities/types";
 
 import {
@@ -17,50 +16,41 @@ import {
 } from "./ui/carousel";
 import { Typography } from "./ui/typography";
 
+interface CarouselImageProps {
+  photo: ActivityPhoto;
+  activity: Activity;
+  isLoaded: boolean;
+}
+function CarouselImage({ photo, activity, isLoaded }: CarouselImageProps) {
+  return (
+    <CarouselItem key={photo.id} className="md:aspect-square aspect-video">
+      <Link href={`/activities/${activity.slug}`} passHref>
+        <Image
+          src={photo.path}
+          width={isLoaded ? 450 : 280}
+          height={isLoaded ? 450 : 280}
+          quality={isLoaded ? 100 : 90}
+          className="object-cover h-full w-full"
+          alt={activity.title}
+        />
+      </Link>
+    </CarouselItem>
+  );
+}
+
 interface Props {
   activity: Activity;
 }
 export function ActivityCard({ activity }: Props) {
-  const [photos, setPhotos] = useState<ActivityPhoto[]>([]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-
-  const handleLoadPhotos = async () => {
-    if (isLoaded) return;
-
-    const activityPhotos = await getActivityPhotos({ activityId: activity.id });
-    activityPhotos.shift();
-    setPhotos(activityPhotos);
-    setIsLoaded(true);
-  };
+  const photos = activity.photos || [];
 
   return (
-    <div className="group" onMouseOver={handleLoadPhotos}>
-      <Carousel className="rounded-xl overflow-hidden aspect-square">
+    <div className="group" onMouseOver={() => setIsLoaded(true)}>
+      <Carousel className="rounded-xl overflow-hidden md:aspect-square aspect-video">
         <CarouselContent>
-          <CarouselItem className="aspect-square">
-            <Link href={`/activities/${activity.slug}`} passHref>
-              <Image
-                src={activity.photos?.[0]?.path || ""}
-                width={isLoaded ? 480 : 280}
-                height={isLoaded ? 480 : 280}
-                quality={isLoaded ? 100 : 95}
-                className="object-cover h-full w-full"
-                alt={activity.title}
-              />
-            </Link>
-          </CarouselItem>
           {photos.map((photo) => (
-            <CarouselItem key={photo.id} className="aspect-square">
-              <Link href={`/activities/${activity.slug}`} passHref>
-                <Image
-                  src={photo.path}
-                  width={380}
-                  height={380}
-                  alt={activity.title}
-                  className="object-cover h-full w-full"
-                />
-              </Link>
-            </CarouselItem>
+            <CarouselImage key={photo.id} photo={photo} activity={activity} isLoaded={isLoaded} />
           ))}
         </CarouselContent>
         <CarouselPrevious className="left-4 group-hover:opacity-100 opacity-0 transition-all" />

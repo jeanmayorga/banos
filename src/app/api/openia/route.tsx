@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     if (service === "chat") {
       const systemPrompt =
         "Eres una app para ayudar a la ciudad de banos de agua santa, Ecuador con informacion necesaria. Usa como fuente: https://banos.app";
-      const model = "gpt-3.5-turbo";
+      const model = "gpt-4";
 
       const completion = await openai.chat.completions.create({
         messages: [
