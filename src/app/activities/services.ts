@@ -1,4 +1,7 @@
+import { getPagination } from "#/utils/get-pagination";
 import { supabase } from "#/utils/supabase";
+
+import { Place } from "../places/types";
 
 import { Activity, ActivityPhoto } from "./types";
 
@@ -16,42 +19,43 @@ export async function getActivity(options?: { slug?: string }) {
   return data as Activity;
 }
 
-export async function getActivities(options?: {
+export interface GetActivitiesOptions {
   slug?: string;
   isActive?: boolean;
   sortBy?: "visits" | "name" | "price" | string;
   sortOrder?: "asc" | "desc" | string;
   search?: string;
-}) {
+  limit?: number;
+  page?: number;
+  activitySelect?: Array<keyof Activity>;
+  placeSelect?: Array<keyof Place>;
+}
+export async function getActivities(options?: GetActivitiesOptions) {
   const sortOrderDefault = options?.sortOrder || "asc";
+  const ascending = sortOrderDefault === "asc";
+  const limitDefault = options?.limit || 12;
+  const pageDefault = options?.page || 0;
+  const activitySelectDefault = options?.activitySelect ? options?.activitySelect?.join(",") : "*";
+  const activityPlaceDefault = options?.placeSelect ? options?.placeSelect?.join(",") : "*";
 
-  let query = supabase
-    .from("activities")
-    .select(
-      "*, place:places(*), photos:activities_photos(*), photos_count:activities_photos(count)",
-    );
+  const select = `${activitySelectDefault}, place:places(${activityPlaceDefault}), photos:activities_photos(*), photos_count:activities_photos(count)`;
+
+  const { from, to } = getPagination(pageDefault, limitDefault);
+
+  let query = supabase.from("activities").select(select).range(from, to);
 
   if (options?.slug) query = query.eq("slug", options.slug);
   if (options?.isActive) query = query.eq("is_active", options.isActive);
   if (options?.search) query = query.textSearch("title", options.search);
-
-  if (options?.sortBy === "visits") {
-    query = query.order("visits", { ascending: sortOrderDefault === "asc" });
-  }
-  if (options?.sortBy === "name") {
-    query = query.order("title", { ascending: sortOrderDefault === "asc" });
-  }
-  if (options?.sortBy === "price") {
-    query = query.order("price", { ascending: sortOrderDefault === "asc" });
-  }
-
-  // query.limit(5, { referencedTable: "activities_photos" });
+  if (options?.sortBy === "visits") query = query.order("visits", { ascending });
+  if (options?.sortBy === "name") query = query.order("title", { ascending });
+  if (options?.sortBy === "price") query = query.order("price", { ascending });
 
   const { data, error } = await query;
 
   if (error) return [];
 
-  return data as Activity[];
+  return data as unknown as Activity[];
 }
 
 export async function updateActivity(options: Partial<Activity>) {

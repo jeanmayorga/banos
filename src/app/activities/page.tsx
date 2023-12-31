@@ -1,11 +1,11 @@
 import { Metadata } from "next";
+import { v4 as uuid } from "uuid";
 
-import { ActivityCard } from "#/components/ActivityCard";
 import { ActivityFilters } from "#/components/ActivityFilters";
-import { Separator } from "#/components/ui/separator";
 import { Typography } from "#/components/ui/typography";
 
-import { getActivities } from "./services";
+import InfiniteScrollActivities from "./components/infinity-scroll-activities";
+import { GetActivitiesOptions, getActivities } from "./services";
 
 export const revalidate = 3600;
 
@@ -41,12 +41,15 @@ interface Props {
   };
 }
 export default async function Page({ searchParams }: Props) {
-  const activities = await getActivities({
+  const options: GetActivitiesOptions = {
     sortBy: searchParams?.sortBy || "visits",
     sortOrder: searchParams?.sortOrder || "desc",
     search: searchParams?.search,
     isActive: true,
-  });
+    activitySelect: ["id", "title", "price"],
+    placeSelect: ["name"],
+  };
+  const activities = await getActivities(options);
 
   return (
     <>
@@ -58,10 +61,8 @@ export default async function Page({ searchParams }: Props) {
           En la ciudad de Banos de agua santa tienes muchas atracciones turisticas.
         </Typography>
         <ActivityFilters />
-        <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {activities.map((activity) => (
-            <ActivityCard key={activity.id} activity={activity} />
-          ))}
+        <div key={uuid()} className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          <InfiniteScrollActivities initialData={activities} options={options} />
         </div>
       </div>
     </>

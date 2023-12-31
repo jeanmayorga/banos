@@ -47,7 +47,7 @@ export function ActivityFilters() {
   }, 1000);
 
   return (
-    <div className="lg:flex items-center justify-between py-2 bg-slate-100 dark:bg-slate-900 rounded-xl px-2 mb-8">
+    <div className="lg:flex items-center justify-between py-2 bg-slate-100 border border-slate-200 dark:bg-slate-900 rounded-xl px-2 mb-8">
       <span>
         <Input
           placeholder="Buscar..."
