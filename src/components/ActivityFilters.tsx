@@ -1,5 +1,6 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 
 import useQueryParams from "#/hooks/useQueryParams";
@@ -24,10 +25,11 @@ interface QueryParams {
 export function ActivityFilters() {
   const { queryParams, setQueryParams, removeQueryParam } = useQueryParams<QueryParams>();
 
-  const sort =
-    queryParams.sortBy && queryParams.sortOrder
-      ? `${queryParams.sortBy}-${queryParams.sortOrder}`
-      : undefined;
+  const sortBy = queryParams.get("sortBy") || "";
+  const sortOrder = queryParams.get("sortOrder") || "";
+  const search = queryParams.get("search") || "";
+
+  const sort = sortBy && sortOrder ? `${sortBy}-${sortOrder}` : undefined;
 
   const handleSort = (value: string) => {
     const sortBy = value.split("-")[0];
@@ -36,15 +38,13 @@ export function ActivityFilters() {
     setQueryParams({ sortBy, sortOrder });
   };
 
-  const searchDefaultValue = queryParams.search;
-
   const debounced = useDebouncedCallback((search) => {
     if (search.length > 0) {
       setQueryParams({ search });
     } else {
       removeQueryParam("search");
     }
-  }, 1000);
+  }, 500);
 
   return (
     <div className="lg:flex items-center justify-between py-2 bg-slate-100 border border-slate-200 dark:bg-slate-900 rounded-xl px-2 mb-8">
@@ -52,7 +52,7 @@ export function ActivityFilters() {
         <Input
           placeholder="Buscar..."
           className="rounded-xl lg:w-[300px] w-full lg:mb-0 mb-2"
-          defaultValue={searchDefaultValue}
+          defaultValue={search}
           onChange={(e) => debounced(e.target.value)}
         />
       </span>

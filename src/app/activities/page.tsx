@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { v4 as uuid } from "uuid";
 
 import { ActivityFilters } from "#/components/ActivityFilters";
 import { Typography } from "#/components/ui/typography";
@@ -61,7 +60,10 @@ export default async function Page({ searchParams }: Props) {
           En la ciudad de Banos de agua santa tienes muchas atracciones turisticas.
         </Typography>
         <ActivityFilters />
-        <div key={uuid()} className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <div
+          key={JSON.stringify(options)}
+          className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4"
+        >
           <InfiniteScrollActivities initialData={activities} options={options} />
         </div>
       </div>

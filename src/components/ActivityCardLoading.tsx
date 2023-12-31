@@ -1,5 +1,4 @@
 import { Skeleton } from "./ui/skeleton";
-import { Typography } from "./ui/typography";
 
 export function ActivityCardLoading() {
   return (

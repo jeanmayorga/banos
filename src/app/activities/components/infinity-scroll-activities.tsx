@@ -1,28 +1,35 @@
 "use client";
 
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
 import { Fragment, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 import { ActivityCard } from "#/components/ActivityCard";
-import { ActivityCardLoading } from "#/components/ActivityCardLoading";
 
 import { GetActivitiesOptions, getActivities } from "../services";
 import { Activity } from "../types";
 
+import { SkeletonCardList } from "./skeleton-cards";
+
 export default function InfiniteScrollActivities({
   options,
-  initialData,
+  initialData = [],
 }: {
   options?: GetActivitiesOptions;
   initialData?: Activity[];
 }) {
   const [ref, inView] = useInView();
 
+  const initialDataDefault: InfiniteData<Activity[], number> | undefined = {
+    pages: [initialData],
+    pageParams: [0],
+  };
+
   const { data, isFetching, isLoading, fetchNextPage } = useInfiniteQuery({
-    queryKey: ["activities"],
-    initialData: { pages: [initialData || []], pageParams: [0] },
+    queryKey: ["activities", options],
+    initialData: initialDataDefault,
     initialPageParam: 0,
+    enabled: false,
     queryFn: ({ pageParam }) => getActivities({ page: pageParam, ...options }),
     getNextPageParam: (lastPage, _allPages, lastPageParam) => {
       if (lastPage.length === 0) return undefined;
@@ -31,8 +38,10 @@ export default function InfiniteScrollActivities({
   });
 
   useEffect(() => {
-    if (inView) fetchNextPage();
-  }, [inView]);
+    if (inView && initialData.length >= 12) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, inView, initialData.length]);
 
   return (
     <>
@@ -43,8 +52,7 @@ export default function InfiniteScrollActivities({
           ))}
         </Fragment>
       ))}
-      {(isFetching || isLoading) &&
-        Array.from(Array(12).keys()).map((item) => <ActivityCardLoading key={item} />)}
+      {(isFetching || isLoading) && <SkeletonCardList limit={12} />}
       <div ref={ref} />
     </>
   );

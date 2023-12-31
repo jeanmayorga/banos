@@ -1,6 +1,7 @@
-import { ActivityCardLoading } from "#/components/ActivityCardLoading";
 import { Input } from "#/components/ui/input";
 import { Typography } from "#/components/ui/typography";
+
+import { SkeletonCardList } from "./components/skeleton-cards";
 
 export default function Page() {
   return (
@@ -20,9 +21,7 @@ export default function Page() {
           />
         </div>
         <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {Array.from(Array(18).keys()).map((item) => (
-            <ActivityCardLoading key={item} />
-          ))}
+          <SkeletonCardList limit={12} />
         </div>
       </div>
     </>

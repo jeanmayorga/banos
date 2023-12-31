@@ -47,7 +47,7 @@ export async function getActivities(options?: GetActivitiesOptions) {
 
   if (options?.slug) query = query.eq("slug", options.slug);
   if (options?.isActive) query = query.eq("is_active", options.isActive);
-  if (options?.search) query = query.textSearch("title", options.search);
+  if (options?.search) query = query.ilike("title", `%${options.search}%`);
   if (sortByDefault === "visits") query = query.order("visits", { ascending });
   if (sortByDefault === "name") query = query.order("title", { ascending });
   if (sortByDefault === "price") query = query.order("price", { ascending });
