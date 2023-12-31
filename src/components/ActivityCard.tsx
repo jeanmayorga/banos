@@ -20,17 +20,23 @@ interface CarouselImageProps {
   photo: ActivityPhoto;
   activity: Activity;
   isLoaded: boolean;
+  idx: number;
 }
-function CarouselImage({ photo, activity, isLoaded }: CarouselImageProps) {
+function CarouselImage({ photo, activity, isLoaded, idx }: CarouselImageProps) {
   return (
-    <CarouselItem key={photo.id} className="md:aspect-square aspect-video">
+    <CarouselItem key={photo.id} className="md:aspect-square aspect-video bg-muted">
       <Link href={`/activities/${activity.slug}`} passHref>
         <Image
           src={photo.path}
           width={270}
           height={270}
           quality={isLoaded ? 90 : 35}
-          className="object-cover h-full w-full"
+          className="object-cover h-full w-full transition-opacity opacity-0"
+          onLoadingComplete={async (image) => {
+            setTimeout(() => {
+              image.classList.remove("opacity-0");
+            }, idx * 30);
+          }}
           alt={activity.title}
         />
       </Link>
@@ -40,8 +46,9 @@ function CarouselImage({ photo, activity, isLoaded }: CarouselImageProps) {
 
 interface Props {
   activity: Activity;
+  idx: number;
 }
-export function ActivityCard({ activity }: Props) {
+export function ActivityCard({ activity, idx }: Props) {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const photos = activity.photos || [];
 
@@ -50,7 +57,13 @@ export function ActivityCard({ activity }: Props) {
       <Carousel className="rounded-xl overflow-hidden md:aspect-square aspect-video">
         <CarouselContent>
           {photos.map((photo) => (
-            <CarouselImage key={photo.id} photo={photo} activity={activity} isLoaded={isLoaded} />
+            <CarouselImage
+              key={photo.id}
+              idx={idx}
+              photo={photo}
+              activity={activity}
+              isLoaded={isLoaded}
+            />
           ))}
         </CarouselContent>
         <CarouselPrevious className="left-4 group-hover:opacity-100 opacity-0 transition-all" />

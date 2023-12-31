@@ -37,6 +37,10 @@ export default function InfiniteScrollActivities({
     },
   });
 
+  const lastPageItems = data.pages[data.pages.length - 1].length;
+  const emptyItems = lastPageItems > 0 ? 6 - lastPageItems : 0;
+  const loadingItems = Math.abs(emptyItems === 0 ? 6 : emptyItems);
+
   useEffect(() => {
     if (inView && initialData.length >= 12) {
       fetchNextPage();
@@ -47,12 +51,12 @@ export default function InfiniteScrollActivities({
     <>
       {data?.pages.map((page, i) => (
         <Fragment key={i}>
-          {page.map((activity) => (
-            <ActivityCard key={activity.id} activity={activity} />
+          {page.map((activity, idx) => (
+            <ActivityCard key={activity.id} idx={idx} activity={activity} />
           ))}
         </Fragment>
       ))}
-      {(isFetching || isLoading) && <SkeletonCardList limit={12} />}
+      {(isFetching || isLoading) && <SkeletonCardList limit={loadingItems} />}
       <div ref={ref} />
     </>
   );
