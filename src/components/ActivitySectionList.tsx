@@ -37,8 +37,8 @@ export function ActivitiesSectionList({ activities }: Props) {
         className="px-4 flex space-x-4 w-full overflow-y-hidden whitespace-nowrap scroll-smooth mb-4 scrollbar-hide"
         id="activity-list"
       >
-        {activities.map((activity) => (
-          <ActivityCard activity={activity} key={activity.id} />
+        {activities.map((activity, idx) => (
+          <ActivityCard idx={idx} activity={activity} key={activity.id} />
         ))}
       </div>
       <div className="flex justify-end mx-4 space-x-2">
