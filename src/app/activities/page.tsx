@@ -45,7 +45,7 @@ export default async function Page({ searchParams }: Props) {
     sortOrder: searchParams?.sortOrder,
     search: searchParams?.search,
     isActive: true,
-    activitySelect: ["id", "title", "price"],
+    activitySelect: ["id", "title", "price", "slug"],
     placeSelect: ["name"],
   };
   const activities = await getActivities(options);
