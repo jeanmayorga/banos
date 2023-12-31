@@ -29,7 +29,7 @@ function CarouselImage({ photo, activity, isLoaded }: CarouselImageProps) {
           src={photo.path}
           width={270}
           height={270}
-          quality={isLoaded ? 90 : 15}
+          quality={isLoaded ? 90 : 35}
           className="object-cover h-full w-full"
           alt={activity.title}
         />

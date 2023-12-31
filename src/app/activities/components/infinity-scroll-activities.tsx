@@ -14,14 +14,14 @@ export default function InfiniteScrollActivities({
   options,
   initialData,
 }: {
-  options: GetActivitiesOptions;
-  initialData: Activity[];
+  options?: GetActivitiesOptions;
+  initialData?: Activity[];
 }) {
   const [ref, inView] = useInView();
 
   const { data, isFetching, isLoading, fetchNextPage } = useInfiniteQuery({
     queryKey: ["activities"],
-    initialData: { pages: [initialData], pageParams: [0] },
+    initialData: { pages: [initialData || []], pageParams: [0] },
     initialPageParam: 0,
     queryFn: ({ pageParam }) => getActivities({ page: pageParam, ...options }),
     getNextPageParam: (lastPage, _allPages, lastPageParam) => {

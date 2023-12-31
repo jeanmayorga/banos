@@ -31,13 +31,14 @@ export interface GetActivitiesOptions {
   placeSelect?: Array<keyof Place>;
 }
 export async function getActivities(options?: GetActivitiesOptions) {
-  const sortOrderDefault = options?.sortOrder || "asc";
-  const ascending = sortOrderDefault === "asc";
+  const sortOrderDefault = options?.sortOrder || "desc";
+  const sortByDefault = options?.sortBy || "visits";
   const limitDefault = options?.limit || 12;
   const pageDefault = options?.page || 0;
   const activitySelectDefault = options?.activitySelect ? options?.activitySelect?.join(",") : "*";
   const activityPlaceDefault = options?.placeSelect ? options?.placeSelect?.join(",") : "*";
 
+  const ascending = sortOrderDefault === "asc";
   const select = `${activitySelectDefault}, place:places(${activityPlaceDefault}), photos:activities_photos(*), photos_count:activities_photos(count)`;
 
   const { from, to } = getPagination(pageDefault, limitDefault);
@@ -47,9 +48,9 @@ export async function getActivities(options?: GetActivitiesOptions) {
   if (options?.slug) query = query.eq("slug", options.slug);
   if (options?.isActive) query = query.eq("is_active", options.isActive);
   if (options?.search) query = query.textSearch("title", options.search);
-  if (options?.sortBy === "visits") query = query.order("visits", { ascending });
-  if (options?.sortBy === "name") query = query.order("title", { ascending });
-  if (options?.sortBy === "price") query = query.order("price", { ascending });
+  if (sortByDefault === "visits") query = query.order("visits", { ascending });
+  if (sortByDefault === "name") query = query.order("title", { ascending });
+  if (sortByDefault === "price") query = query.order("price", { ascending });
 
   const { data, error } = await query;
 

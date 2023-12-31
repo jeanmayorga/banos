@@ -42,8 +42,8 @@ interface Props {
 }
 export default async function Page({ searchParams }: Props) {
   const options: GetActivitiesOptions = {
-    sortBy: searchParams?.sortBy || "visits",
-    sortOrder: searchParams?.sortOrder || "desc",
+    sortBy: searchParams?.sortBy,
+    sortOrder: searchParams?.sortOrder,
     search: searchParams?.search,
     isActive: true,
     activitySelect: ["id", "title", "price"],
