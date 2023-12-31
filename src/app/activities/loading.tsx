@@ -13,7 +13,7 @@ export default function Page() {
         <Typography variant="muted" className="mb-8">
           En la ciudad de Banos de agua santa tienes muchas atracciones turisticas.
         </Typography>
-        <div className="lg:flex items-center justify-between py-2 bg-slate-100 dark:bg-slate-900 rounded-xl px-2 mb-8">
+        <div className="lg:flex items-center justify-between py-2 bg-slate-100 border border-slate-200 dark:border-slate-800 dark:bg-slate-900 rounded-xl px-2 mb-8">
           <Input
             placeholder="Buscar..."
             className="rounded-xl lg:w-[300px] w-full lg:mb-0 mb-2"

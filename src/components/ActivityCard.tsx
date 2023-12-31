@@ -32,7 +32,8 @@ function CarouselImage({ photo, activity, isLoaded, idx }: CarouselImageProps) {
           height={270}
           quality={isLoaded ? 90 : 35}
           className="object-cover h-full w-full transition-opacity opacity-0"
-          onLoadingComplete={async (image) => {
+          onLoad={(event) => {
+            const image = event.target as HTMLElement;
             setTimeout(() => {
               image.classList.remove("opacity-0");
             }, idx * 30);
