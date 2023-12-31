@@ -32,7 +32,8 @@ export default function InfiniteScrollActivities({
     enabled: false,
     queryFn: ({ pageParam }) => getActivities({ page: pageParam, ...options }),
     getNextPageParam: (lastPage, _allPages, lastPageParam) => {
-      if (lastPage.length === 0) return undefined;
+      if (lastPage.length === 0 || lastPage.length < 12) return undefined;
+
       return lastPageParam + 1;
     },
   });
