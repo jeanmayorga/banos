@@ -14,7 +14,9 @@ function generateSiteMap(urls: string[]) {
 }
 
 async function main() {
-  const activities = await getActivities();
+  const activities = await getActivities({
+    limit: 100,
+  });
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -25,7 +27,9 @@ async function main() {
     <url>
       <loc>https://banos.app/activities</loc>
     </url>
-    ${generateSiteMap(activities.map((activity) => `https://banos.app/activity/${activity.slug}`))}
+    ${generateSiteMap(
+      activities.map((activity) => `https://banos.app/activities/${activity.slug}`),
+    )}
   </urlset>
   `;
 
