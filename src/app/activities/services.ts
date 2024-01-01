@@ -20,6 +20,7 @@ export async function getActivity(options?: { slug?: string }) {
 }
 
 export interface GetActivitiesOptions {
+  placeId?: number;
   slug?: string;
   isActive?: boolean;
   sortBy?: "visits" | "name" | "price" | string;
@@ -45,6 +46,7 @@ export async function getActivities(options?: GetActivitiesOptions) {
 
   let query = supabase.from("activities").select(select).range(from, to);
 
+  if (options?.placeId) query = query.eq("place_id", options?.placeId);
   if (options?.slug) query = query.eq("slug", options.slug);
   if (options?.isActive) query = query.eq("is_active", options.isActive);
   if (options?.search) query = query.ilike("title", `%${options.search}%`);

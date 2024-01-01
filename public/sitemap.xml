@@ -7,7 +7,6 @@
     <url>
       <loc>https://banos.app/activities</loc>
     </url>
-    
     <url>
       <loc>https://banos.app/activities/la-casa-del-arbol</loc>
     </url>
@@ -30,7 +29,7 @@
       <loc>https://banos.app/activities/el-pailon-del-diablo-en-la-noche</loc>
     </url>
     <url>
-      <loc>https://banos.app/activities/dinosaurios-park</loc>
+      <loc>https://banos.app/activities/camino-de-la-serpiente</loc>
     </url>
     <url>
       <loc>https://banos.app/activities/canopy-mega-adventure-park</loc>
@@ -42,7 +41,7 @@
       <loc>https://banos.app/activities/fenix-land</loc>
     </url>
     <url>
-      <loc>https://banos.app/activities/camino-de-la-serpiente</loc>
+      <loc>https://banos.app/activities/dinosaurios-park</loc>
     </url>
     <url>
       <loc>https://banos.app/activities/la-aldea-magica</loc>
@@ -63,6 +62,9 @@
       <loc>https://banos.app/activities/la-fabrica-de-chocolate</loc>
     </url>
     <url>
+      <loc>https://banos.app/activities/el-bosque-encantado</loc>
+    </url>
+    <url>
       <loc>https://banos.app/activities/torre-de-cristal</loc>
     </url>
     <url>
@@ -72,16 +74,43 @@
       <loc>https://banos.app/activities/santuario-nuestra-senora-del-rosario-de-agua-santa</loc>
     </url>
     <url>
-      <loc>https://banos.app/activities/el-bosque-encantado</loc>
+      <loc>https://banos.app/activities/discovery-banos</loc>
+    </url>
+    <url>
+      <loc>https://banos.app/activities/canopy</loc>
     </url>
     <url>
       <loc>https://banos.app/activities/parque-aventura-san-martin</loc>
     </url>
     <url>
-      <loc>https://banos.app/activities/discovery-banos</loc>
+      <loc>https://banos.app/places</loc>
     </url>
     <url>
-      <loc>https://banos.app/activities/canopy</loc>
+      <loc>https://banos.app/places/runtun</loc>
+    </url>
+    <url>
+      <loc>https://banos.app/places/illuchi</loc>
+    </url>
+    <url>
+      <loc>https://banos.app/places/rio-verde</loc>
+    </url>
+    <url>
+      <loc>https://banos.app/places/rio-blanco</loc>
+    </url>
+    <url>
+      <loc>https://banos.app/places/centro-de-banos</loc>
+    </url>
+    <url>
+      <loc>https://banos.app/places/rio-negro</loc>
+    </url>
+    <url>
+      <loc>https://banos.app/places/ulba</loc>
+    </url>
+    <url>
+      <loc>https://banos.app/places/lligua</loc>
+    </url>
+    <url>
+      <loc>https://banos.app/places/agoyan</loc>
     </url>
   </urlset>
   
