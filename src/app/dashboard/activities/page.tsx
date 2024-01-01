@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { getActivities } from "#/app/activities/services";
 import { revalidate } from "#/app/revalidate/services";
+import { ActivityFilters } from "#/components/ActivityFilters";
 import { Header } from "#/components/Header";
 import { Nav } from "#/components/Nav";
 import { Photo } from "#/components/Photo";
@@ -39,6 +40,7 @@ export default async function Page({ searchParams }: Props) {
   const activities = await getActivities({
     sortBy: searchParams?.sortBy,
     sortOrder: searchParams?.sortOrder,
+    limit: 100,
   });
 
   return (
@@ -53,6 +55,7 @@ export default async function Page({ searchParams }: Props) {
             </Button>
           </Link>
         </div>
+        <ActivityFilters />
         <Table className="w-full">
           <TableHeader>
             <TableRow>

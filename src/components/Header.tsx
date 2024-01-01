@@ -12,10 +12,10 @@ interface Props {
 }
 export function Header({ hideSearch }: Props) {
   return (
-    <header className="w-full bg-white dark:bg-slate-900 border-b border-b-gray-100 dark:border-b-gray-800">
+    <header className="w-full border-b border-b-gray-100 dark:border-b-gray-800 h-[80px] flex items-center">
       <div className="container max-w-6xl mx-auto flex items-center justify-between py-2">
         <Link href="/" passHref>
-          <Logo size="sm" className=" text-fuchsia-700 dark:text-white" />
+          <Logo size="sm" className="text-rose-500 dark:text-white" />
         </Link>
 
         {/* {!hideSearch && (
@@ -36,10 +36,12 @@ export function Header({ hideSearch }: Props) {
             href="/search"
             passHref
             prefetch
-            className="sm:flex hidden relative w-[450px] hover:w-[490px] bg-gray-50 dark:bg-gray-950 hover:bg-gray-100 dark:hover:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-full py-2 px-3 text-gray-500 transition-all"
+            className="sm:flex sm:justify-between sm:items-center shadow-sm hover:shadow-md hidden relative w-[390px] hover:w-[490px] border border-gray-200 dark:border-gray-700 rounded-full px-2 py-[6px] transition-all"
           >
-            <SearchIcon className="h-5 w-5 mr-2" />
-            <span className="font-light text-sm">¿Qué hacer en Banos?</span>
+            <span className="ml-3 font-medium text-sm">¿Qué hacer en Banos?</span>
+            <div className="rounded-full bg-rose-500 w-8 h-8 flex items-center justify-center text-white">
+              <SearchIcon className="h-3 w-3" strokeWidth={4} />
+            </div>
           </Link>
         )}
 

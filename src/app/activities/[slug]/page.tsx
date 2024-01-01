@@ -7,7 +7,9 @@ import { ActivityContent } from "#/components/ActivityContent";
 import { ActivityCtaForm } from "#/components/ActivityCtaForm";
 import { ActivityPhotos } from "#/components/ActivityPhotos";
 import { Breadcrumds } from "#/components/Breadcrumb";
+import { GoBackButton } from "#/components/go-back-button";
 import { ShareButton } from "#/components/ShareButton";
+import { Button } from "#/components/ui/button";
 import { Separator } from "#/components/ui/separator";
 import { Typography } from "#/components/ui/typography";
 
@@ -59,6 +61,7 @@ export default async function Page({ params }: Props) {
   return (
     <>
       <div className="container max-w-6xl mx-auto">
+        <GoBackButton href="/activities" className="mt-8" />
         <Breadcrumds
           items={[
             {

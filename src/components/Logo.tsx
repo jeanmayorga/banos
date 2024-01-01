@@ -25,9 +25,14 @@ export function Logo({ size, className }: Props) {
 
   return (
     <div className="w-[200px] relative select-none">
-      <div className={`text-7xl leading-none text-gray-50 ${satisfy.className}`}>Banos</div>
+      <div className={cn(`text-7xl leading-none text-gray-50 ${satisfy.className}`, className)}>
+        Banos
+      </div>
       <div
-        className={`text-3xl leading-none text-gray-50 mt-[-12px] ml-[30px] ${satisfy.className}`}
+        className={cn(
+          `text-3xl leading-none text-gray-50 mt-[-12px] ml-[30px] ${satisfy.className}`,
+          className,
+        )}
       >
         de Agua Santa
       </div>
