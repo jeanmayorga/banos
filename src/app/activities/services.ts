@@ -8,7 +8,7 @@ import { Activity, ActivityPhoto } from "./types";
 export async function getActivity(options?: { slug?: string }) {
   if (!options || !options.slug) return null;
 
-  let query = supabase.from("activities").select("*, place:places(*)");
+  let query = supabase.from("activities").select("*, place:places(*), photos:activities_photos(*)");
 
   if (options?.slug) query = query.eq("slug", options.slug);
 

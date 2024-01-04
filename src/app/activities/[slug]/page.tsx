@@ -9,11 +9,10 @@ import { ActivityPhotos } from "#/components/ActivityPhotos";
 import { Breadcrumds } from "#/components/Breadcrumb";
 import { GoBackButton } from "#/components/go-back-button";
 import { ShareButton } from "#/components/ShareButton";
-import { Button } from "#/components/ui/button";
 import { Separator } from "#/components/ui/separator";
 import { Typography } from "#/components/ui/typography";
 
-import { getActivity, getActivityPhotos, updateActivity } from "../services";
+import { getActivity, updateActivity } from "../services";
 
 export const revalidate = 3600;
 
@@ -27,26 +26,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const activity = await getActivity({ slug: params.slug });
 
   return {
-    metadataBase: new URL("https://banos.app"),
+    metadataBase: new URL("https://banos.app/"),
     alternates: {
-      canonical: "/",
+      canonical: `/activities/${activity?.slug}`,
     },
-    title: `${activity?.title} | Baños de agua santa`,
+    title: `${activity?.title} | Baños de agua santa | Ecuador`,
     description: activity?.description,
-    applicationName: "Banos de agua santa app",
+    applicationName: "Banos de agua santa",
     keywords: activity?.keywords,
     robots: "index, follow",
     openGraph: {
       type: "website",
       url: `https://banos.app/activities/${activity?.slug}`,
-      title: `${activity?.title} | Baños de agua santa`,
+      title: `${activity?.title} | Baños de agua santa | Ecuador`,
       description: activity?.description,
-      siteName: "Banos app",
-      images: [
-        {
-          url: `https://res.cloudinary.com/da3uyv9xp/image/upload/${activity?.photos?.[0].path}`,
-        },
-      ],
+      siteName: "Banos de Agua Santa",
+      images: activity?.photos?.map((photo) => ({
+        url: `https://res.cloudinary.com/da3uyv9xp/image/upload/${photo.path}`,
+      })),
     },
   };
 }
@@ -55,7 +52,7 @@ export default async function Page({ params }: Props) {
   const activity = await getActivity({ slug: params.slug });
   if (!activity || !activity.is_active) return notFound();
 
-  const photos = await getActivityPhotos({ activityId: activity?.id });
+  const photos = activity.photos || [];
   await updateActivity({ slug: params.slug, visits: Number(activity.visits) + 1 });
 
   return (
