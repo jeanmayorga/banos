@@ -24,6 +24,8 @@ export interface Activity {
     count: number;
   }[];
   visits: number;
+  location_latitude: number;
+  location_longitude: number;
 }
 
 export interface ActivityPhoto {

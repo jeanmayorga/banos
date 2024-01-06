@@ -8,6 +8,7 @@ import { ActivityCtaForm } from "#/components/ActivityCtaForm";
 import { ActivityPhotos } from "#/components/ActivityPhotos";
 import { Breadcrumds } from "#/components/Breadcrumb";
 import { GoBackButton } from "#/components/go-back-button";
+import { GoogleMapsDynamic } from "#/components/GoogleMapsDynamic";
 import { ShareButton } from "#/components/ShareButton";
 import { Separator } from "#/components/ui/separator";
 import { Typography } from "#/components/ui/typography";
@@ -42,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: activity?.description,
       siteName: "Banos de Agua Santa",
       images: activity?.photos?.map((photo) => ({
-        url: `https://res.cloudinary.com/da3uyv9xp/image/upload/${photo.path}`,
+        url: `https://res.cloudinary.com/da3uyv9xp/image/upload/f_auto,c_limit,w_1080,q_auto/${photo.path}`,
       })),
     },
   };
@@ -161,33 +162,38 @@ export default async function Page({ params }: Props) {
                   </div>
                 </div>
               )}
-
-              {activity.map_url && (
-                <>
-                  <Separator className="my-4" />
-                  <section className="pt-4 rounded-xl overflow-hidden">
-                    <Typography variant="h4" component="h2" className="mb-4">
-                      Ubicación
-                    </Typography>
-                    <iframe
-                      src={activity.map_url}
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      className="w-full sm:h-[300px] h-[250px] mb-4 rounded-xl overflow-hidden"
-                    />
-                    <Typography variant="muted">
-                      {activity.place.name}, Banos de agua santa, Tungurahua, Ecuador
-                    </Typography>
-                  </section>
-                </>
-              )}
             </article>
           </div>
           <div className="col-span-2">
             <ActivityCtaForm price={activity.price} />
           </div>
         </div>
+
+        {activity.location_latitude && activity.location_longitude && (
+          <>
+            <Separator className="my-4" />
+            <section className="pt-4 rounded-xl overflow-hidden">
+              <Typography variant="h4" component="h2" className="mb-4">
+                Ubicación
+              </Typography>
+              <GoogleMapsDynamic
+                className="w-full h-[450px] bg-muted rounded-xl overflow-hidden mb-4"
+                latitude={activity.location_latitude}
+                longitude={activity.location_longitude}
+                zoom={14}
+                markers={[
+                  {
+                    latitude: activity.location_latitude,
+                    longitude: activity.location_longitude,
+                  },
+                ]}
+              />
+              <Typography variant="muted">
+                {activity.place.name}, Banos de agua santa, Tungurahua, Ecuador
+              </Typography>
+            </section>
+          </>
+        )}
       </div>
     </>
   );
