@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
-    domains: ["bananomeridiano.com", "www.vistazo.com"],
+    loader: "custom",
+    loaderFile: "./src/utils/cloudinary-loader.ts",
   },
 };
 
