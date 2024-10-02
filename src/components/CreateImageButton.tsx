@@ -67,15 +67,14 @@ export function CreateImageButton({ prompt, onCreate, disabled }: Props) {
             onClick={onCreateFn}
             type="button"
             variant="outline"
-            isLoading={isCreating}
             disabled={isCreating || disabled}
           >
-            <Sparkles className="w-4 h-4 mr-1" /> Usar IA
+            <Sparkles className="mr-1 h-4 w-4" /> Usar IA
           </Button>
         </ContextMenuTrigger>
         <ContextMenuContent>
           <ContextMenuItem onClick={() => setDialogOpen(true)}>
-            <PencilIcon className="w-4 h-4 mr-1" /> Editar Prompt
+            <PencilIcon className="mr-1 h-4 w-4" /> Editar Prompt
           </ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>

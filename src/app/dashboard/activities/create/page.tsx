@@ -133,15 +133,15 @@ export default function Page({ searchParams }: Props) {
 
   return (
     <>
-      <main className="container max-w-6xl mx-auto my-16">
-        <div className="flex justify-between bg-slate-100 dark:bg-slate-900 p-4 rounded-xl mb-8">
+      <main className="container mx-auto my-16 max-w-6xl">
+        <div className="mb-8 flex justify-between rounded-xl bg-slate-100 p-4 dark:bg-slate-900">
           <Button variant="ghost" onClick={() => replace("/dashboard/activities")}>
-            <ArrowLeftIcon className="w-4 h-4 mr-1" />
+            <ArrowLeftIcon className="mr-1 h-4 w-4" />
             Regresar
           </Button>
           {isUpdating && (
-            <Button variant="outline" isLoading={isRevalidating} onClick={handleRevalidate}>
-              <RefreshCcwIcon className="w-4 h-4 mr-1" />
+            <Button variant="outline" onClick={handleRevalidate}>
+              <RefreshCcwIcon className="mr-1 h-4 w-4" />
               Revalidar
             </Button>
           )}
@@ -273,7 +273,7 @@ export default function Page({ searchParams }: Props) {
                       <FormLabel>Precio:</FormLabel>
                       <FormControl>
                         <div className="flex items-center">
-                          <Input {...field} className="w-14 mr-2" />
+                          <Input {...field} className="mr-2 w-14" />
                           <div>USD</div>
                         </div>
                       </FormControl>
@@ -310,10 +310,10 @@ export default function Page({ searchParams }: Props) {
                   />
                 </div>
 
-                <div className="flex justify-end bg-slate-100 dark:bg-slate-900 p-4 rounded-xl">
-                  <Button type="submit" disabled={!isValid || isLoading} isLoading={isLoading}>
+                <div className="flex justify-end rounded-xl bg-slate-100 p-4 dark:bg-slate-900">
+                  <Button type="submit" disabled={!isValid || isLoading}>
                     Continuar
-                    <ArrowRight className="w-4 h-4 ml-1" />
+                    <ArrowRight className="ml-1 h-4 w-4" />
                   </Button>
                 </div>
               </form>

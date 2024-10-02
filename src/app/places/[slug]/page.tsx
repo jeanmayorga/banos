@@ -98,7 +98,7 @@ export default async function Page({ params, searchParams }: Props) {
         <ActivityFilters />
         <div
           key={JSON.stringify(options)}
-          className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4"
+          className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
         >
           <InfiniteScrollActivities initialData={activities} options={options} />
         </div>

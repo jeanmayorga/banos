@@ -1,6 +1,3 @@
-import { SearchIcon } from "lucide-react";
-import Link from "next/link";
-
 import { ActivityFilters } from "#/components/ActivityFilters";
 import { Typography } from "#/components/ui/typography";
 import { cn } from "#/utils";
@@ -23,30 +20,18 @@ export default async function Page() {
   return (
     <>
       <div className="container mx-auto py-8">
-        <Link
-          href="/search"
-          passHref
-          prefetch
-          className="sm:flex sm:justify-between sm:items-center shadow-sm hover:shadow-md hidden relative w-[390px] hover:w-[490px] border border-gray-200 dark:border-gray-700 rounded-full px-2 py-[6px] transition-all bg-white mb-8"
-        >
-          <span className="ml-3 font-medium text-sm text-gray-500">¿Qué hacer en Banos?</span>
-          <div className="rounded-full bg-rose-500 w-8 h-8 flex items-center justify-center text-white">
-            <SearchIcon className="h-3 w-3" strokeWidth={4} />
-          </div>
-        </Link>
-
-        <div className={cn("relative overflow-hidden bg-black h-[500px] rounded-[40px] mb-2")}>
-          <div className="bg-black/50 absolute top-0 left-0 w-full h-full z-10" />
-          <div className="relative z-20 flex items-center w-full h-full mx-8">
+        <div className={cn("relative mb-2 h-[500px] overflow-hidden rounded-[40px] bg-black")}>
+          <div className="absolute left-0 top-0 z-10 h-full w-full bg-black/50" />
+          <div className="relative z-20 mx-8 flex h-full w-full items-center">
             <div className="container mx-auto py-16 text-center">
               <Typography
                 variant="h1"
                 component="h1"
-                className="text-white drop-shadow-md text-6xl mb-4"
+                className="mb-4 text-6xl text-white drop-shadow-md"
               >
                 ¿Donde comer en Banos de agua santa?
               </Typography>
-              <p className="text-lg text-gray-100 mb-8 leading-tight">
+              <p className="mb-8 text-lg leading-tight text-gray-100">
                 Recomendaciones de restaurantes y estilo de vida por Foodies guayaquileños.
               </p>
             </div>
@@ -61,7 +46,7 @@ export default async function Page() {
             /> */}
           </div>
           <iframe
-            className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-[150%] h-[180%]"
+            className="absolute left-1/2 top-1/2 h-[180%] w-[150%] -translate-x-1/2 -translate-y-1/2"
             src={`https://www.youtube.com/embed/_HW26Ao2A9M?&autoplay=1&mute=1&playlist=_HW26Ao2A9M&loop=1`}
             title="YouTube video"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -69,10 +54,10 @@ export default async function Page() {
           />
         </div>
         <ActivityFilters />
-        <div className="bg-white p-4 rounded-xl">
+        <div className="rounded-xl bg-white p-4">
           <div
             key={JSON.stringify(options)}
-            className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 "
+            className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
           >
             <InfiniteScrollActivities initialData={activities} options={options} />
           </div>

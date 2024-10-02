@@ -34,14 +34,14 @@ export function ActivitiesSectionList({ activities }: Props) {
   return (
     <>
       <div
-        className="px-4 flex space-x-4 w-full overflow-y-hidden whitespace-nowrap scroll-smooth mb-4 scrollbar-hide"
+        // className="mb-4 flex w-full space-x-4 overflow-y-hidden scroll-smooth whitespace-nowrap px-4 scrollbar-hide"
         id="activity-list"
       >
         {activities.map((activity, idx) => (
           <ActivityCard idx={idx} activity={activity} key={activity.id} />
         ))}
       </div>
-      <div className="flex justify-end mx-4 space-x-2">
+      <div className="mx-4 flex justify-end space-x-2">
         <Button variant="outline" size="icon" id="activity-scroll-left">
           <ChevronLeftIcon className="h-5 w-5" />
         </Button>

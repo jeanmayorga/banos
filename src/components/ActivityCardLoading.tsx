@@ -3,11 +3,11 @@ import { Skeleton } from "./ui/skeleton";
 export function ActivityCardLoading() {
   return (
     <div className="group">
-      <Skeleton className="rounded-xl overflow-hidden aspect-square w-full" />
+      <Skeleton className="aspect-square w-full overflow-hidden rounded-xl" />
 
-      <div className="w-full mt-[12px]">
-        <Skeleton className="w-[120px] h-4 mb-[10px]" />
-        <Skeleton className="h-[14px] w-[50px] mb-1" />
+      <div className="mt-[12px] w-full">
+        <Skeleton className="mb-[10px] h-4 w-[120px]" />
+        <Skeleton className="mb-1 h-[14px] w-[50px]" />
         <Skeleton className="h-[14px] w-[70px]" />
       </div>
     </div>

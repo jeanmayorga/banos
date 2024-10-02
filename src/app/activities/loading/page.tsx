@@ -1,7 +1,6 @@
-import { Breadcrumds } from "#/components/Breadcrumb";
-import { Skeleton } from "#/components/ui/skeleton";
-
+import { Breadcrumds } from "@/components/Breadcrumb";
 import { Container } from "@/components/container";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default async function Page() {
   return (

@@ -88,10 +88,10 @@ export default function Page({ searchParams }: Props) {
 
   return (
     <>
-      <main className="container max-w-6xl mx-auto my-16">
-        <div className="flex justify-between bg-slate-100 dark:bg-slate-900 p-4 rounded-xl mb-8">
+      <main className="container mx-auto my-16 max-w-6xl">
+        <div className="mb-8 flex justify-between rounded-xl bg-slate-100 p-4 dark:bg-slate-900">
           <Button variant="ghost" onClick={() => replace("/dashboard/activities")}>
-            <ArrowLeftIcon className="w-4 h-4 mr-1" />
+            <ArrowLeftIcon className="mr-1 h-4 w-4" />
             Regresar
           </Button>
         </div>
@@ -175,19 +175,19 @@ export default function Page({ searchParams }: Props) {
                   )}
                 />
 
-                <div className="flex justify-between bg-slate-100 dark:bg-slate-900 p-4 rounded-xl">
+                <div className="flex justify-between rounded-xl bg-slate-100 p-4 dark:bg-slate-900">
                   <Button
                     variant="outline"
                     onClick={() =>
                       replace(`/dashboard/activities/create/photos?slug=${activity?.slug}`)
                     }
                   >
-                    <ArrowLeft className="w-4 h-4 ml-1" />
+                    <ArrowLeft className="ml-1 h-4 w-4" />
                     Regresar
                   </Button>
-                  <Button type="submit" disabled={isCreating} isLoading={isCreating}>
+                  <Button type="submit" disabled={isCreating}>
                     Guardar
-                    <ArrowRight className="w-4 h-4 ml-1" />
+                    <ArrowRight className="ml-1 h-4 w-4" />
                   </Button>
                 </div>
               </form>

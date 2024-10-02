@@ -1,17 +1,13 @@
-import { SearchIcon } from "lucide-react";
 import { Metadata } from "next";
-import Link from "next/link";
 
-import { ActivityFilters } from "#/components/ActivityFilters";
-import { Container } from "#/components/container";
-import { Search } from "#/components/search";
-import { Typography } from "#/components/ui/typography";
+// import InfiniteScrollActivities from "./components/infinity-scroll-activities";
+// import { GetActivitiesOptions, getActivities } from "./services";
 
-import InfiniteScrollActivities from "./components/infinity-scroll-activities";
-import { GetActivitiesOptions, getActivities } from "./services";
-
+import { ActivityFilters } from "@/components/ActivityFilters";
 import { BackButton } from "@/components/back-button";
-import { GoBackButton } from "@/components/go-back-button";
+import { Container } from "@/components/container";
+import { Search } from "@/components/search";
+import { Typography } from "@/components/ui/typography";
 
 export const revalidate = 3600;
 
@@ -47,15 +43,15 @@ interface Props {
   };
 }
 export default async function Page({ searchParams }: Props) {
-  const options: GetActivitiesOptions = {
-    sortBy: searchParams?.sortBy,
-    sortOrder: searchParams?.sortOrder,
-    search: searchParams?.search,
-    isActive: true,
-    activitySelect: ["id", "title", "price", "slug"],
-    placeSelect: ["name"],
-  };
-  const activities = await getActivities(options);
+  // const options: GetActivitiesOptions = {
+  //   sortBy: searchParams?.sortBy,
+  //   sortOrder: searchParams?.sortOrder,
+  //   search: searchParams?.search,
+  //   isActive: true,
+  //   activitySelect: ["id", "title", "price", "slug"],
+  //   placeSelect: ["name"],
+  // };
+  // const activities = await getActivities(options);
 
   return (
     <Container>
@@ -69,10 +65,10 @@ export default async function Page({ searchParams }: Props) {
       <Search placeholder="Buscar actividades..." />
       <ActivityFilters />
       <div
-        key={JSON.stringify(options)}
+        // key={JSON.stringify(options)}
         className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
       >
-        <InfiniteScrollActivities initialData={activities} options={options} />
+        {/* <InfiniteScrollActivities initialData={activities} options={options} /> */}
       </div>
     </Container>
   );

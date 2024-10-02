@@ -67,15 +67,14 @@ function PhotoRendered({
         alt={photo.alt}
         width={500}
         height={250}
-        className="rounded-xl mb-4 w-full overflow-hidden"
+        className="mb-4 w-full overflow-hidden rounded-xl"
       />
-      <div className="absolute top-4 right-4">
+      <div className="absolute right-4 top-4">
         <Button
           variant="destructive"
           size="sm"
           className="rounded-full"
           onClick={() => handleDeletePhoto(photo.id, photo.path)}
-          isLoading={isDeleting}
         >
           Eliminar
         </Button>
@@ -174,10 +173,10 @@ export default function Page({ searchParams }: Props) {
 
   return (
     <>
-      <main className="container max-w-6xl mx-auto my-16">
-        <div className="flex justify-between bg-slate-100 dark:bg-slate-900 p-4 rounded-xl mb-8">
+      <main className="container mx-auto my-16 max-w-6xl">
+        <div className="mb-8 flex justify-between rounded-xl bg-slate-100 p-4 dark:bg-slate-900">
           <Button variant="ghost" onClick={() => replace("/dashboard/activities")}>
-            <ArrowLeftIcon className="w-4 h-4 mr-1" />
+            <ArrowLeftIcon className="mr-1 h-4 w-4" />
             Regresar
           </Button>
         </div>
@@ -187,7 +186,7 @@ export default function Page({ searchParams }: Props) {
             <Typography variant="h2" className="mb-8">
               Fotos
             </Typography>
-            <div className="flex items-center justify-end mb-4">
+            <div className="mb-4 flex items-center justify-end">
               <CreateImageButton
                 prompt={`Crea una imagen con esta description:\n${activity?.title}\n\n${activity?.body}`}
                 onCreate={handleIaPhoto}
@@ -195,7 +194,7 @@ export default function Page({ searchParams }: Props) {
               />
             </div>
             <div
-              className="border-dashed border-2 h-[200px] rounded-xl flex items-center justify-center hover:bg-slate-50 transition-all mb-8 cursor-pointer"
+              className="mb-8 flex h-[200px] cursor-pointer items-center justify-center rounded-xl border-2 border-dashed transition-all hover:bg-slate-50"
               onClick={onLoadPictures}
             >
               <Typography variant="h5">Subir fotos</Typography>
@@ -207,7 +206,7 @@ export default function Page({ searchParams }: Props) {
                   <div
                     {...provided.droppableProps}
                     ref={provided.innerRef}
-                    className="flex overflow-auto mb-8"
+                    className="mb-8 flex overflow-auto"
                   >
                     {photos.map((photo, index) => (
                       <Draggable key={photo.path} draggableId={photo.path} index={index}>
@@ -222,7 +221,7 @@ export default function Page({ searchParams }: Props) {
                               alt={photo.alt}
                               width={300}
                               height={300}
-                              className="object-cover aspect-square"
+                              className="aspect-square object-cover"
                             />
                           </div>
                         )}
@@ -240,17 +239,17 @@ export default function Page({ searchParams }: Props) {
               ))}
             </div> */}
 
-            <div className="flex justify-between bg-slate-100 dark:bg-slate-900 p-4 rounded-xl">
+            <div className="flex justify-between rounded-xl bg-slate-100 p-4 dark:bg-slate-900">
               <Button
                 variant="outline"
                 onClick={() => replace(`/dashboard/activities/create?slug=${activity?.slug}`)}
               >
-                <ArrowLeft className="w-4 h-4 ml-1" />
+                <ArrowLeft className="ml-1 h-4 w-4" />
                 Regresar
               </Button>
               <Button onClick={handleNext}>
                 Continuar
-                <ArrowRight className="w-4 h-4 ml-1" />
+                <ArrowRight className="ml-1 h-4 w-4" />
               </Button>
             </div>
           </div>

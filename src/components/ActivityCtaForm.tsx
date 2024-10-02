@@ -36,8 +36,8 @@ export function ActivityCtaForm({ price }: Props) {
   };
 
   return (
-    <div className="bg-gray-50/90 dark:bg-slate-900 dark:border-slate-700 rounded-xl w-full py-6 sticky top-[90px]">
-      <div className="px-4 mb-4">
+    <div className="sticky top-[90px] w-full rounded-xl bg-gray-50/90 py-6 dark:border-slate-700 dark:bg-slate-900">
+      <div className="mb-4 px-4">
         <Typography variant="h3" className="flex items-center">
           $ {price.toFixed(2)}{" "}
           <Typography variant="muted" component="span" className="ml-1">
@@ -47,12 +47,12 @@ export function ActivityCtaForm({ price }: Props) {
         <Typography variant="lead">por persona</Typography>
       </div>
 
-      <div className="mx-4 flex flex-none items-center overflow-hidden bg-white border dark:border-slate-600 dark:hover:bg-slate-700 rounded-full mb-4">
+      <div className="mx-4 mb-4 flex flex-none items-center overflow-hidden rounded-full border bg-white dark:border-slate-600 dark:hover:bg-slate-700">
         <Popover onOpenChange={(e) => setIsDateOpen(e)} open={isDateOpen}>
-          <PopoverTrigger className="h-full w-full flex items-center justify-start py-3 px-4 text-gray-400">
-            <CalendarDaysIcon className="h-6 w-6 mr-2" />
+          <PopoverTrigger className="flex h-full w-full items-center justify-start px-4 py-3 text-gray-400">
+            <CalendarDaysIcon className="mr-2 h-6 w-6" />
             <motion.div
-              className="text-left mr-4"
+              className="mr-4 text-left"
               animate={{ width: isDateOpen || date ? "100px" : "auto" }}
             >
               {date ? moment(date).format("DD-MM-YYYY") : "Fecha"}
@@ -74,9 +74,9 @@ export function ActivityCtaForm({ price }: Props) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="flex items-center mr-2 relative"
+              className="relative mr-2 flex items-center"
             >
-              <Button variant="ghost" size="icon-sm" onClick={() => setDate(undefined)}>
+              <Button variant="ghost" onClick={() => setDate(undefined)}>
                 <XMarkIcon className="h-5 w-5" />
               </Button>
             </motion.div>
@@ -84,10 +84,10 @@ export function ActivityCtaForm({ price }: Props) {
         </AnimatePresence>
       </div>
 
-      <div className="mx-4 flex flex-none items-center overflow-hidden border bg-white dark:border-slate-600 dark:hover:bg-slate-700 rounded-full mb-4">
+      <div className="mx-4 mb-4 flex flex-none items-center overflow-hidden rounded-full border bg-white dark:border-slate-600 dark:hover:bg-slate-700">
         <Popover onOpenChange={(e) => setIsPeopleCountOpen(e)} open={isPeopleCountOpen}>
-          <PopoverTrigger className="h-full w-full flex items-center justify-start py-3 px-4 text-gray-400">
-            <UserGroupIcon className="h-6 w-6 mr-2" />
+          <PopoverTrigger className="flex h-full w-full items-center justify-start px-4 py-3 text-gray-400">
+            <UserGroupIcon className="mr-2 h-6 w-6" />
             <motion.div
               className="text-left"
               animate={{
@@ -100,11 +100,11 @@ export function ActivityCtaForm({ price }: Props) {
             </motion.div>
           </PopoverTrigger>
           <PopoverContent
-            className="w-full py-4 px-8 flex flex-col items-center select-none"
+            className="flex w-full select-none flex-col items-center px-8 py-4"
             align="start"
           >
             <Typography variant="lead">Número de personas</Typography>
-            <div className="flex space-x-8 items-center my-4">
+            <div className="my-4 flex items-center space-x-8">
               <Button
                 variant="outline"
                 size="icon"
@@ -130,9 +130,9 @@ export function ActivityCtaForm({ price }: Props) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="flex items-center mr-2 relative"
+              className="relative mr-2 flex items-center"
             >
-              <Button variant="ghost" size="icon-sm" onClick={() => setPeopleCount(0)}>
+              <Button variant="ghost" onClick={() => setPeopleCount(0)}>
                 <XMarkIcon className="h-5 w-5" />
               </Button>
             </motion.div>
@@ -148,8 +148,8 @@ export function ActivityCtaForm({ price }: Props) {
           target="_blank"
           rel="noreferrer"
         >
-          <Button className="rounded-full w-full">
-            <SendIcon className="w-4 h-4 mr-2" />
+          <Button className="w-full rounded-full">
+            <SendIcon className="mr-2 h-4 w-4" />
             Reserva ahora
           </Button>
         </a>

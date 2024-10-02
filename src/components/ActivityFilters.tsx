@@ -47,11 +47,11 @@ export function ActivityFilters() {
   }, 500);
 
   return (
-    <div className="lg:flex items-center justify-between p-4">
+    <div className="items-center justify-between p-4 lg:flex">
       <span>
         <Input
           placeholder="Buscar..."
-          className="lg:w-[300px] w-full lg:mb-0 mb-2 bg-muted rounded-full bg-white"
+          className="mb-2 w-full rounded-full bg-muted bg-white lg:mb-0 lg:w-[300px]"
           defaultValue={search}
           onChange={(e) => debounced(e.target.value)}
         />

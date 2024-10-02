@@ -33,13 +33,13 @@ export function JumboHomeForm({}: Props) {
   }, [peopleCount]);
 
   return (
-    <div className="bg-white shadow rounded-lg sm:rounded-full sm:p-2 sm:inline-flex">
-      <div className="text-gray-400 flex flex-none items-center sm:border-r sm:border-b-0 border-b py-4 sm:py-0 overflow-hidden px-4">
+    <div className="rounded-lg bg-white shadow sm:inline-flex sm:rounded-full sm:p-2">
+      <div className="flex flex-none items-center overflow-hidden border-b px-4 py-4 text-gray-400 sm:border-b-0 sm:border-r sm:py-0">
         <Popover onOpenChange={(e) => setIsDateOpen(e)}>
-          <PopoverTrigger className="h-full w-full flex items-center justify-start">
-            <CalendarDaysIcon className="h-6 w-6 mr-2" />
+          <PopoverTrigger className="flex h-full w-full items-center justify-start">
+            <CalendarDaysIcon className="mr-2 h-6 w-6" />
             <motion.div
-              className="text-left mr-4"
+              className="mr-4 text-left"
               animate={{ width: isDateOpen || date ? "100px" : "auto" }}
             >
               {date ? moment(date).format("DD-MM-YYYY") : "Fecha"}
@@ -61,16 +61,16 @@ export function JumboHomeForm({}: Props) {
           animate={{ width: isDateOpen || date ? "24px" : "0px" }}
           className="flex items-center overflow-hidden"
         >
-          <Button variant="ghost" size="icon-sm" onClick={() => setDate(undefined)}>
+          <Button variant="ghost" onClick={() => setDate(undefined)}>
             <XMarkIcon className="h-5 w-5" />
           </Button>
         </motion.div>
       </div>
 
-      <div className="text-gray-400 flex flex-none items-center sm:border-r sm:border-b-0 border-b py-4 sm:py-0 overflow-hidden px-4">
+      <div className="flex flex-none items-center overflow-hidden border-b px-4 py-4 text-gray-400 sm:border-b-0 sm:border-r sm:py-0">
         <Popover onOpenChange={(e) => setPeopleCountOpen(e)}>
-          <PopoverTrigger className="h-full w-full flex items-center justify-start">
-            <UserGroupIcon className="h-6 w-6 mr-2" />
+          <PopoverTrigger className="flex h-full w-full items-center justify-start">
+            <UserGroupIcon className="mr-2 h-6 w-6" />
             <motion.div
               className="text-left"
               animate={{
@@ -83,11 +83,11 @@ export function JumboHomeForm({}: Props) {
             </motion.div>
           </PopoverTrigger>
           <PopoverContent
-            className="w-auto py-4 px-8 flex flex-col items-center select-none"
+            className="flex w-auto select-none flex-col items-center px-8 py-4"
             align="start"
           >
-            <div className="font-semibold text-sm mb-4">Número de personas</div>
-            <div className="flex space-x-8 items-center my-4">
+            <div className="mb-4 text-sm font-semibold">Número de personas</div>
+            <div className="my-4 flex items-center space-x-8">
               <Button
                 variant="outline"
                 size="icon"
@@ -96,7 +96,7 @@ export function JumboHomeForm({}: Props) {
                 <MinusIcon />
               </Button>
 
-              <div className="font-semibold text-2xl text-center text-gray-800 select-none">
+              <div className="select-none text-center text-2xl font-semibold text-gray-800">
                 {peopleCount}
               </div>
 
@@ -115,21 +115,21 @@ export function JumboHomeForm({}: Props) {
           animate={{ width: isPeopleCountOpen || peopleCount ? "24px" : "0px" }}
           className="flex items-center overflow-hidden"
         >
-          <Button variant="ghost" size="icon-sm" onClick={() => setPeopleCount(0)}>
+          <Button variant="ghost" onClick={() => setPeopleCount(0)}>
             <XMarkIcon className="h-5 w-5" />
           </Button>
         </motion.div>
       </div>
 
-      <div className="text-gray-400 flex flex-none items-center sm:border-r sm:border-b-0 border-b py-4 sm:py-0 overflow-hidden px-4">
-        <div className="h-full w-full flex items-center justify-start">
-          <BanknotesIcon className="h-6 w-6 mr-2" />
+      <div className="flex flex-none items-center overflow-hidden border-b px-4 py-4 text-gray-400 sm:border-b-0 sm:border-r sm:py-0">
+        <div className="flex h-full w-full items-center justify-start">
+          <BanknotesIcon className="mr-2 h-6 w-6" />
           <div className="text-left transition-all">${total.toFixed(2)} USD</div>
         </div>
       </div>
 
-      <div className="sm:ml-4 sm:p-0 p-4">
-        <Button className="sm:rounded-full w-full">Comprar entradas</Button>
+      <div className="p-4 sm:ml-4 sm:p-0">
+        <Button className="w-full sm:rounded-full">Comprar entradas</Button>
       </div>
     </div>
   );

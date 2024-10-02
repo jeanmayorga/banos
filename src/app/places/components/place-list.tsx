@@ -18,7 +18,7 @@ export async function PlaceList({ place }: Props) {
   const activities = await getActivities(options);
 
   return (
-    <div className="last-of-type:border-b-0 border-b border-slate-100 py-8">
+    <div className="border-b border-slate-100 py-8 last-of-type:border-b-0">
       <div className="mb-8">
         <Link href={`/places/${place.slug}`} passHref>
           <Typography variant="h2">{place.name}</Typography>
@@ -28,7 +28,7 @@ export async function PlaceList({ place }: Props) {
 
       <div
         key={JSON.stringify(options)}
-        className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4"
+        className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
       >
         {activities.map((activity, idx) => (
           <ActivityCard key={activity.id} idx={idx} activity={activity} />
