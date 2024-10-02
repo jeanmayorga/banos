@@ -1,11 +1,13 @@
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import { Toaster } from "react-hot-toast";
 
-import "#/styles/global.css";
+import "./global.css";
 
 import { Footer } from "#/components/Footer";
+import { Header } from "#/components/Header";
+import { Nav } from "#/components/Nav";
 
 import { LayoutReactQuery } from "./layout-react-query";
 import { ThemeProvider } from "./theme-provider";
@@ -30,12 +32,14 @@ export default function RootLayout({ children }: Props) {
             enableSystem
             disableTransitionOnChange
           >
+            <Header />
+            <Nav />
             {children}
-            <Toaster />
             <Footer />
+            <Toaster />
           </ThemeProvider>
         </LayoutReactQuery>
-        <SpeedInsights />
+        <Analytics />
       </body>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-4WJMRLZSCE"

@@ -24,14 +24,14 @@ interface CarouselImageProps {
 }
 function CarouselImage({ photo, activity, isLoaded, idx }: CarouselImageProps) {
   return (
-    <CarouselItem key={photo.id} className="md:aspect-square aspect-video bg-muted">
+    <CarouselItem key={photo.id} className="aspect-video bg-muted md:aspect-square">
       <Link href={`/activities/${activity.slug}`} passHref>
         <Image
           src={photo.path}
           width={270}
           height={270}
           quality={isLoaded ? 90 : 35}
-          className="object-cover h-full w-full transition-opacity opacity-0"
+          className="h-full w-full object-cover opacity-0 transition-opacity"
           onLoad={(event) => {
             const image = event.target as HTMLElement;
             setTimeout(() => {
@@ -55,7 +55,7 @@ export function ActivityCard({ activity, idx }: Props) {
 
   return (
     <div className="group" onMouseOver={() => setIsLoaded(true)}>
-      <Carousel className="rounded-xl overflow-hidden md:aspect-square aspect-video">
+      <Carousel className="aspect-video overflow-hidden rounded-xl md:aspect-square">
         <CarouselContent>
           {photos.map((photo) => (
             <CarouselImage
@@ -67,8 +67,8 @@ export function ActivityCard({ activity, idx }: Props) {
             />
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-4 group-hover:opacity-100 opacity-0 transition-all" />
-        <CarouselNext className="right-4 group-hover:opacity-100 opacity-0 transition-all" />
+        <CarouselPrevious className="left-4 opacity-0 transition-all group-hover:opacity-100" />
+        <CarouselNext className="right-4 opacity-0 transition-all group-hover:opacity-100" />
         <CarouselDots count={activity.photos_count[0].count} />
       </Carousel>
 

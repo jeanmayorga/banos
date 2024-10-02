@@ -7,7 +7,7 @@ export default function NotFound() {
     <div>
       <Header />
       <Nav />
-      <div className="flex items-center justify-center h-60">
+      <div className="flex h-60 items-center justify-center">
         <Typography variant="h1">No se encontro esa página.</Typography>
       </div>
     </div>

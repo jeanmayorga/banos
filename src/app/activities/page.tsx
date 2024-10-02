@@ -1,10 +1,17 @@
+import { SearchIcon } from "lucide-react";
 import { Metadata } from "next";
+import Link from "next/link";
 
 import { ActivityFilters } from "#/components/ActivityFilters";
+import { Container } from "#/components/container";
+import { Search } from "#/components/search";
 import { Typography } from "#/components/ui/typography";
 
 import InfiniteScrollActivities from "./components/infinity-scroll-activities";
 import { GetActivitiesOptions, getActivities } from "./services";
+
+import { BackButton } from "@/components/back-button";
+import { GoBackButton } from "@/components/go-back-button";
 
 export const revalidate = 3600;
 
@@ -51,22 +58,22 @@ export default async function Page({ searchParams }: Props) {
   const activities = await getActivities(options);
 
   return (
-    <>
-      <div className="container mx-auto py-16">
-        <Typography variant="h2" component="h1">
-          Que hacer en Banos Ecuador
-        </Typography>
-        <Typography variant="muted" className="mb-8">
-          En la ciudad de Banos de agua santa tienes muchas atracciones turisticas.
-        </Typography>
-        <ActivityFilters />
-        <div
-          key={JSON.stringify(options)}
-          className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4"
-        >
-          <InfiniteScrollActivities initialData={activities} options={options} />
-        </div>
+    <Container>
+      <BackButton to="/" />
+      <Typography variant="h2" component="h1" className="mb-4">
+        ¿Qué hacer en Baños?
+      </Typography>
+      {/* <Typography variant="muted" component="p" className="mb-8">
+        Descubre las mejores aventuras y actividades en el corazón de la naturaleza.
+      </Typography> */}
+      <Search placeholder="Buscar actividades..." />
+      <ActivityFilters />
+      <div
+        key={JSON.stringify(options)}
+        className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
+      >
+        <InfiniteScrollActivities initialData={activities} options={options} />
       </div>
-    </>
+    </Container>
   );
 }

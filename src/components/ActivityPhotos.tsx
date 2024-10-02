@@ -17,10 +17,10 @@ export function ActivityPhotos({ photos }: Props) {
   const [index, setIndex] = useState(-1);
 
   return (
-    <div className="w-full mb-8">
-      <div className="container max-w-6xl mx-auto relative">
-        <div className="lg:h-[336px] grid grid-rows-2 md:grid-cols-4 grid-cols-2 gap-2 rounded-xl overflow-hidden">
-          <div className="row-span-2 col-span-2 bg-slate-200">
+    <div className="w-full">
+      <div className="container relative mx-auto max-w-6xl">
+        <div className="grid grid-cols-2 grid-rows-2 gap-2 overflow-hidden rounded-xl md:grid-cols-4 lg:h-[336px]">
+          <div className="col-span-2 row-span-2 bg-gray-800 transition-all hover:scale-[.98]">
             {photos?.[0]?.path && (
               <Image
                 onClick={() => setIndex(0)}
@@ -28,11 +28,11 @@ export function ActivityPhotos({ photos }: Props) {
                 width={500}
                 height={300}
                 alt={photos[0].alt}
-                className="w-full h-full object-cover cursor-pointer"
+                className="h-full w-full cursor-pointer object-cover"
               />
             )}
           </div>
-          <div className="bg-slate-200 hidden md:block">
+          <div className="hidden bg-gray-800 transition-all hover:scale-[.98] md:block">
             {photos?.[1]?.path && (
               <Image
                 onClick={() => setIndex(1)}
@@ -40,11 +40,11 @@ export function ActivityPhotos({ photos }: Props) {
                 width={600}
                 height={300}
                 alt={photos[1].alt}
-                className="w-full h-full object-cover cursor-pointer"
+                className="h-full w-full cursor-pointer object-cover"
               />
             )}
           </div>
-          <div className="bg-slate-200 hidden md:block">
+          <div className="hidden bg-gray-800 transition-all hover:scale-[.98] md:block">
             {photos?.[2]?.path && (
               <Image
                 onClick={() => setIndex(2)}
@@ -52,11 +52,11 @@ export function ActivityPhotos({ photos }: Props) {
                 width={600}
                 height={300}
                 alt={photos[2].alt}
-                className="w-full h-full object-cover cursor-pointer"
+                className="h-full w-full cursor-pointer object-cover"
               />
             )}
           </div>
-          <div className="bg-slate-200 hidden md:block">
+          <div className="hidden bg-gray-800 transition-all hover:scale-[.98] md:block">
             {photos?.[3]?.path && (
               <Image
                 onClick={() => setIndex(3)}
@@ -64,11 +64,11 @@ export function ActivityPhotos({ photos }: Props) {
                 width={600}
                 height={300}
                 alt={photos[3].alt}
-                className="w-full h-full object-cover cursor-pointer"
+                className="h-full w-full cursor-pointer object-cover"
               />
             )}
           </div>
-          <div className="bg-slate-200 hidden md:block">
+          <div className="hidden bg-gray-800 transition-all hover:scale-[.98] md:block">
             {photos?.[4]?.path && (
               <Image
                 onClick={() => setIndex(4)}
@@ -76,7 +76,7 @@ export function ActivityPhotos({ photos }: Props) {
                 width={600}
                 height={300}
                 alt={photos[4].alt}
-                className="w-full h-full object-cover cursor-pointer"
+                className="h-full w-full cursor-pointer object-cover"
               />
             )}
           </div>
@@ -84,10 +84,10 @@ export function ActivityPhotos({ photos }: Props) {
         <Button
           variant="outline"
           size="sm"
-          className="absolute right-10 bottom-2 rounded-full"
+          className="absolute bottom-2 right-2 rounded-full"
           onClick={() => setIndex(0)}
         >
-          <ImageIcon className="w-4 h-4 mr-1" /> Mostrar todas las fotos
+          <ImageIcon className="mr-1 h-4 w-4" /> Mostrar todas las fotos
         </Button>
 
         <Lightbox

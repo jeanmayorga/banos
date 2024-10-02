@@ -51,7 +51,7 @@ export function JumboHome({ activities }: Props) {
   };
 
   return (
-    <div className={clsx("relative overflow-hidden bg-black h-[600px]")}>
+    <div className={clsx("relative overflow-hidden bg-black h-[500px] rounded-[40px] mb-8")}>
       <div className="bg-black/50 absolute top-0 left-0 w-full h-full z-10" />
       <div className="relative z-20 flex items-center w-full h-full mx-8">
         <div className="container mx-auto py-16">

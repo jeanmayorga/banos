@@ -28,16 +28,16 @@ export function ThemeButton() {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <div className="flex justify-start mb-4">
-            <AlertDialogCancel className="h-8 w-8 p-[4px] rounded-full">
-              <XMarkIcon className="w-6 h-6" />
+          <div className="mb-4 flex justify-start">
+            <AlertDialogCancel className="h-8 w-8 rounded-full p-[4px]">
+              <XMarkIcon className="h-6 w-6" />
             </AlertDialogCancel>
           </div>
           <AlertDialogTitle>Tema</AlertDialogTitle>
           <AlertDialogDescription>
             <div className="mt-4 space-y-2">
               <div
-                className="rounded-xl border px-4 py-3 flex items-center hover:bg-gray-100 dark:hover:bg-gray-800 hover:scale-[.99] active:scale-[.97] transition-all cursor-pointer select-none"
+                className="flex cursor-pointer select-none items-center rounded-xl border px-4 py-3 transition-all hover:scale-[.99] hover:bg-gray-100 active:scale-[.97] dark:hover:bg-gray-800"
                 onClick={() => setTheme("light")}
               >
                 <SunIcon className="h-8 w-8" />
@@ -46,7 +46,7 @@ export function ThemeButton() {
                 </div>
               </div>
               <div
-                className="rounded-xl border px-4 py-3 flex items-center hover:bg-gray-100 dark:hover:bg-gray-800 hover:scale-[.99] active:scale-[.97] transition-all cursor-pointer select-none"
+                className="flex cursor-pointer select-none items-center rounded-xl border px-4 py-3 transition-all hover:scale-[.99] hover:bg-gray-100 active:scale-[.97] dark:hover:bg-gray-800"
                 onClick={() => setTheme("dark")}
               >
                 <MoonIcon className="h-8 w-8" />
@@ -55,7 +55,7 @@ export function ThemeButton() {
                 </div>
               </div>
               <div
-                className="rounded-xl border px-4 py-3 flex items-center hover:bg-gray-100 dark:hover:bg-gray-800 hover:scale-[.99] active:scale-[.97] transition-all cursor-pointer select-none"
+                className="flex cursor-pointer select-none items-center rounded-xl border px-4 py-3 transition-all hover:scale-[.99] hover:bg-gray-100 active:scale-[.97] dark:hover:bg-gray-800"
                 onClick={() => setTheme("system")}
               >
                 <LaptopIcon className="h-8 w-8" />

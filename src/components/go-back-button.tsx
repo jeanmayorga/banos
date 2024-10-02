@@ -24,8 +24,12 @@ export function GoBackButton({ href, className }: Props) {
   }
 
   return (
-    <Button variant="ghost" className={cn(className, "px-0 hover:px-3")} onClick={handleGoBack}>
-      <ArrowLeft className="w-4 h-4 mr-1" /> Regresar
+    <Button
+      variant="ghost"
+      className={cn("rounded-full px-0 hover:px-3", className)}
+      onClick={handleGoBack}
+    >
+      <ArrowLeft className="mr-2 h-4 w-4" /> Regresar
     </Button>
   );
 }

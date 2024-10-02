@@ -47,18 +47,18 @@ export function ActivityFilters() {
   }, 500);
 
   return (
-    <div className="lg:flex items-center justify-between py-2 bg-muted border border-slate-200 dark:border-slate-800 dark:bg-slate-900 rounded-xl px-2 mb-8">
+    <div className="lg:flex items-center justify-between p-4">
       <span>
         <Input
           placeholder="Buscar..."
-          className="rounded-xl lg:w-[300px] w-full lg:mb-0 mb-2"
+          className="lg:w-[300px] w-full lg:mb-0 mb-2 bg-muted rounded-full bg-white"
           defaultValue={search}
           onChange={(e) => debounced(e.target.value)}
         />
       </span>
       <span>
         <Select value={sort} onValueChange={handleSort}>
-          <SelectTrigger className="rounded-xl">
+          <SelectTrigger className="rounded-full">
             <SelectValue placeholder="Ordenar por:" />
           </SelectTrigger>
           <SelectContent>

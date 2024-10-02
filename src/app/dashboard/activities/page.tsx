@@ -45,12 +45,12 @@ export default async function Page({ searchParams }: Props) {
 
   return (
     <>
-      <main className="container mx-auto max-w-7xl my-8">
-        <div className="flex items-center justify-between mb-8">
+      <main className="container mx-auto my-8 max-w-7xl">
+        <div className="mb-8 flex items-center justify-between">
           <Typography variant="h2">Activities</Typography>
           <Link href="/dashboard/activities/create" passHref>
             <Button size="sm">
-              <PlusIcon className="w-4 h-4 mr-1" />
+              <PlusIcon className="mr-1 h-4 w-4" />
               Create
             </Button>
           </Link>

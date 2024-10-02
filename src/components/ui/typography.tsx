@@ -6,13 +6,13 @@ import { cn } from "#/utils";
 const typographyVariants = cva("", {
   variants: {
     variant: {
-      h1: "scroll-m-20 text-4xl font-extrabold sm:text-5xl lg:text-6xl tracking-tight",
+      h1: "scroll-m-20 text-5xl font-semibold tracking-tight",
       h2: "scroll-m-20 text-3xl font-semibold tracking-tight",
       h3: "scroll-m-20 text-2xl font-semibold tracking-tight",
       h4: "scroll-m-20 text-xl font-semibold tracking-tight",
       h5: "scroll-m-20 text-base font-semibold tracking-tight",
       h6: "",
-      p: "leading-7 [&:not(:first-child)]:mt-6 font-light",
+      p: "leading-7 font-light",
       lead: "text-xl text-muted-foreground",
       large: "text-lg font-semibold",
       muted: "text-sm text-muted-foreground",

@@ -1,19 +1,20 @@
-import { Clock4Icon, MapPinIcon, MonitorStopIcon, ParkingCircle } from "lucide-react";
+import { Clock4Icon, MapPinIcon, MonitorStopIcon, ParkingCircle, SearchIcon } from "lucide-react";
 import { Metadata } from "next";
-import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { ActivityContent } from "#/components/ActivityContent";
 import { ActivityCtaForm } from "#/components/ActivityCtaForm";
 import { ActivityPhotos } from "#/components/ActivityPhotos";
+import { BackButton } from "#/components/back-button";
 import { Breadcrumds } from "#/components/Breadcrumb";
-import { GoBackButton } from "#/components/go-back-button";
+import { Container } from "#/components/container";
 import { GoogleMapsDynamic } from "#/components/GoogleMapsDynamic";
 import { ShareButton } from "#/components/ShareButton";
 import { Separator } from "#/components/ui/separator";
 import { Typography } from "#/components/ui/typography";
 
-import { getActivity, updateActivity } from "../services";
+import { getActivities, getActivity, updateActivity } from "../services";
 
 export const revalidate = 3600;
 
@@ -49,6 +50,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+export async function generateStaticParams() {
+  const activities = await getActivities({ limit: 200 });
+
+  return activities.map((activity) => ({ slug: activity.slug }));
+}
+
 export default async function Page({ params }: Props) {
   const activity = await getActivity({ slug: params.slug });
   if (!activity || !activity.is_active) return notFound();
@@ -58,8 +65,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <>
-      <div className="container max-w-6xl mx-auto">
-        <GoBackButton href="/activities" className="mt-8" />
+      <Container>
         <Breadcrumds
           items={[
             {
@@ -77,124 +83,39 @@ export default async function Page({ params }: Props) {
           ]}
         />
 
-        <div className="mb-6 sm:flex sm:items-end sm:justify-between">
-          <div className="mb-4 sm:mb-0">
-            {/* <Badge variant="outline" className="mb-2 bg-fuchsia-700 text-white">
-              Uno de los lugares mas visitados
-            </Badge> */}
+        <div className="mb-6">
+          <Typography variant="h1" component="h1" className="mb-2">
+            {activity.title}
+          </Typography>
 
-            <Typography variant="h1" component="h1" className="mb-2">
-              {activity.title}
-            </Typography>
-            <Link href={`/places/${activity.place.slug}`} passHref>
-              <Typography variant="muted" className="flex items-center mr-2">
-                <MapPinIcon className="w-4 h-4 mr-1" />
-                {activity.place.name}
-              </Typography>
-            </Link>
-          </div>
-
-          <ShareButton
-            imageUrl={photos[0].path}
-            name={activity.title}
-            description={activity.description}
-          />
+          <Typography variant="muted" component="h2" className="mb-2">
+            {activity.title} en {activity.place.name}, Banos, Ecuador
+          </Typography>
         </div>
-      </div>
+      </Container>
 
-      <ActivityPhotos photos={photos} />
+      <section className="relative mb-8 w-full overflow-hidden bg-gray-800 py-12">
+        <Image
+          src={photos[0].path}
+          alt="cover blur"
+          height={190}
+          width={250}
+          quality={40}
+          className="absolute left-0 top-0 h-full w-full scale-150 blur-xl transition-all"
+        />
+        <Container className="relative">
+          <ActivityPhotos photos={photos} />
+        </Container>
+      </section>
 
-      <div className="container max-w-6xl mx-auto">
-        <div className="sm:grid sm:grid-cols-6 gap-8 relative pb-4">
-          <div className="col-span-4 mb-8 sm:mb-0">
-            <article>
-              <Typography variant="h4" component="h2" className="mb-4">
-                {activity.title} en {activity.place.name}, Banos, Ecuador
-              </Typography>
-              <ActivityContent content={activity.body} />
-              <Separator className="my-8" />
-              {activity.open_time && activity.close_time && (
-                <div className="flex mb-8">
-                  <div className="mr-8">
-                    <Clock4Icon className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <Typography variant="h5" component="h5">
-                      Horario
-                    </Typography>
-                    <Typography variant="muted">
-                      Desde {activity.open_time} hasta {activity.close_time}
-                    </Typography>
-                  </div>
-                </div>
-              )}
-              {activity.has_free_parking && (
-                <div className="flex mb-8">
-                  <div className="mr-8">
-                    <ParkingCircle className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <Typography variant="h5" component="h5">
-                      Estacionamiento gratuito
-                    </Typography>
-                    <Typography variant="muted">
-                      Este es uno de los pocos lugares en la zona con estacionamiento gratuito.
-                    </Typography>
-                  </div>
-                </div>
-              )}
-              {activity.tik_tok_video_id && (
-                <div className="flex">
-                  <div className="mr-8">
-                    <MonitorStopIcon className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <Typography variant="h5" component="h5">
-                      Tiktok
-                    </Typography>
-                    <iframe
-                      src={`https://www.tiktok.com/embed/${activity.tik_tok_video_id}`}
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      className=" h-[574px]"
-                    />
-                  </div>
-                </div>
-              )}
-            </article>
-          </div>
-          <div className="col-span-2">
-            <ActivityCtaForm price={activity.price} />
-          </div>
-        </div>
-
-        {activity.location_latitude && activity.location_longitude && (
-          <>
-            <Separator className="my-4" />
-            <section className="pt-4 rounded-xl overflow-hidden">
-              <Typography variant="h4" component="h2" className="mb-4">
-                Ubicación
-              </Typography>
-              <GoogleMapsDynamic
-                className="w-full h-[450px] bg-muted rounded-xl overflow-hidden mb-4"
-                latitude={activity.location_latitude}
-                longitude={activity.location_longitude}
-                zoom={14}
-                markers={[
-                  {
-                    latitude: activity.location_latitude,
-                    longitude: activity.location_longitude,
-                  },
-                ]}
-              />
-              <Typography variant="muted">
-                {activity.place.name}, Banos de agua santa, Tungurahua, Ecuador
-              </Typography>
-            </section>
-          </>
-        )}
-      </div>
+      <Container>
+        <article>
+          <Typography variant="h4" component="h2" className="mb-4">
+            Descripción
+          </Typography>
+          <ActivityContent content={activity.body} />
+        </article>
+      </Container>
     </>
   );
 }

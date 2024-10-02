@@ -1,11 +1,22 @@
 "use client";
 
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
-import { BedDoubleIcon, BikeIcon, HomeIcon, MountainSnowIcon, SoupIcon } from "lucide-react";
+import {
+  BedDoubleIcon,
+  BikeIcon,
+  HomeIcon,
+  MountainSnowIcon,
+  SoupIcon,
+  TentTree,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { cn } from "#/utils";
+
+import { Container } from "./container";
+import { Button } from "./ui/button";
+import { Typography } from "./ui/typography";
 
 interface ItemProps {
   icon?: React.ReactNode;
@@ -19,40 +30,54 @@ function Item({ href, icon, name }: ItemProps) {
   return (
     <Link
       href={href}
-      passHref
       className={cn(
-        "border-b-2 border-b-transparent transition-all",
-        "hover:border-b-gray-700 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 dark:hover:border-b-gray-300",
-        isActive && "border-b-rose-500 hover:border-b-rose-500 text-rose-500 hover:text-rose-500",
+        "border-1 group flex items-center rounded-full border border-transparent px-4 py-2 transition-all active:scale-95",
+        "hover:border-gray-200 hover:shadow-sm",
+        isActive && "bg-rose-400",
       )}
     >
-      <div className="flex flex-col items-center px-2 py-2 my-1 rounded-lg">
+      <div
+        className={cn(
+          "mr-2 text-gray-500 transition-all group-hover:text-gray-900",
+          isActive && "text-white group-hover:text-white",
+        )}
+      >
         {icon}
-        <div className={cn("text-xs font-normal", isActive && "font-medium")}>{name}</div>
+      </div>
+      <div
+        className={cn(
+          "text-sm font-semibold tracking-tight text-gray-500 transition-all",
+          "group-hover:font-semibold group-hover:text-gray-900",
+          isActive && "text-white group-hover:text-white",
+        )}
+      >
+        {name}
       </div>
     </Link>
   );
 }
 
-export function NavItems() {
-  return (
-    <div className="flex items-center gap-2">
-      <Item href="/" icon={<HomeIcon className="w-6 h-6 mb-2" />} name="Inicio" />
-      <Item href="/places" icon={<MountainSnowIcon className="w-6 h-6 mb-2" />} name="Lugares" />
-      <Item href="/activities" icon={<BikeIcon className="w-6 h-6 mb-2" />} name="Actividades" />
-      {/* <Item href="/hotels" icon={<BedDoubleIcon className="w-6 h-6 mb-2" />} name="Hoteles" />
-      <Item href="/restaurants" icon={<SoupIcon className="w-6 h-6 mb-2" />} name="Restaurantes" />
-      <Item href="/events" icon={<CalendarDaysIcon className="w-6 h-6 mb-2" />} name="Fiestas" /> */}
-    </div>
-  );
-}
-
 export function Nav() {
   return (
-    <nav className="w-full bg-white dark:bg-gray-900 shadow-sm dark:shadow-gray-800 border-b-gray-100 sticky top-0 z-30 overflow-y-hidden whitespace-nowrap scrollbar-hide">
-      <div className="container max-w-6xl mx-auto">
-        <NavItems />
-      </div>
-    </nav>
+    <div className="sticky top-0 z-30 border-b border-gray-100 bg-white py-2">
+      <Container className="flex items-center gap-2">
+        <Item href="/" icon={<HomeIcon className="h-5 w-5" />} name="Inicio" />
+        <Item href="/places" icon={<MountainSnowIcon className="h-5 w-5" />} name="Lugares" />
+        {/* <Item
+          href="/hotels"
+          icon={
+            <svg viewBox="0 0 24 24" width="24px" height="24px" className="h-5 w-5">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M3.252 5.405c0-.47.38-.85.85-.85h15.624c.47 0 .85.38.85.85v6.649c.68.562 1.22 1.393 1.22 2.544v4.847h-1.5V17.77H3.704v1.674h-1.5V14.57c.025-.654.304-1.588 1.049-2.35zm2.635 5.587q.394-.052.836-.052h3.896c-.503-.482-1.31-.93-2.433-.93-1.09 0-1.83.467-2.3.982m7.389-.052h4.468l.036.004q.245.022.536.082a2 2 0 0 0-.221-.233c-.447-.41-1.18-.783-2.254-.783-1.078 0-1.75.273-2.18.584a2.4 2.4 0 0 0-.385.346m5.8-1.282c-.726-.651-1.812-1.148-3.235-1.148-1.347 0-2.338.347-3.06.868-.342.248-.61.525-.821.802-.736-.861-2.005-1.67-3.774-1.67-1.629 0-2.733.712-3.434 1.503V6.055h14.324zM3.703 16.27h16.594v-1.673c0-.703-.355-1.188-.888-1.545-.56-.374-1.263-.561-1.74-.613H6.724c-1.118 0-1.81.317-2.237.678-.57.482-.765 1.123-.783 1.496z"
+              ></path>
+            </svg>
+          }
+          name="Hoteles"
+        /> */}
+        <Item href="/activities" icon={<TentTree className="h-5 w-5" />} name="Actividades" />
+      </Container>
+    </div>
   );
 }

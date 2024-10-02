@@ -16,7 +16,7 @@ export function ActivityContent({ content }: Props) {
 
   return (
     <>
-      <Typography variant="p" className="text-justify">
+      <Typography variant="p" className="text-justify text-gray-700">
         {paragraphs[0]}
       </Typography>
       {isOpen && (
@@ -26,7 +26,11 @@ export function ActivityContent({ content }: Props) {
       )}
 
       {hasMoreThan1Paragraph && (
-        <Button variant="link" className="px-0" onClick={() => setIsOpen((isOpen) => !isOpen)}>
+        <Button
+          variant="outline"
+          className="mt-8 rounded-full"
+          onClick={() => setIsOpen((isOpen) => !isOpen)}
+        >
           {isOpen ? "Leer menos" : "Leer más"}
         </Button>
       )}
