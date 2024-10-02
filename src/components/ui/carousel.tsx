@@ -246,7 +246,7 @@ const CarouselDots = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        "absolute w-full flex items-center justify-center gap-1",
+        "absolute flex w-full items-center justify-center gap-1",
         orientation === "horizontal" ? "bottom-2" : "hidden",
         className,
       )}
@@ -256,7 +256,7 @@ const CarouselDots = React.forwardRef<
         <div
           key={item}
           className={cn(
-            "w-1 h-1 rounded-full",
+            "h-1 w-1 rounded-full",
             currentIndex === item ? "bg-white" : "bg-gray-300/80",
           )}
         />
