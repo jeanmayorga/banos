@@ -5,9 +5,14 @@ import { Metadata } from "next";
 
 import { ActivityFilters } from "@/components/ActivityFilters";
 import { BackButton } from "@/components/back-button";
+import { Breadcrumds } from "@/components/Breadcrumb";
 import { Container } from "@/components/container";
 import { Search } from "@/components/search";
 import { Typography } from "@/components/ui/typography";
+
+import { ActivitiesTab } from "./components/ActivitiesTabs";
+import InfiniteScrollActivities from "./components/infinity-scroll-activities";
+import { getActivities, GetActivitiesOptions } from "./services";
 
 export const revalidate = 3600;
 
@@ -43,32 +48,45 @@ interface Props {
   };
 }
 export default async function Page({ searchParams }: Props) {
-  // const options: GetActivitiesOptions = {
-  //   sortBy: searchParams?.sortBy,
-  //   sortOrder: searchParams?.sortOrder,
-  //   search: searchParams?.search,
-  //   isActive: true,
-  //   activitySelect: ["id", "title", "price", "slug"],
-  //   placeSelect: ["name"],
-  // };
-  // const activities = await getActivities(options);
+  const options: GetActivitiesOptions = {
+    sortBy: searchParams?.sortBy,
+    sortOrder: searchParams?.sortOrder,
+    search: searchParams?.search,
+    isActive: true,
+    activitySelect: ["id", "title", "price", "slug"],
+    placeSelect: ["name"],
+  };
+  const activities = await getActivities(options);
 
   return (
     <Container>
-      <BackButton to="/" />
-      <Typography variant="h2" component="h1" className="mb-4">
-        ¿Qué hacer en Baños?
-      </Typography>
+      <Breadcrumds
+        items={[
+          {
+            text: "Banos",
+            href: "/",
+          },
+          {
+            text: "Actividades",
+            href: `/activities`,
+          },
+        ]}
+      />
+      <div className="mb-8">
+        <Typography variant="h1" component="h1" className="mb-4">
+          Actividades
+        </Typography>
+        <Search />
+        <ActivitiesTab />
+      </div>
       {/* <Typography variant="muted" component="p" className="mb-8">
         Descubre las mejores aventuras y actividades en el corazón de la naturaleza.
       </Typography> */}
-      <Search placeholder="Buscar actividades..." />
-      <ActivityFilters />
       <div
-        // key={JSON.stringify(options)}
-        className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
+        key={JSON.stringify(options)}
+        className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
       >
-        {/* <InfiniteScrollActivities initialData={activities} options={options} /> */}
+        <InfiniteScrollActivities initialData={activities} options={options} />
       </div>
     </Container>
   );

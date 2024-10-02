@@ -1,17 +1,11 @@
-import { Clock4Icon, MapPinIcon, MonitorStopIcon, ParkingCircle, SearchIcon } from "lucide-react";
 import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { ActivityContent } from "#/components/ActivityContent";
-import { ActivityCtaForm } from "#/components/ActivityCtaForm";
 import { ActivityPhotos } from "#/components/ActivityPhotos";
-import { BackButton } from "#/components/back-button";
 import { Breadcrumds } from "#/components/Breadcrumb";
 import { Container } from "#/components/container";
-import { GoogleMapsDynamic } from "#/components/GoogleMapsDynamic";
-import { ShareButton } from "#/components/ShareButton";
-import { Separator } from "#/components/ui/separator";
 import { Typography } from "#/components/ui/typography";
 
 import { getActivities, getActivity, updateActivity } from "../services";
@@ -71,6 +65,10 @@ export default async function Page({ params }: Props) {
             {
               text: "Banos",
               href: "/",
+            },
+            {
+              text: "Actividades",
+              href: `/activities`,
             },
             {
               text: activity.place.name,

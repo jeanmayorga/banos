@@ -38,7 +38,7 @@ function Item({ href, icon, name }: ItemProps) {
     >
       <div
         className={cn(
-          "mr-2 text-gray-500 transition-all group-hover:text-gray-900",
+          "mr-2 text-gray-500 transition-all group-hover:text-gray-900 dark:text-gray-200",
           isActive && "text-white group-hover:text-white",
         )}
       >
@@ -46,7 +46,7 @@ function Item({ href, icon, name }: ItemProps) {
       </div>
       <div
         className={cn(
-          "text-sm font-semibold tracking-tight text-gray-500 transition-all",
+          "text-sm font-semibold tracking-tight text-gray-500 transition-all dark:text-gray-200",
           "group-hover:font-semibold group-hover:text-gray-900",
           isActive && "text-white group-hover:text-white",
         )}
@@ -59,7 +59,7 @@ function Item({ href, icon, name }: ItemProps) {
 
 export function Nav() {
   return (
-    <div className="sticky top-0 z-30 border-b border-gray-100 bg-white py-2">
+    <div className="sticky top-0 z-30 border-b border-gray-100 bg-white py-2 dark:border-gray-900 dark:bg-black">
       <Container className="flex items-center gap-2">
         <Item href="/" icon={<HomeIcon className="h-5 w-5" />} name="Inicio" />
         <Item href="/places" icon={<MountainSnowIcon className="h-5 w-5" />} name="Lugares" />

@@ -1,3 +1,7 @@
+"use server";
+
+import { unstable_cache as cache } from "next/cache";
+
 import { getPagination } from "#/utils/get-pagination";
 import { supabase } from "#/utils/supabase";
 
@@ -5,17 +9,14 @@ import { Place } from "../places/types";
 
 import { Activity, ActivityPhoto } from "./types";
 
-export async function getActivity(options?: { slug?: string }) {
-  if (!options || !options.slug) return null;
-
-  let query = supabase.from("activities").select("*, place:places(*), photos:activities_photos(*)");
-
-  if (options?.slug) query = query.eq("slug", options.slug);
-
-  const { data, error } = await query.single();
+export async function getActivity(options: { slug: string }) {
+  const { data, error } = await supabase
+    .from("activities")
+    .select("*, place:places(*), photos:activities_photos(*)")
+    .eq("slug", options.slug)
+    .single();
 
   if (error) return null;
-
   return data as Activity;
 }
 
@@ -54,11 +55,27 @@ export async function getActivities(options?: GetActivitiesOptions) {
   if (sortByDefault === "name") query = query.order("title", { ascending });
   if (sortByDefault === "price") query = query.order("price", { ascending });
 
-  const { data, error } = await query;
+  const getData = cache(
+    async () => {
+      const { data, error } = await query;
 
-  if (error) return [];
+      if (error) return [];
+      return data as unknown as Activity[];
+    },
+    [
+      sortOrderDefault,
+      sortByDefault,
+      String(limitDefault),
+      String(pageDefault),
+      activitySelectDefault,
+      activityPlaceDefault,
+    ],
+    { revalidate: false, tags: ["activities"] },
+  );
 
-  return data as unknown as Activity[];
+  const results = await getData();
+
+  return results;
 }
 
 export async function updateActivity(options: Partial<Activity>) {
