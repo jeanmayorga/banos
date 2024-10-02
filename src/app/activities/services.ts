@@ -9,7 +9,7 @@ import { Place } from "../places/types";
 
 import { Activity, ActivityPhoto } from "./types";
 
-export async function getActivity(options: { slug: string }) {
+export async function getActivity(options: { slug?: string }) {
   const { data, error } = await supabase
     .from("activities")
     .select("*, place:places(*), photos:activities_photos(*)")
