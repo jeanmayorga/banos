@@ -19,6 +19,10 @@ export const tabs = [
     key: "cheaper",
   },
   {
+    name: "Mas caros",
+    key: "most-expensive",
+  },
+  {
     name: "En la ciudad",
     key: "in-city",
   },
