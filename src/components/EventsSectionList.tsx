@@ -34,7 +34,7 @@ export function EventsSectionList({ events }: Props) {
   return (
     <>
       <div
-        className="mb-4 flex w-full space-x-4 overflow-y-hidden scroll-smooth whitespace-nowrap px-4 scrollbar-hide"
+        // className="mb-4 flex w-full space-x-4 overflow-y-hidden scroll-smooth whitespace-nowrap px-4 scrollbar-hide"
         id="events-list"
       >
         {events.map((event) => (

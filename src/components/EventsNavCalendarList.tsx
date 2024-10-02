@@ -46,9 +46,9 @@ export function EventsNavCalendarList() {
   return (
     <div
       id="calendar-parent"
-      className={cn(
-        "flex w-full overflow-y-hidden whitespace-nowrap bg-fuchsia-900 px-4 scrollbar-hide md:justify-center",
-      )}
+      // className={cn(
+      // "flex w-full overflow-y-hidden whitespace-nowrap bg-fuchsia-900 px-4 scrollbar-hide md:justify-center",
+      // )}
     >
       {calendar.map((date) => {
         const isActive = dateInUrl ? date === dateInUrl : date === getCurrentDate();
