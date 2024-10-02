@@ -16,13 +16,13 @@ export function EventsSectionItem({ event }: Props) {
 
   return (
     <Link href={`/events/${date}`} passHref>
-      <div className="w-[280px] h-[180px] bg-black dark:bg-slate-900 rounded-lg relative">
-        <div className="top-2 left-2 absolute px-4 py-1 text-center bg-white dark:bg-slate-600 rounded-lg transition-all">
+      <div className="relative h-[180px] w-[280px] rounded-lg bg-black dark:bg-slate-900">
+        <div className="absolute left-2 top-2 rounded-lg bg-white px-4 py-1 text-center transition-all dark:bg-slate-600">
           <div>{format(new Date(date), "MMM", { locale: es }).toUpperCase()}</div>
           <div className="text-2xl">{format(new Date(date), "dd")}</div>
         </div>
         <Badge variant="secondary" className="absolute bottom-2 left-2">
-          <MapPinnedIcon className="w-4 h-4 mr-1" />
+          <MapPinnedIcon className="mr-1 h-4 w-4" />
           {place}
         </Badge>
       </div>
@@ -31,8 +31,8 @@ export function EventsSectionItem({ event }: Props) {
           {title.substring(0, 20)}
         </Typography>
       </div>
-      <Typography variant="muted" className="m-0 p-0 flex items-center">
-        <CalendarClockIcon className="w-4 h-4 mr-1" /> {time}
+      <Typography variant="muted" className="m-0 flex items-center p-0">
+        <CalendarClockIcon className="mr-1 h-4 w-4" /> {time}
       </Typography>
     </Link>
   );

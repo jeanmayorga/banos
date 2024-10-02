@@ -23,7 +23,7 @@ export default async function Page({ params }: Props) {
     <div>
       <div className="container m-auto my-8 max-w-3xl">
         {events.length === 0 && (
-          <div className="text-lg px-4 mt-[100px] text-center leading-none">No hay eventos.</div>
+          <div className="mt-[100px] px-4 text-center text-lg leading-none">No hay eventos.</div>
         )}
         {events.map((event) => (
           <EventsCard key={event.id} event={event} />

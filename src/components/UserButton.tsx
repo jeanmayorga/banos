@@ -18,7 +18,7 @@ export function UserButton() {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="outline" aria-label="compartir" className="rounded-full">
-          <Bars3Icon className="h-5 w-5 mr-2" />
+          <Bars3Icon className="mr-2 h-5 w-5" />
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 32 32"
@@ -33,9 +33,9 @@ export function UserButton() {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <div className="flex justify-start mb-4">
-            <AlertDialogCancel className="h-8 w-8 p-[4px] rounded-full">
-              <XMarkIcon className="w-6 h-6" />
+          <div className="mb-4 flex justify-start">
+            <AlertDialogCancel className="h-8 w-8 rounded-full p-[4px]">
+              <XMarkIcon className="h-6 w-6" />
             </AlertDialogCancel>
           </div>
           <AlertDialogTitle>Configuración</AlertDialogTitle>

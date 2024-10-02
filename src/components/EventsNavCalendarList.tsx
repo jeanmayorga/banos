@@ -47,7 +47,7 @@ export function EventsNavCalendarList() {
     <div
       id="calendar-parent"
       className={cn(
-        "bg-fuchsia-900 w-full px-4 flex md:justify-center overflow-y-hidden whitespace-nowrap scrollbar-hide",
+        "flex w-full overflow-y-hidden whitespace-nowrap bg-fuchsia-900 px-4 scrollbar-hide md:justify-center",
       )}
     >
       {calendar.map((date) => {

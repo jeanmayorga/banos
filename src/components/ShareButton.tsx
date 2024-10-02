@@ -47,22 +47,22 @@ export function ShareButton({ imageUrl, name, description }: Props) {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <div className="flex justify-start mb-4">
-            <AlertDialogCancel className="h-8 w-8 p-[4px] rounded-full">
-              <XMarkIcon className="w-6 h-6" />
+          <div className="mb-4 flex justify-start">
+            <AlertDialogCancel className="h-8 w-8 rounded-full p-[4px]">
+              <XMarkIcon className="h-6 w-6" />
             </AlertDialogCancel>
           </div>
           <AlertDialogTitle className="text-left">Compartir este enlace</AlertDialogTitle>
           <AlertDialogDescription>
             {imageUrl && name && description && (
-              <div className="flex items-center mb-4 bg-slate-100 dark:bg-slate-800 p-4 rounded-xl text-left">
+              <div className="mb-4 flex items-center rounded-xl bg-slate-100 p-4 text-left dark:bg-slate-800">
                 <Image
                   src={imageUrl}
                   alt={name}
                   width={100}
                   height={70}
                   quality={40}
-                  className="object-cover rounded-2xl mr-4"
+                  className="mr-4 rounded-2xl object-cover"
                 />
                 <div>
                   <Typography variant="lead">{name}</Typography>
@@ -70,9 +70,9 @@ export function ShareButton({ imageUrl, name, description }: Props) {
                 </div>
               </div>
             )}
-            <div className="sm:grid sm:grid-cols-2 gap-4 sm:space-y-0 space-y-4 mt-4">
+            <div className="mt-4 gap-4 space-y-4 sm:grid sm:grid-cols-2 sm:space-y-0">
               <div
-                className="rounded-xl border px-4 py-3 flex items-center hover:bg-gray-100 dark:hover:bg-gray-800 hover:scale-[.99] active:scale-[.97] transition-all cursor-pointer select-none"
+                className="flex cursor-pointer select-none items-center rounded-xl border px-4 py-3 transition-all hover:scale-[.99] hover:bg-gray-100 active:scale-[.97] dark:hover:bg-gray-800"
                 onClick={handleCopyClipboard}
               >
                 <ClipboardDocumentCheckIcon className="h-8 w-8" />
@@ -83,7 +83,7 @@ export function ShareButton({ imageUrl, name, description }: Props) {
               <a
                 href={`https://wa.me/?text=${encodeURIComponent(getShareableUrl())}`}
                 target="_blank"
-                className="rounded-xl border px-4 py-3 flex items-center hover:bg-gray-100 dark:hover:bg-gray-800 hover:scale-[.99] active:scale-[.97] transition-all cursor-pointer select-none"
+                className="flex cursor-pointer select-none items-center rounded-xl border px-4 py-3 transition-all hover:scale-[.99] hover:bg-gray-100 active:scale-[.97] dark:hover:bg-gray-800"
                 rel="noreferrer"
               >
                 <svg

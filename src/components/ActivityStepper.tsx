@@ -11,9 +11,9 @@ function Step1({ step }: { step: number }) {
     <Link href={`/dashboard/activities/create${slugContent}`} passHref>
       <li className="mb-10 ms-6">
         {step >= 1 ? (
-          <span className="absolute flex items-center justify-center w-8 h-8 bg-green-200 rounded-full -start-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green-900">
+          <span className="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full bg-green-200 ring-4 ring-white dark:bg-green-900 dark:ring-gray-900">
             <svg
-              className="w-3.5 h-3.5 text-green-500 dark:text-green-400"
+              className="h-3.5 w-3.5 text-green-500 dark:text-green-400"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -29,8 +29,8 @@ function Step1({ step }: { step: number }) {
             </svg>
           </span>
         ) : (
-          <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -start-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700">
-            <BookTypeIcon className="w-3.5 h-3.5 text-gray-500 dark:text-gray-400" />
+          <span className="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 ring-4 ring-white dark:bg-gray-700 dark:ring-gray-900">
+            <BookTypeIcon className="h-3.5 w-3.5 text-gray-500 dark:text-gray-400" />
           </span>
         )}
 
@@ -49,9 +49,9 @@ function Step2({ step }: { step: number }) {
     <Link href={`/dashboard/activities/create/photos${slugContent}`} passHref>
       <li className="mb-10 ms-6">
         {step >= 2 ? (
-          <span className="absolute flex items-center justify-center w-8 h-8 bg-green-200 rounded-full -start-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green-900">
+          <span className="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full bg-green-200 ring-4 ring-white dark:bg-green-900 dark:ring-gray-900">
             <svg
-              className="w-3.5 h-3.5 text-green-500 dark:text-green-400"
+              className="h-3.5 w-3.5 text-green-500 dark:text-green-400"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -67,8 +67,8 @@ function Step2({ step }: { step: number }) {
             </svg>
           </span>
         ) : (
-          <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -start-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700">
-            <BookTypeIcon className="w-3.5 h-3.5 text-gray-500 dark:text-gray-400" />
+          <span className="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 ring-4 ring-white dark:bg-gray-700 dark:ring-gray-900">
+            <BookTypeIcon className="h-3.5 w-3.5 text-gray-500 dark:text-gray-400" />
           </span>
         )}
 
@@ -87,9 +87,9 @@ function Step3({ step }: { step: number }) {
     <Link href={`/dashboard/activities/create/details${slugContent}`} passHref>
       <li className="mb-10 ms-6">
         {step >= 3 ? (
-          <span className="absolute flex items-center justify-center w-8 h-8 bg-green-200 rounded-full -start-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green-900">
+          <span className="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full bg-green-200 ring-4 ring-white dark:bg-green-900 dark:ring-gray-900">
             <svg
-              className="w-3.5 h-3.5 text-green-500 dark:text-green-400"
+              className="h-3.5 w-3.5 text-green-500 dark:text-green-400"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -105,8 +105,8 @@ function Step3({ step }: { step: number }) {
             </svg>
           </span>
         ) : (
-          <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -start-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700">
-            <BookTypeIcon className="w-3.5 h-3.5 text-gray-500 dark:text-gray-400" />
+          <span className="absolute -start-4 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 ring-4 ring-white dark:bg-gray-700 dark:ring-gray-900">
+            <BookTypeIcon className="h-3.5 w-3.5 text-gray-500 dark:text-gray-400" />
           </span>
         )}
 
@@ -125,7 +125,7 @@ export function ActivityStepper({ step }: Props) {
     <div className="flex-none">
       <ol
         className={
-          "relative text-gray-500 border-s border-gray-200 dark:border-gray-700 dark:text-gray-400"
+          "relative border-s border-gray-200 text-gray-500 dark:border-gray-700 dark:text-gray-400"
         }
       >
         <Step1 step={step} />

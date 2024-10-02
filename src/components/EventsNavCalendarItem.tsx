@@ -18,8 +18,8 @@ export function EventsNavCalendarItem({ date, isActive }: Props) {
         className={clsx(
           isActive
             ? "bg-white text-fuchsia-800"
-            : "text-gray-100 active:text-fuchsia-800 hover:bg-fuchsia-700",
-          "my-2 px-4 py-1 text-center active:bg-white rounded-lg transition-all",
+            : "text-gray-100 hover:bg-fuchsia-700 active:text-fuchsia-800",
+          "my-2 rounded-lg px-4 py-1 text-center transition-all active:bg-white",
         )}
       >
         <div className="text-xs font-light">{format(currentDate, "MMM", { locale: es })}</div>
