@@ -25,7 +25,7 @@ interface CarouselImageProps {
 function CarouselImage({ photo, activity, isLoaded, idx }: CarouselImageProps) {
   return (
     <CarouselItem key={photo.id} className="aspect-video bg-muted md:aspect-square">
-      <Link href={`/activities/${activity.slug}`} passHref>
+      <Link href={`/activities/${activity.slug}`}>
         <Image
           src={photo.path}
           width={270}
@@ -36,9 +36,10 @@ function CarouselImage({ photo, activity, isLoaded, idx }: CarouselImageProps) {
             const image = event.target as HTMLElement;
             setTimeout(() => {
               image.classList.remove("opacity-0");
-            }, idx * 30);
+            }, idx * 60);
           }}
           alt={activity.title}
+          loading="lazy"
         />
       </Link>
     </CarouselItem>
@@ -72,7 +73,7 @@ export function ActivityCard({ activity, idx }: Props) {
         <CarouselDots count={activity.photos_count[0].count} />
       </Carousel>
 
-      <Link href={`/activities/${activity.slug}`} passHref>
+      <Link href={`/activities/${activity.slug}`}>
         <Typography variant="p" className="pt-2 font-medium">
           {activity.title}
         </Typography>

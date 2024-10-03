@@ -1,16 +1,13 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 
-import { ActivityContent } from "#/components/ActivityContent";
-import { ActivityPhotos } from "#/components/ActivityPhotos";
 import { Breadcrumds } from "#/components/Breadcrumb";
 import { Container } from "#/components/container";
 import { Typography } from "#/components/ui/typography";
 
-import { getActivities, getActivity, updateActivity } from "../services";
-
-export const revalidate = 3600;
+import { getActivityBySlug, getAllActivities } from "../actions";
+import { DescriptionBlock } from "../components/DescriptionBlock";
+import { ImagesBlock } from "../components/ImagesBlock";
 
 interface Props {
   params: {
@@ -19,43 +16,65 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const activity = await getActivity({ slug: params.slug });
+  const activity = await getActivityBySlug(params.slug);
+  const title = `${activity?.fields.title} | Baños de agua santa | Ecuador`;
+  const description = "";
+  const url = `https://banos.app/activities/${activity?.fields.slug}`;
+
+  function generateImages() {
+    const images = activity?.fields.images;
+    return images?.map((image) => ({
+      url: `https:${image?.fields.file?.url}`,
+      width: image?.fields.file?.details.image?.width,
+      height: image?.fields.file?.details.image?.height,
+      alt: title,
+    }));
+  }
+
+  const images = generateImages();
 
   return {
-    metadataBase: new URL("https://banos.app/"),
-    alternates: {
-      canonical: `/activities/${activity?.slug}`,
-    },
-    title: `${activity?.title} | Baños de agua santa | Ecuador`,
-    description: activity?.description,
-    applicationName: "Banos de agua santa",
-    keywords: activity?.keywords,
+    title,
+    applicationName: "Banos de Agua Santa | Ecuador",
+    description,
+    keywords: activity?.fields.keywords,
+    authors: [
+      {
+        name: "Jean Paul Mayorga",
+        url: "https://jeanmayorga.com",
+      },
+    ],
     robots: "index, follow",
     openGraph: {
+      siteName: "Guayaquil",
+      title: title,
+      description,
+      url,
       type: "website",
-      url: `https://banos.app/activities/${activity?.slug}`,
-      title: `${activity?.title} | Baños de agua santa | Ecuador`,
-      description: activity?.description,
-      siteName: "Banos de Agua Santa",
-      images: activity?.photos?.map((photo) => ({
-        url: `https://res.cloudinary.com/da3uyv9xp/image/upload/f_auto,c_limit,w_1080,q_auto/${photo.path}`,
-      })),
+      images,
+    },
+    alternates: {
+      canonical: url,
     },
   };
 }
 
 export async function generateStaticParams() {
-  const activities = await getActivities({ limit: 200 });
+  const activities = await getAllActivities();
 
-  return activities.map((activity) => ({ slug: activity.slug }));
+  return activities.map((activity) => ({ slug: activity.fields.slug }));
 }
 
 export default async function Page({ params }: Props) {
-  const activity = await getActivity({ slug: params.slug });
-  if (!activity || !activity.is_active) return notFound();
+  const activity = await getActivityBySlug(params.slug);
 
-  const photos = activity.photos || [];
-  await updateActivity({ slug: params.slug, visits: Number(activity.visits) + 1 });
+  if (!activity) return notFound();
+
+  const place = activity.fields.place;
+  const images = activity.fields.images;
+
+  // const photos = activity.photos || [];
+  // await updateActivity({ slug: params.slug, visits: Number(activity.visits) + 1 });
 
   return (
     <>
@@ -71,49 +90,30 @@ export default async function Page({ params }: Props) {
               href: `/activities`,
             },
             {
-              text: activity.place.name,
-              href: `/places/${activity.place.slug}`,
+              text: place?.fields.title,
+              href: `/places/${place?.fields.title}`,
             },
             {
-              text: activity.title,
-              href: `/activities/${activity.slug}`,
+              text: activity.fields.title,
+              href: `/activities/${activity.fields.slug}`,
             },
           ]}
         />
 
         <div className="mb-6">
           <Typography variant="h1" component="h1" className="mb-2">
-            {activity.title}
+            {activity.fields.title}
           </Typography>
 
           <Typography variant="muted" component="h2" className="mb-2">
-            {activity.title} en {activity.place.name}, Banos, Ecuador
+            {activity.fields.title} en {place?.fields.title}, Banos, Ecuador
           </Typography>
         </div>
       </Container>
 
-      <section className="relative mb-8 w-full overflow-hidden bg-gray-800 py-12">
-        <Image
-          src={photos[0].path}
-          alt="cover blur"
-          height={190}
-          width={250}
-          quality={40}
-          className="absolute left-0 top-0 h-full w-full scale-150 blur-xl transition-all"
-        />
-        <Container className="relative">
-          <ActivityPhotos photos={photos} />
-        </Container>
-      </section>
+      <ImagesBlock title={activity.fields.title} images={images} />
 
-      <Container>
-        <article>
-          <Typography variant="h4" component="h2" className="mb-4">
-            Descripción
-          </Typography>
-          <ActivityContent content={activity.body} />
-        </article>
-      </Container>
+      <DescriptionBlock document={activity.fields.description} />
     </>
   );
 }
