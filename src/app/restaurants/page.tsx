@@ -4,7 +4,6 @@ import { ActivityFilters } from "#/components/ActivityFilters";
 import { Typography } from "#/components/ui/typography";
 import { cn } from "#/utils";
 
-import InfiniteScrollActivities from "../activities/components/infinity-scroll-activities";
 import { getActivities, GetActivitiesOptions } from "../activities/services";
 
 export default async function Page() {
@@ -62,9 +61,7 @@ export default async function Page() {
           <div
             key={JSON.stringify(options)}
             className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
-          >
-            <InfiniteScrollActivities initialData={activities} options={options} />
-          </div>
+          ></div>
         </div>
       </div>
     </>

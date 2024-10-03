@@ -1,3 +1,5 @@
+"use server";
+
 import { TypeActivitySkeleton } from "@/contentful";
 import { client } from "@/contentful/client";
 

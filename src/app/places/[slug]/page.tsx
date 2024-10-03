@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import InfiniteScrollActivities from "#/app/activities/components/infinity-scroll-activities";
+// import InfiniteScrollActivities from "#/app/activities/components/infinity-scroll-activities";
 import { GetActivitiesOptions, getActivities } from "#/app/activities/services";
 import { ActivityFilters } from "#/components/ActivityFilters";
 import { Breadcrumds } from "#/components/Breadcrumb";
@@ -100,7 +100,7 @@ export default async function Page({ params, searchParams }: Props) {
           key={JSON.stringify(options)}
           className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
         >
-          <InfiniteScrollActivities initialData={activities} options={options} />
+          {/* <InfiniteScrollActivities initialData={activities} options={options} /> */}
         </div>
       </div>
     </>

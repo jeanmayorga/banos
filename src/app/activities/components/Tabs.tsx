@@ -7,10 +7,6 @@ import { cn } from "@/lib/utils";
 
 export const tabs = [
   {
-    name: "Todos",
-    key: "all",
-  },
-  {
     name: "Mas populares",
     key: "most-popular",
   },
@@ -32,9 +28,9 @@ export const tabs = [
   },
 ];
 
-export function ActivitiesTab() {
+export function Tabs() {
   const searchParams = useSearchParams();
-  const currentTab = searchParams.get("tab") || "all";
+  const currentTab = searchParams.get("tab") || "most-popular";
 
   return (
     <nav className="no-scrollbar flex space-x-1 overflow-x-auto">

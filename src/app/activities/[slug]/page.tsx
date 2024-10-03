@@ -6,8 +6,8 @@ import { Container } from "#/components/container";
 import { Typography } from "#/components/ui/typography";
 
 import { getActivityBySlug, getAllActivities } from "../actions";
+import { BlockImages } from "../components/BlockImages";
 import { DescriptionBlock } from "../components/DescriptionBlock";
-import { ImagesBlock } from "../components/ImagesBlock";
 
 interface Props {
   params: {
@@ -111,7 +111,7 @@ export default async function Page({ params }: Props) {
         </div>
       </Container>
 
-      <ImagesBlock title={activity.fields.title} images={images} />
+      <BlockImages title={activity.fields.title} images={images} />
 
       <DescriptionBlock document={activity.fields.description} />
     </>

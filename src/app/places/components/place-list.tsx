@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { GetActivitiesOptions, getActivities } from "#/app/activities/services";
-import { ActivityCard } from "#/components/ActivityCard";
+// import { ActivityCard } from "#/components/ActivityCard";
 import { Button } from "#/components/ui/button";
 import { Typography } from "#/components/ui/typography";
 
@@ -30,9 +30,9 @@ export async function PlaceList({ place }: Props) {
         key={JSON.stringify(options)}
         className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
       >
-        {activities.map((activity, idx) => (
+        {/* {activities.map((activity, idx) => (
           <ActivityCard key={activity.id} idx={idx} activity={activity} />
-        ))}
+        ))} */}
       </div>
       <div className="pt-4">
         <Link href={`/places/${place.slug}`} passHref>
