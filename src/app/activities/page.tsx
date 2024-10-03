@@ -68,7 +68,7 @@ export default async function Page({ searchParams }: Props) {
         <Search />
         <Tabs />
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
         {activities.map((activity, idx) => (
           <Card key={activity.fields.slug} activity={activity} idx={idx} />
         ))}
