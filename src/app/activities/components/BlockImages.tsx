@@ -16,10 +16,9 @@ import { cn } from "@/utils/cn";
 import "yet-another-react-lightbox/styles.css";
 
 interface Props {
-  title: string;
   images: (Asset<"WITHOUT_UNRESOLVABLE_LINKS", string> | undefined)[];
 }
-export function BlockImages({ title, images }: Props) {
+export function BlockImages({ images }: Props) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
   });
@@ -30,12 +29,12 @@ export function BlockImages({ title, images }: Props) {
   const [index, setIndex] = useState(-1);
 
   return (
-    <section className="relative mb-8 w-full overflow-hidden">
+    <section className="relative mb-4 w-full overflow-hidden">
       <div className="mb-4 overflow-hidden pl-4 lg:pl-[calc((100vw-62rem)/2)]" ref={emblaRef}>
         <div className="flex">
           {images.map((image) => (
             <div
-              key={index}
+              key={image?.sys.id}
               role="group"
               aria-roledescription="slide"
               className="lg:basis-3/3 relative mr-4 h-48 min-w-0 shrink-0 grow-0 basis-2/3 overflow-hidden rounded-xl bg-black md:basis-2/5 lg:h-96"

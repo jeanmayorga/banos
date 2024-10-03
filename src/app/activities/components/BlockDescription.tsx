@@ -29,9 +29,9 @@ function topLevelMapper(topLevelBlock: TopLevelBlock) {
 interface Props {
   document: Document;
 }
-export function DescriptionBlock({ document }: Props) {
+export function BlockDescription({ document }: Props) {
   return (
-    <Container>
+    <Container className="mb-4">
       <article>
         <Typography variant="h4" component="h2" className="mb-4">
           Descripción

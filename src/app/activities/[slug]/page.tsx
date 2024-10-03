@@ -1,13 +1,17 @@
+import { HeartIcon, MapPinIcon, ShareIcon } from "lucide-react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+
+import { Button } from "@/components/ui/button";
 
 import { Breadcrumds } from "#/components/Breadcrumb";
 import { Container } from "#/components/container";
 import { Typography } from "#/components/ui/typography";
 
 import { getActivityBySlug, getAllActivities } from "../actions";
+import { BlockDescription } from "../components/BlockDescription";
+import { BlockGoogleMaps } from "../components/BlockGoogleMaps";
 import { BlockImages } from "../components/BlockImages";
-import { DescriptionBlock } from "../components/DescriptionBlock";
 
 interface Props {
   params: {
@@ -72,8 +76,9 @@ export default async function Page({ params }: Props) {
 
   const place = activity.fields.place;
   const images = activity.fields.images;
+  const description = activity.fields.description;
+  const location = activity.fields.location;
 
-  // const photos = activity.photos || [];
   // await updateActivity({ slug: params.slug, visits: Number(activity.visits) + 1 });
 
   return (
@@ -100,20 +105,37 @@ export default async function Page({ params }: Props) {
           ]}
         />
 
-        <div className="mb-6">
-          <Typography variant="h1" component="h1" className="mb-2">
-            {activity.fields.title}
-          </Typography>
+        <div className="mb-4 lg:flex lg:items-end lg:justify-between">
+          <div className="mb-4 lg:mb-0">
+            <Typography variant="h1" component="h1" className="mb-2">
+              {activity.fields.title}
+            </Typography>
 
-          <Typography variant="muted" component="h2" className="mb-2">
-            {activity.fields.title} en {place?.fields.title}, Banos, Ecuador
-          </Typography>
+            <div className="flex items-center">
+              <MapPinIcon className="mr-1 h-6 w-4 text-muted-foreground" />
+              <Typography variant="muted" component="h2">
+                {activity.fields.title}, {place?.fields.title}, Banos, Ecuador
+              </Typography>
+            </div>
+          </div>
+          <div className="lg flex space-x-2">
+            <Button className="rounded-full" variant="outline">
+              <ShareIcon className="mr-1 h-6 w-4 text-muted-foreground" />
+              Compartir
+            </Button>
+            <Button className="rounded-full" variant="outline">
+              <HeartIcon className="mr-1 h-6 w-4 text-muted-foreground" />
+              Guardar
+            </Button>
+          </div>
         </div>
       </Container>
 
-      <BlockImages title={activity.fields.title} images={images} />
+      <BlockImages images={images} />
 
-      <DescriptionBlock document={activity.fields.description} />
+      <BlockDescription document={description} />
+
+      <BlockGoogleMaps latitude={location?.lat} longitude={location?.lon} />
     </>
   );
 }

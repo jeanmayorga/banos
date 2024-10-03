@@ -1,23 +1,18 @@
 "use client";
 
 import { Loader } from "@googlemaps/js-api-loader";
-import { renderToHTML } from "next/dist/server/render";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
+import { Container } from "@/components/container";
+import { Typography } from "@/components/ui/typography";
+
 interface Props {
-  latitude: number;
-  longitude: number;
-  zoom?: number;
-  markers?: {
-    latitude: number;
-    longitude: number;
-    content?: React.ReactNode;
-  }[];
-  className?: string;
+  latitude?: number;
+  longitude?: number;
 }
 
-export function GoogleMapsDynamic({ latitude, longitude, zoom, markers = [], className }: Props) {
+export function BlockGoogleMaps({ latitude = 0, longitude = 0 }: Props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [ref, inView] = useInView();
 
@@ -35,7 +30,7 @@ export function GoogleMapsDynamic({ latitude, longitude, zoom, markers = [], cla
       const mapElement = document.getElementById("map");
       const options = {
         center: { lat: latitude, lng: longitude },
-        zoom,
+        zoom: 16,
         mapTypeControl: false,
         clickableIcons: false,
         streetViewControl: false,
@@ -45,11 +40,9 @@ export function GoogleMapsDynamic({ latitude, longitude, zoom, markers = [], cla
       if (mapElement) {
         const map = new Map(mapElement, options);
 
-        markers.forEach((marker) => {
-          new AdvancedMarkerElement({
-            map,
-            position: { lat: marker.latitude, lng: marker.longitude },
-          });
+        new AdvancedMarkerElement({
+          map,
+          position: { lat: latitude, lng: longitude },
         });
       }
     }
@@ -58,7 +51,14 @@ export function GoogleMapsDynamic({ latitude, longitude, zoom, markers = [], cla
       loadMap();
       setIsLoaded(true);
     }
-  }, [inView, isLoaded, latitude, longitude, zoom, markers]);
+  }, [inView, isLoaded, latitude, longitude]);
 
-  return <div ref={ref} id="map" className={className} />;
+  return (
+    <Container className="mb-4">
+      <Typography variant="h4" component="h2" className="mb-4">
+        Ubicación
+      </Typography>
+      <div ref={ref} id="map" className="h-96 w-full rounded-xl border shadow-sm" />
+    </Container>
+  );
 }

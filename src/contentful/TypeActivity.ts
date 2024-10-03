@@ -14,8 +14,10 @@ export interface TypeActivityFields {
   title: EntryFieldTypes.Symbol;
   description: EntryFieldTypes.RichText;
   images: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
-  price?: EntryFieldTypes.Number;
   place: EntryFieldTypes.EntryLink<TypePlacesSkeleton>;
+  price?: EntryFieldTypes.Number;
+  location?: EntryFieldTypes.Location;
+  visits?: EntryFieldTypes.Integer;
 }
 
 export type TypeActivitySkeleton = EntrySkeletonType<TypeActivityFields, "activity">;

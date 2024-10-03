@@ -11,7 +11,7 @@ export function Header() {
         <Link href="/">
           <Logo size="md" className="py-2 text-rose-400 dark:text-white" />
         </Link>
-        <div className="absolute right-0">
+        <div className="absolute right-4">
           <ModeToggle />
         </div>
       </Container>
