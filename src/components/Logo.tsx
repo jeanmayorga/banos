@@ -24,7 +24,7 @@ export function Logo({ size, className }: Props) {
   }
   if (size === "md") {
     return (
-      <div className="relative w-[200px] select-none">
+      <div className="relative select-none">
         <div className={cn(`text-5xl leading-none text-gray-50 ${satisfy.className}`, className)}>
           Banos
         </div>
