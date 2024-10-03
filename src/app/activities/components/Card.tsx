@@ -57,7 +57,7 @@ export function Card({ activity, idx }: Props) {
       </Carousel>
 
       <Link href={`/activities/${activity.fields.slug}`}>
-        <Typography variant="p" className="pt-2 font-medium">
+        <Typography variant="large" className="pt-2 font-medium">
           {activity.fields.title}
         </Typography>
         <Typography variant="muted">{activity.fields.place?.fields.title}</Typography>

@@ -85,7 +85,7 @@ export function BlockImages({ images }: Props) {
                 className={cn(
                   "ml-1 flex h-4 w-4 items-center justify-center rounded-full border-2 border-gray-300 transition-all",
                   "dark:border-gray-500",
-                  index === selectedIndex && "border-gray-900 dark:border-white",
+                  index === selectedIndex && "border-gray-400 dark:border-white",
                 )}
               />
             ))}

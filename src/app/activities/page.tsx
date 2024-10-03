@@ -1,12 +1,13 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 import { Breadcrumds } from "@/components/Breadcrumb";
 import { Container } from "@/components/container";
 import { Search } from "@/components/search";
 import { Typography } from "@/components/ui/typography";
 
-import { getAllActivities } from "./actions";
-import { Card } from "./components/Card";
+import { BlockCardList } from "./components/BlockCardList";
+import { BlockCardListSkeleton } from "./components/BlockCardListSkeleton";
 import { Tabs } from "./components/Tabs";
 
 export const metadata: Metadata = {
@@ -42,8 +43,6 @@ interface Props {
 }
 
 export default async function Page({ searchParams }: Props) {
-  const activities = await getAllActivities();
-
   return (
     <Container>
       <Breadcrumds
@@ -68,11 +67,9 @@ export default async function Page({ searchParams }: Props) {
         <Search />
         <Tabs />
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
-        {activities.map((activity, idx) => (
-          <Card key={activity.fields.slug} activity={activity} idx={idx} />
-        ))}
-      </div>
+      <Suspense fallback={<BlockCardListSkeleton />}>
+        <BlockCardList />
+      </Suspense>
     </Container>
   );
 }

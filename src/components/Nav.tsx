@@ -33,22 +33,26 @@ function Item({ href, icon, name }: ItemProps) {
       className={cn(
         "border-1 group flex items-center rounded-full border border-transparent px-4 py-2 transition-all active:scale-95",
         "hover:border-gray-200 hover:shadow-sm",
-        isActive && "bg-rose-400",
+        "dark:hover:border-gray-600",
+        isActive && "bg-rose-400 dark:border-rose-400 dark:hover:border-gray-400",
       )}
     >
       <div
         className={cn(
           "mr-2 text-gray-500 transition-all group-hover:text-gray-900 dark:text-gray-200",
-          isActive && "text-white group-hover:text-white",
+          "dark:text-gray-200 dark:group-hover:text-gray-100",
+          isActive && "text-white group-hover:text-white dark:text-rose-50",
         )}
       >
         {icon}
       </div>
       <div
         className={cn(
-          "text-sm font-semibold tracking-tight text-gray-500 transition-all dark:text-gray-200",
+          "text-sm font-semibold tracking-tight transition-all",
+          "text-gray-500",
           "group-hover:font-semibold group-hover:text-gray-900",
-          isActive && "text-white group-hover:text-white",
+          "dark:text-gray-200 dark:group-hover:text-gray-100",
+          isActive && "text-white group-hover:text-white dark:text-rose-50",
         )}
       >
         {name}

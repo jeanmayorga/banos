@@ -79,7 +79,7 @@ export default async function Page({ params }: Props) {
   const description = activity.fields.description;
   const location = activity.fields.location;
 
-  // await updateActivity({ slug: params.slug, visits: Number(activity.visits) + 1 });
+  // increaseActivityVisit(activity.sys.id);
 
   return (
     <>
@@ -135,7 +135,7 @@ export default async function Page({ params }: Props) {
 
       <BlockDescription document={description} />
 
-      <BlockGoogleMaps latitude={location?.lat} longitude={location?.lon} />
+      <BlockGoogleMaps location={location} />
     </>
   );
 }

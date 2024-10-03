@@ -1,6 +1,7 @@
 "use client";
 
 import { Loader } from "@googlemaps/js-api-loader";
+import { EntryFields } from "contentful";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
@@ -8,13 +9,15 @@ import { Container } from "@/components/container";
 import { Typography } from "@/components/ui/typography";
 
 interface Props {
-  latitude?: number;
-  longitude?: number;
+  location?: EntryFields.Location;
 }
 
-export function BlockGoogleMaps({ latitude = 0, longitude = 0 }: Props) {
+export function BlockGoogleMaps({ location }: Props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [ref, inView] = useInView();
+
+  const lat = location?.lat || 0;
+  const lng = location?.lon || 0;
 
   useEffect(() => {
     async function loadMap() {
@@ -29,10 +32,10 @@ export function BlockGoogleMaps({ latitude = 0, longitude = 0 }: Props) {
       const AdvancedMarkerElement = google.maps.marker.AdvancedMarkerElement;
       const mapElement = document.getElementById("map");
       const options = {
-        center: { lat: latitude, lng: longitude },
+        center: { lat, lng },
         zoom: 16,
-        mapTypeControl: false,
-        clickableIcons: false,
+        // mapTypeControl: false,
+        // clickableIcons: false,
         streetViewControl: false,
         mapId: "b0ec3f57b695647c",
       };
@@ -42,7 +45,7 @@ export function BlockGoogleMaps({ latitude = 0, longitude = 0 }: Props) {
 
         new AdvancedMarkerElement({
           map,
-          position: { lat: latitude, lng: longitude },
+          position: { lat, lng },
         });
       }
     }
@@ -51,7 +54,9 @@ export function BlockGoogleMaps({ latitude = 0, longitude = 0 }: Props) {
       loadMap();
       setIsLoaded(true);
     }
-  }, [inView, isLoaded, latitude, longitude]);
+  }, [inView, isLoaded, lat, lng]);
+
+  if (!location) return null;
 
   return (
     <Container className="mb-4">

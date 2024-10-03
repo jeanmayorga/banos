@@ -1,10 +1,10 @@
 "use server";
 
+import { contentfulManagementClient, contentfulClient } from "@/api/contentful";
 import { TypeActivitySkeleton } from "@/contentful";
-import { client } from "@/contentful/client";
 
 export async function getAllActivities() {
-  const entries = await client.getEntries<TypeActivitySkeleton>({
+  const entries = await contentfulClient.getEntries<TypeActivitySkeleton>({
     content_type: "activity",
   });
 
@@ -12,7 +12,7 @@ export async function getAllActivities() {
 }
 
 export async function getActivityBySlug(slug: string) {
-  const entries = await client.getEntries<TypeActivitySkeleton>({
+  const entries = await contentfulClient.getEntries<TypeActivitySkeleton>({
     content_type: "activity",
     "fields.slug[in]": [slug],
   });
@@ -21,4 +21,17 @@ export async function getActivityBySlug(slug: string) {
   const activity = entries.items[0];
 
   return activity;
+}
+
+export async function increaseActivityVisit(entryId: string) {
+  const client = await contentfulManagementClient();
+  const entry = await client.getEntry(entryId);
+  const currentVisits = entry.fields.visits["en-US"] || 0;
+
+  entry.fields.visits = {
+    "en-US": Number(currentVisits) + 1,
+  };
+
+  await entry.update();
+  await entry.publish();
 }
