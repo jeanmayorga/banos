@@ -1,16 +1,17 @@
+import { EditIcon, HeartIcon, MapPinIcon, ShareIcon } from "lucide-react";
 import { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 
-import { ActivityContent } from "#/components/ActivityContent";
-import { ActivityPhotos } from "#/components/ActivityPhotos";
+import { Button } from "@/components/ui/button";
+
 import { Breadcrumds } from "#/components/Breadcrumb";
 import { Container } from "#/components/container";
 import { Typography } from "#/components/ui/typography";
 
-import { getActivities, getActivity, updateActivity } from "../services";
-
-export const revalidate = 3600;
+import { getActivityBySlug, getAllActivities } from "../actions";
+import { BlockDescription } from "../components/BlockDescription";
+import { BlockGoogleMaps } from "../components/BlockGoogleMaps";
+import { BlockImages } from "../components/BlockImages";
 
 interface Props {
   params: {
@@ -19,43 +20,63 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const activity = await getActivity({ slug: params.slug });
+  const activity = await getActivityBySlug(params.slug);
+  const title = `${activity?.fields.title} | Baños de agua santa | Ecuador`;
+  const description = (activity?.fields.description.content[0].content[0] as any)?.value;
+  const url = `https://banos.app/activities/${activity?.fields.slug}`;
+  const image = `https://dev.banos.app/api/og?title=${activity?.fields.title}`;
+  const images = [
+    {
+      url: image,
+      width: 1200,
+      height: 630,
+      alt: title,
+    },
+  ];
 
   return {
-    metadataBase: new URL("https://banos.app/"),
-    alternates: {
-      canonical: `/activities/${activity?.slug}`,
-    },
-    title: `${activity?.title} | Baños de agua santa | Ecuador`,
-    description: activity?.description,
-    applicationName: "Banos de agua santa",
-    keywords: activity?.keywords,
+    title,
+    applicationName: "Banos de Agua Santa | Ecuador",
+    description,
+    keywords: activity?.fields.keywords,
+    authors: [
+      {
+        name: "Jean Paul Mayorga",
+        url: "https://jeanmayorga.com",
+      },
+    ],
     robots: "index, follow",
     openGraph: {
+      siteName: "Guayaquil",
+      title: title,
+      description,
+      url,
       type: "website",
-      url: `https://banos.app/activities/${activity?.slug}`,
-      title: `${activity?.title} | Baños de agua santa | Ecuador`,
-      description: activity?.description,
-      siteName: "Banos de Agua Santa",
-      images: activity?.photos?.map((photo) => ({
-        url: `https://res.cloudinary.com/da3uyv9xp/image/upload/f_auto,c_limit,w_1080,q_auto/${photo.path}`,
-      })),
+      images,
+    },
+    alternates: {
+      canonical: url,
     },
   };
 }
 
 export async function generateStaticParams() {
-  const activities = await getActivities({ limit: 200 });
+  const activities = await getAllActivities();
 
-  return activities.map((activity) => ({ slug: activity.slug }));
+  return activities.map((activity) => ({ slug: activity.fields.slug }));
 }
 
 export default async function Page({ params }: Props) {
-  const activity = await getActivity({ slug: params.slug });
-  if (!activity || !activity.is_active) return notFound();
+  const activity = await getActivityBySlug(params.slug);
 
-  const photos = activity.photos || [];
-  await updateActivity({ slug: params.slug, visits: Number(activity.visits) + 1 });
+  if (!activity) return notFound();
+
+  const place = activity.fields.place;
+  const images = activity.fields.images;
+  const description = activity.fields.description;
+  const location = activity.fields.location;
+
+  // increaseActivityVisit(activity.sys.id);
 
   return (
     <>
@@ -71,49 +92,54 @@ export default async function Page({ params }: Props) {
               href: `/activities`,
             },
             {
-              text: activity.place.name,
-              href: `/places/${activity.place.slug}`,
+              text: place?.fields.title,
+              href: `/places/${place?.fields.title}`,
             },
             {
-              text: activity.title,
-              href: `/activities/${activity.slug}`,
+              text: activity.fields.title,
+              href: `/activities/${activity.fields.slug}`,
             },
           ]}
         />
 
-        <div className="mb-6">
-          <Typography variant="h1" component="h1" className="mb-2">
-            {activity.title}
-          </Typography>
-
-          <Typography variant="muted" component="h2" className="mb-2">
-            {activity.title} en {activity.place.name}, Banos, Ecuador
-          </Typography>
+        <Typography variant="h1" component="h1" className="mb-2">
+          {activity.fields.title}
+        </Typography>
+        <div className="mb-4 lg:flex lg:items-center lg:justify-between">
+          <div className="mb-2 flex items-center lg:mb-0">
+            <MapPinIcon className="mr-1 h-5 w-5 text-muted-foreground" />
+            <Typography variant="p" component="h2">
+              {activity.fields.title}, {place?.fields.title}, Banos, Ecuador
+            </Typography>
+          </div>
+          <div className="lg flex space-x-2">
+            <a
+              href={`https://api.whatsapp.com/send?phone=593962975512&text=Hola, quiero que edites esta pagina: https://banos.app/activities/${activity?.fields.slug}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button className="rounded-full" variant="outline">
+                <EditIcon className="mr-1 h-6 w-4 text-muted-foreground" />
+                Editar
+              </Button>
+            </a>
+            <Button className="rounded-full" variant="outline">
+              <HeartIcon className="mr-1 h-6 w-4 text-muted-foreground" />
+              Guardar
+            </Button>
+            <Button className="rounded-full" variant="outline">
+              <ShareIcon className="mr-1 h-6 w-4 text-muted-foreground" />
+              Compartir
+            </Button>
+          </div>
         </div>
       </Container>
 
-      <section className="relative mb-8 w-full overflow-hidden bg-gray-800 py-12">
-        <Image
-          src={photos[0].path}
-          alt="cover blur"
-          height={190}
-          width={250}
-          quality={40}
-          className="absolute left-0 top-0 h-full w-full scale-150 blur-xl transition-all"
-        />
-        <Container className="relative">
-          <ActivityPhotos photos={photos} />
-        </Container>
-      </section>
+      <BlockImages images={images} />
 
-      <Container>
-        <article>
-          <Typography variant="h4" component="h2" className="mb-4">
-            Descripción
-          </Typography>
-          <ActivityContent content={activity.body} />
-        </article>
-      </Container>
+      <BlockDescription document={description} />
+
+      <BlockGoogleMaps location={location} />
     </>
   );
 }

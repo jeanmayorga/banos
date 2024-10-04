@@ -1,6 +1,6 @@
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export function ActivityCardLoading() {
+export function CardSkeleton() {
   return (
     <div className="group">
       <Skeleton className="aspect-square w-full overflow-hidden rounded-xl" />

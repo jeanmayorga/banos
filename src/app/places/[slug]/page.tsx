@@ -3,8 +3,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import InfiniteScrollActivities from "#/app/activities/components/infinity-scroll-activities";
-import { GetActivitiesOptions, getActivities } from "#/app/activities/services";
+// import InfiniteScrollActivities from "#/app/activities/components/infinity-scroll-activities";
+// import { GetActivitiesOptions, getActivities } from "#/app/activities/services";
 import { ActivityFilters } from "#/components/ActivityFilters";
 import { Breadcrumds } from "#/components/Breadcrumb";
 import { GoBackButton } from "#/components/go-back-button";
@@ -52,16 +52,16 @@ export default async function Page({ params, searchParams }: Props) {
   const place = await getPlace({ slug: params.slug });
   if (!place) return notFound();
 
-  const options: GetActivitiesOptions = {
-    placeId: place.id,
-    sortBy: searchParams?.sortBy,
-    sortOrder: searchParams?.sortOrder,
-    search: searchParams?.search,
-    isActive: true,
-    activitySelect: ["id", "title", "price", "slug"],
-    placeSelect: ["name"],
-  };
-  const activities = await getActivities(options);
+  // const options: GetActivitiesOptions = {
+  //   placeId: place.id,
+  //   sortBy: searchParams?.sortBy,
+  //   sortOrder: searchParams?.sortOrder,
+  //   search: searchParams?.search,
+  //   isActive: true,
+  //   activitySelect: ["id", "title", "price", "slug"],
+  //   placeSelect: ["name"],
+  // };
+  // const activities = await getActivities(options);
 
   return (
     <>
@@ -97,10 +97,10 @@ export default async function Page({ params, searchParams }: Props) {
         </Typography>
         <ActivityFilters />
         <div
-          key={JSON.stringify(options)}
+          // key={JSON.stringify(options)}
           className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
         >
-          <InfiniteScrollActivities initialData={activities} options={options} />
+          {/* <InfiniteScrollActivities initialData={activities} options={options} /> */}
         </div>
       </div>
     </>

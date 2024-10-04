@@ -1,17 +1,21 @@
-import useEmblaCarousel, {
-  type EmblaCarouselType as CarouselApi,
-  type EmblaOptionsType as CarouselOptions,
-  type EmblaPluginType as CarouselPlugin,
-} from "embla-carousel-react";
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import * as React from "react";
+"use client";
 
-import { Button } from "#/components/ui/button";
-import { cn } from "#/utils";
+import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
+import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
+import * as React from "react";
+import { useCallback, useEffect, useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+type CarouselApi = UseEmblaCarouselType[1];
+type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
+type CarouselOptions = UseCarouselParameters[0];
+type CarouselPlugin = UseCarouselParameters[1];
 
 type CarouselProps = {
   opts?: CarouselOptions;
-  plugins?: CarouselPlugin[];
+  plugins?: CarouselPlugin;
   orientation?: "horizontal" | "vertical";
   setApi?: (api: CarouselApi) => void;
 };
@@ -163,7 +167,7 @@ const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
         aria-roledescription="slide"
         className={cn(
           "min-w-0 shrink-0 grow-0 basis-full",
-          orientation === "horizontal" ? "" : "pt-4",
+          orientation === "horizontal" ? "pl-4" : "pt-4",
           className,
         )}
         {...props}
@@ -187,14 +191,13 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
           orientation === "horizontal"
             ? "-left-12 top-1/2 -translate-y-1/2"
             : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
-          !canScrollPrev && "hidden",
           className,
         )}
         disabled={!canScrollPrev}
         onClick={scrollPrev}
         {...props}
       >
-        <ChevronLeft className="h-4 w-4" />
+        <ArrowLeftIcon className="h-4 w-4" />
         <span className="sr-only">Previous slide</span>
       </Button>
     );
@@ -216,55 +219,19 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
           orientation === "horizontal"
             ? "-right-12 top-1/2 -translate-y-1/2"
             : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
-          !canScrollNext && "hidden",
           className,
         )}
         disabled={!canScrollNext}
         onClick={scrollNext}
         {...props}
       >
-        <ChevronRight className="h-4 w-4" />
+        <ArrowRightIcon className="h-4 w-4" />
         <span className="sr-only">Next slide</span>
       </Button>
     );
   },
 );
 CarouselNext.displayName = "CarouselNext";
-
-interface CarouselDotsProps {
-  count: number;
-}
-const CarouselDots = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & CarouselDotsProps
->(({ className, count, ...props }, ref) => {
-  const { orientation, api } = useCarousel();
-
-  const currentIndex = api?.selectedScrollSnap();
-
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        "absolute flex w-full items-center justify-center gap-1",
-        orientation === "horizontal" ? "bottom-2" : "hidden",
-        className,
-      )}
-      {...props}
-    >
-      {Array.from(Array(count).keys()).map((item) => (
-        <div
-          key={item}
-          className={cn(
-            "h-1 w-1 rounded-full",
-            currentIndex === item ? "bg-white" : "bg-gray-300/80",
-          )}
-        />
-      ))}
-    </div>
-  );
-});
-CarouselDots.displayName = "CarouselDots";
 
 export {
   type CarouselApi,
@@ -273,5 +240,4 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
-  CarouselDots,
 };

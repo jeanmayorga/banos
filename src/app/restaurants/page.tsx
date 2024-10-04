@@ -4,21 +4,20 @@ import { ActivityFilters } from "#/components/ActivityFilters";
 import { Typography } from "#/components/ui/typography";
 import { cn } from "#/utils";
 
-import InfiniteScrollActivities from "../activities/components/infinity-scroll-activities";
-import { getActivities, GetActivitiesOptions } from "../activities/services";
+// import { getActivities, GetActivitiesOptions } from "../activities/services";
 
 export default async function Page() {
-  const activitiesJumbo = await getActivities({
-    limit: 5,
-    sortBy: "visits",
-  });
+  // const activitiesJumbo = await getActivities({
+  //   limit: 5,
+  //   sortBy: "visits",
+  // });
 
-  const options: GetActivitiesOptions = {
-    isActive: true,
-    activitySelect: ["id", "title", "price", "slug"],
-    placeSelect: ["name"],
-  };
-  const activities = await getActivities(options);
+  // const options: GetActivitiesOptions = {
+  //   isActive: true,
+  //   activitySelect: ["id", "title", "price", "slug"],
+  //   placeSelect: ["name"],
+  // };
+  // const activities = await getActivities(options);
   return (
     <>
       <div className="container mx-auto py-8">
@@ -60,11 +59,9 @@ export default async function Page() {
         </Suspense>
         <div className="rounded-xl bg-white p-4">
           <div
-            key={JSON.stringify(options)}
+            // key={JSON.stringify(options)}
             className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
-          >
-            <InfiniteScrollActivities initialData={activities} options={options} />
-          </div>
+          ></div>
         </div>
       </div>
     </>

@@ -1,20 +1,14 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 
-// import InfiniteScrollActivities from "./components/infinity-scroll-activities";
-// import { GetActivitiesOptions, getActivities } from "./services";
-
-import { ActivityFilters } from "@/components/ActivityFilters";
-import { BackButton } from "@/components/back-button";
 import { Breadcrumds } from "@/components/Breadcrumb";
 import { Container } from "@/components/container";
 import { Search } from "@/components/search";
 import { Typography } from "@/components/ui/typography";
 
-import { ActivitiesTab } from "./components/ActivitiesTabs";
-import InfiniteScrollActivities from "./components/infinity-scroll-activities";
-import { getActivities, GetActivitiesOptions } from "./services";
-
-export const revalidate = 3600;
+import { BlockCardList } from "./components/BlockCardList";
+import { BlockCardListSkeleton } from "./components/BlockCardListSkeleton";
+import { Tabs } from "./components/Tabs";
 
 export const metadata: Metadata = {
   title: "Que hacer en Banos de Agua Santa | Ecuador",
@@ -47,17 +41,8 @@ interface Props {
     search: string;
   };
 }
-export default async function Page({ searchParams }: Props) {
-  const options: GetActivitiesOptions = {
-    sortBy: searchParams?.sortBy,
-    sortOrder: searchParams?.sortOrder,
-    search: searchParams?.search,
-    isActive: true,
-    activitySelect: ["id", "title", "price", "slug"],
-    placeSelect: ["name"],
-  };
-  const activities = await getActivities(options);
 
+export default async function Page({ searchParams }: Props) {
   return (
     <Container>
       <Breadcrumds
@@ -73,21 +58,20 @@ export default async function Page({ searchParams }: Props) {
         ]}
       />
       <div className="mb-8">
-        <Typography variant="h1" component="h1" className="mb-4">
+        <Typography variant="h1" component="h1" className="mb-2">
           Actividades
         </Typography>
-        <Search />
-        <ActivitiesTab />
+        <Typography variant="muted" component="p" className="mb-4">
+          Descubre las mejores aventuras y actividades en el corazón de la naturaleza.
+        </Typography>
+        <Suspense>
+          <Search />
+          <Tabs />
+        </Suspense>
       </div>
-      {/* <Typography variant="muted" component="p" className="mb-8">
-        Descubre las mejores aventuras y actividades en el corazón de la naturaleza.
-      </Typography> */}
-      <div
-        key={JSON.stringify(options)}
-        className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-      >
-        <InfiniteScrollActivities initialData={activities} options={options} />
-      </div>
+      <Suspense fallback={<BlockCardListSkeleton />}>
+        <BlockCardList />
+      </Suspense>
     </Container>
   );
 }

@@ -2,8 +2,7 @@
 
 import { useEffect } from "react";
 
-import { Header } from "#/components/Header";
-import { Nav } from "#/components/Nav";
+import { Typography } from "@/components/ui/typography";
 
 export default function Error({
   error,
@@ -18,8 +17,7 @@ export default function Error({
 
   return (
     <div>
-      <Header />
-      <Nav />
+      <Typography variant="h1">La pagina que buscas no existe</Typography>
     </div>
   );
 }

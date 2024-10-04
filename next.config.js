@@ -2,8 +2,12 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    loader: "custom",
-    loaderFile: "./src/utils/cloudinary-loader.ts",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.ctfassets.net",
+      },
+    ],
   },
 };
 

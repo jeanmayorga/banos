@@ -1,25 +1,23 @@
 "use client";
 
 import { Loader } from "@googlemaps/js-api-loader";
-import { renderToHTML } from "next/dist/server/render";
+import { EntryFields } from "contentful";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
+import { Container } from "@/components/container";
+import { Typography } from "@/components/ui/typography";
+
 interface Props {
-  latitude: number;
-  longitude: number;
-  zoom?: number;
-  markers?: {
-    latitude: number;
-    longitude: number;
-    content?: React.ReactNode;
-  }[];
-  className?: string;
+  location?: EntryFields.Location;
 }
 
-export function GoogleMapsDynamic({ latitude, longitude, zoom, markers = [], className }: Props) {
+export function BlockGoogleMaps({ location }: Props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [ref, inView] = useInView();
+
+  const lat = location?.lat || 0;
+  const lng = location?.lon || 0;
 
   useEffect(() => {
     async function loadMap() {
@@ -34,10 +32,10 @@ export function GoogleMapsDynamic({ latitude, longitude, zoom, markers = [], cla
       const AdvancedMarkerElement = google.maps.marker.AdvancedMarkerElement;
       const mapElement = document.getElementById("map");
       const options = {
-        center: { lat: latitude, lng: longitude },
-        zoom,
-        mapTypeControl: false,
-        clickableIcons: false,
+        center: { lat, lng },
+        zoom: 16,
+        // mapTypeControl: false,
+        // clickableIcons: false,
         streetViewControl: false,
         mapId: "b0ec3f57b695647c",
       };
@@ -45,11 +43,9 @@ export function GoogleMapsDynamic({ latitude, longitude, zoom, markers = [], cla
       if (mapElement) {
         const map = new Map(mapElement, options);
 
-        markers.forEach((marker) => {
-          new AdvancedMarkerElement({
-            map,
-            position: { lat: marker.latitude, lng: marker.longitude },
-          });
+        new AdvancedMarkerElement({
+          map,
+          position: { lat, lng },
         });
       }
     }
@@ -58,7 +54,16 @@ export function GoogleMapsDynamic({ latitude, longitude, zoom, markers = [], cla
       loadMap();
       setIsLoaded(true);
     }
-  }, [inView, isLoaded, latitude, longitude, zoom, markers]);
+  }, [inView, isLoaded, lat, lng]);
 
-  return <div ref={ref} id="map" className={className} />;
+  if (!location) return null;
+
+  return (
+    <Container className="mb-8">
+      <Typography variant="h4" component="h2" className="mb-4">
+        Ubicación
+      </Typography>
+      <div ref={ref} id="map" className="h-96 w-full rounded-xl border shadow-sm" />
+    </Container>
+  );
 }
