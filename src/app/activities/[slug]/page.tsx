@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = `${activity?.fields.title} | Baños de agua santa | Ecuador`;
   const description = (activity?.fields.description.content[0].content[0] as any)?.value;
   const url = `https://banos.app/activities/${activity?.fields.slug}`;
-  const image = `http://localhost:3000/api/og?title=${activity?.fields.title}`;
+  const image = `https://dev.banos.app/api/og?title=${activity?.fields.title}`;
   const images = [
     {
       url: image,
