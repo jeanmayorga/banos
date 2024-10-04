@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 
-import { ActivityFilters } from "#/components/ActivityFilters";
 import { Typography } from "#/components/ui/typography";
 import { cn } from "#/utils";
 
@@ -54,9 +53,6 @@ export default async function Page() {
             allowFullScreen
           />
         </div>
-        <Suspense>
-          <ActivityFilters />
-        </Suspense>
         <div className="rounded-xl bg-white p-4">
           <div
             // key={JSON.stringify(options)}
