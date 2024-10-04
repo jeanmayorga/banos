@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 
-
 export const metadata: Metadata = {
   title: "Banos de Agua Santa | Ecuador",
 };

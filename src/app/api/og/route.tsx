@@ -57,10 +57,8 @@ export async function GET(request: Request) {
             alignItems: "center",
           }}
         >
-          <p>
-            {title}
-          </p>
-        {/* <img
+          <p>{title}</p>
+          {/* <img
           width="1000"
           height="400"
           src={`https://res.cloudinary.com/da3uyv9xp/image/upload/v1703538726/bsigzf6hwkfhkimrne9s.jpg`}

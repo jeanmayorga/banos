@@ -25,12 +25,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = (activity?.fields.description.content[0].content[0] as any)?.value;
   const url = `https://banos.app/activities/${activity?.fields.slug}`;
   const image = `http://localhost:3000/api/og?title=${activity?.fields.title}`;
-  const images = [{
-    url:image,
-    width: 1200,
-    height: 630,
-    alt: title,
-  }]
+  const images = [
+    {
+      url: image,
+      width: 1200,
+      height: 630,
+      alt: title,
+    },
+  ];
 
   return {
     title,
