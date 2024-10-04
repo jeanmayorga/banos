@@ -64,8 +64,10 @@ export default async function Page({ searchParams }: Props) {
         <Typography variant="muted" component="p" className="mb-4">
           Descubre las mejores aventuras y actividades en el corazón de la naturaleza.
         </Typography>
-        <Search />
-        <Tabs />
+        <Suspense>
+          <Search />
+          <Tabs />
+        </Suspense>
       </div>
       <Suspense fallback={<BlockCardListSkeleton />}>
         <BlockCardList />

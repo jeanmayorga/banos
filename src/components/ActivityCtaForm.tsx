@@ -7,7 +7,7 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { SelectSingleEventHandler } from "react-day-picker";
 
-import { Activity } from "#/app/activities/types";
+// import { Activity } from "#/app/activities/types";
 import { Popover, PopoverContent, PopoverTrigger } from "#/components/ui/popover";
 import { getWhatsappUrl } from "#/utils/get-whatsapp-url";
 
