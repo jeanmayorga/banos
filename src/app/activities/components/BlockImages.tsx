@@ -29,7 +29,7 @@ export function BlockImages({ images }: Props) {
   const [index, setIndex] = useState(-1);
 
   return (
-    <section className="relative mb-4 w-full overflow-hidden">
+    <section className="relative mb-8 w-full overflow-hidden">
       <div className="mb-4 overflow-hidden pl-4 lg:pl-[calc((100vw-62rem)/2)]" ref={emblaRef}>
         <div className="flex">
           {images.map((image) => (

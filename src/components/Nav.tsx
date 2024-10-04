@@ -64,7 +64,7 @@ function Item({ href, icon, name }: ItemProps) {
 export function Nav() {
   return (
     <div className="sticky top-0 z-30 border-b border-gray-100 bg-white py-2 dark:border-gray-900 dark:bg-black">
-      <Container className="flex items-center gap-2">
+      <Container className="no-scrollbar flex items-center gap-2 overflow-x-auto">
         <Item href="/" icon={<HomeIcon className="h-5 w-5" />} name="Inicio" />
         <Item href="/places" icon={<MountainSnowIcon className="h-5 w-5" />} name="Lugares" />
         {/* <Item

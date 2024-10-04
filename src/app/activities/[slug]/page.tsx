@@ -1,4 +1,4 @@
-import { HeartIcon, MapPinIcon, ShareIcon } from "lucide-react";
+import { EditIcon, HeartIcon, MapPinIcon, ShareIcon } from "lucide-react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -22,20 +22,15 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const activity = await getActivityBySlug(params.slug);
   const title = `${activity?.fields.title} | Baños de agua santa | Ecuador`;
-  const description = "";
+  const description = (activity?.fields.description.content[0].content[0] as any)?.value;
   const url = `https://banos.app/activities/${activity?.fields.slug}`;
-
-  function generateImages() {
-    const images = activity?.fields.images;
-    return images?.map((image) => ({
-      url: `https:${image?.fields.file?.url}`,
-      width: image?.fields.file?.details.image?.width,
-      height: image?.fields.file?.details.image?.height,
-      alt: title,
-    }));
-  }
-
-  const images = generateImages();
+  const image = `http://localhost:3000/api/og?title=${activity?.fields.title}`;
+  const images = [{
+    url:image,
+    width: 1200,
+    height: 630,
+    alt: title,
+  }]
 
   return {
     title,
@@ -105,27 +100,34 @@ export default async function Page({ params }: Props) {
           ]}
         />
 
-        <div className="mb-4 lg:flex lg:items-end lg:justify-between">
-          <div className="mb-4 lg:mb-0">
-            <Typography variant="h1" component="h1" className="mb-2">
-              {activity.fields.title}
+        <Typography variant="h1" component="h1" className="mb-2">
+          {activity.fields.title}
+        </Typography>
+        <div className="mb-4 lg:flex lg:items-center lg:justify-between">
+          <div className="mb-2 flex items-center lg:mb-0">
+            <MapPinIcon className="mr-1 h-5 w-5 text-muted-foreground" />
+            <Typography variant="p" component="h2">
+              {activity.fields.title}, {place?.fields.title}, Banos, Ecuador
             </Typography>
-
-            <div className="flex items-center">
-              <MapPinIcon className="mr-1 h-6 w-4 text-muted-foreground" />
-              <Typography variant="muted" component="h2">
-                {activity.fields.title}, {place?.fields.title}, Banos, Ecuador
-              </Typography>
-            </div>
           </div>
           <div className="lg flex space-x-2">
-            <Button className="rounded-full" variant="outline">
-              <ShareIcon className="mr-1 h-6 w-4 text-muted-foreground" />
-              Compartir
-            </Button>
+            <a
+              href={`https://api.whatsapp.com/send?phone=593962975512&text=Hola, quiero que edites esta pagina: https://banos.app/activities/${activity?.fields.slug}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button className="rounded-full" variant="outline">
+                <EditIcon className="mr-1 h-6 w-4 text-muted-foreground" />
+                Editar
+              </Button>
+            </a>
             <Button className="rounded-full" variant="outline">
               <HeartIcon className="mr-1 h-6 w-4 text-muted-foreground" />
               Guardar
+            </Button>
+            <Button className="rounded-full" variant="outline">
+              <ShareIcon className="mr-1 h-6 w-4 text-muted-foreground" />
+              Compartir
             </Button>
           </div>
         </div>

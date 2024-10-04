@@ -31,7 +31,7 @@ interface Props {
 }
 export function BlockDescription({ document }: Props) {
   return (
-    <Container className="mb-4">
+    <Container className="mb-8">
       <article>
         <Typography variant="h4" component="h2" className="mb-4">
           Descripción
