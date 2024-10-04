@@ -1,7 +1,8 @@
-import { EditIcon, HeartIcon, MapPinIcon, ShareIcon } from "lucide-react";
+import { EditIcon, MapPinIcon } from "lucide-react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { ShareButton } from "@/components/ShareButton";
 import { Button } from "@/components/ui/button";
 
 import { Breadcrumds } from "#/components/Breadcrumb";
@@ -125,10 +126,7 @@ export default async function Page({ params }: Props) {
               </Button>
             </a>
             <SaveButton id={activity.sys.id} />
-            <Button className="rounded-full" variant="outline">
-              <ShareIcon className="mr-1 h-6 w-4 text-muted-foreground" />
-              Compartir
-            </Button>
+            <ShareButton />
           </div>
         </div>
       </Container>

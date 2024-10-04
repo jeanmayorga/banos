@@ -9,7 +9,7 @@ export function ShareButton() {
     const url = window.location.href;
 
     try {
-      await navigator.share({ title: "Banos de Agua Santa", url });
+      await navigator.share({ url });
       console.log("Shared!!");
     } catch (err) {
       console.log("Not Shared!!", err);
