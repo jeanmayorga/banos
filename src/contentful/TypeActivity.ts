@@ -18,6 +18,7 @@ export interface TypeActivityFields {
   price?: EntryFieldTypes.Number;
   location?: EntryFieldTypes.Location;
   visits?: EntryFieldTypes.Integer;
+  youtubeVideoUrl?: EntryFieldTypes.Symbol;
 }
 
 export type TypeActivitySkeleton = EntrySkeletonType<TypeActivityFields, "activity">;

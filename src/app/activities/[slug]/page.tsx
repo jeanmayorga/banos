@@ -13,6 +13,7 @@ import { getActivityBySlug, getAllActivities } from "../actions";
 import { BlockDescription } from "../components/BlockDescription";
 import { BlockGoogleMaps } from "../components/BlockGoogleMaps";
 import { BlockImages } from "../components/BlockImages";
+import { BlockYoutubeVideo } from "../components/BlockYoutubeVideo";
 import { SaveButton } from "../components/SaveButton";
 
 interface Props {
@@ -77,6 +78,7 @@ export default async function Page({ params }: Props) {
   const images = activity.fields.images;
   const description = activity.fields.description;
   const location = activity.fields.location;
+  const youtubeVideoUrl = activity.fields.youtubeVideoUrl;
 
   // increaseActivityVisit(activity.sys.id);
 
@@ -136,6 +138,8 @@ export default async function Page({ params }: Props) {
       <BlockDescription document={description} />
 
       <BlockGoogleMaps location={location} />
+
+      <BlockYoutubeVideo youtubeVideoUrl={youtubeVideoUrl} />
     </>
   );
 }

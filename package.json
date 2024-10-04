@@ -3,13 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "contentful:types": "contentful-typescript-codegen --output src/types/contentful.d.ts",
     "cf:types": "dotenv -e .env -- bash -c 'cf-content-types-generator --v10 --spaceId $X_CONTENTFUL_SPACE_ID -t $X_CONTENTFUL_MANAGEMENT_ACCESS_TOKEN -o ./src/contentful'",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "scripts:sitemap": "tsx --tsconfig ./tsconfig.json ./src/scripts/sitemap.ts"
+    "lint": "next lint"
   },
   "dependencies": {
     "@cloudinary/react": "^1.11.2",
@@ -81,7 +79,6 @@
     "autoprefixer": "^10.4.16",
     "cf-content-types-generator": "^2.15.5",
     "contentful-management": "^11.35.1",
-    "contentful-typescript-codegen": "^3.4.0",
     "dotenv": "^16.4.5",
     "dotenv-cli": "^7.4.2",
     "eslint": "^8.56.0",
