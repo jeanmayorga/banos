@@ -26,6 +26,10 @@ export const tabs = [
     name: "Afuera de la ciudad",
     key: "out-of-city",
   },
+  {
+    name: "Guardadas",
+    key: "saved",
+  },
 ];
 
 export function Tabs() {

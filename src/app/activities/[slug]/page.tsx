@@ -12,6 +12,7 @@ import { getActivityBySlug, getAllActivities } from "../actions";
 import { BlockDescription } from "../components/BlockDescription";
 import { BlockGoogleMaps } from "../components/BlockGoogleMaps";
 import { BlockImages } from "../components/BlockImages";
+import { SaveButton } from "../components/SaveButton";
 
 interface Props {
   params: {
@@ -123,10 +124,7 @@ export default async function Page({ params }: Props) {
                 Editar
               </Button>
             </a>
-            <Button className="rounded-full" variant="outline">
-              <HeartIcon className="mr-1 h-6 w-4 text-muted-foreground" />
-              Guardar
-            </Button>
+            <SaveButton id={activity.sys.id} />
             <Button className="rounded-full" variant="outline">
               <ShareIcon className="mr-1 h-6 w-4 text-muted-foreground" />
               Compartir
