@@ -8,7 +8,12 @@ export function ShareButton() {
   async function onShare() {
     const url = window.location.href;
 
-    await navigator.share({ url });
+    try {
+      await navigator.share({ title: "Banos de Agua Santa", url });
+      console.log("Shared!!");
+    } catch (err) {
+      console.log("Not Shared!!", err);
+    }
   }
 
   return (
