@@ -1,7 +1,7 @@
 import { createClient as createContentful } from "contentful";
 import { createClient as createContentfulManagement } from "contentful-management";
 
-const env = process.env.VERCEL_ENV || "";
+const env = process.env.X_ENV || "";
 const deliveryAccessToken = process.env.X_CONTENTFUL_DELIVERY_ACCESS_TOKEN || "";
 const previewAccessToken = process.env.X_CONTENTFUL_PREVIEW_ACCESS_TOKEN || "";
 const spaceId = process.env.X_CONTENTFUL_SPACE_ID || "";
