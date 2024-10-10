@@ -65,11 +65,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export async function generateStaticParams() {
-  const activities = await getAllActivities();
+// export async function generateStaticParams() {
+//   const activities = await getAllActivities();
 
-  return activities.map((activity) => ({ slug: activity.fields.slug }));
-}
+//   return activities.map((activity) => ({ slug: activity.fields.slug }));
+// }
 
 export default async function Page({ params }: Props) {
   const activity = await getActivityBySlug(params.slug);
