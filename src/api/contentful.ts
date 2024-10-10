@@ -12,8 +12,8 @@ export const isProduction = env === "production";
 
 export const contentfulClient = createContentful({
   space: spaceId,
-  accessToken: isProduction ? previewAccessToken : deliveryAccessToken,
-  host: isProduction ? "preview.contentful.com" : "cdn.contentful.com",
+  accessToken: isProduction ? deliveryAccessToken : previewAccessToken,
+  host: isProduction ? "cdn.contentful.com" : "preview.contentful.com",
 }).withoutUnresolvableLinks;
 
 export async function contentfulManagementClient() {
