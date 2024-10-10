@@ -28,7 +28,7 @@ export async function getActivityBySlug(slug: string) {
 
   // const results = getCache();
 
-  return entries;
+  // return entries;
 }
 
 export async function increaseActivityVisitsById(entryId: string) {
