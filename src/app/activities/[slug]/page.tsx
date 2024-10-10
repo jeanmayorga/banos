@@ -2,6 +2,7 @@ import { EditIcon, MapPinIcon } from "lucide-react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { isProduction } from "@/api/contentful";
 import { ShareButton } from "@/components/ShareButton";
 import { Button } from "@/components/ui/button";
 
@@ -9,7 +10,7 @@ import { Breadcrumds } from "#/components/Breadcrumb";
 import { Container } from "#/components/container";
 import { Typography } from "#/components/ui/typography";
 
-import { getActivityBySlug, getAllActivities } from "../actions";
+import { getActivityBySlug, getAllActivities, increaseActivityVisitsById } from "../actions";
 import { BlockDescription } from "../components/BlockDescription";
 import { BlockGoogleMaps } from "../components/BlockGoogleMaps";
 import { BlockImages } from "../components/BlockImages";
@@ -24,10 +25,11 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const activity = await getActivityBySlug(params.slug);
+
   const title = `${activity?.fields.title} | Baños de agua santa | Ecuador`;
   const description = (activity?.fields.description.content[0].content[0] as any)?.value;
   const url = `https://banos.app/activities/${activity?.fields.slug}`;
-  const image = `https://dev.banos.app/api/og?title=${activity?.fields.title}`;
+  const image = `https://banos.app/api/og?title=${activity?.fields.title}`;
   const images = [
     {
       url: image,
@@ -48,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         url: "https://jeanmayorga.com",
       },
     ],
-    robots: "index, follow",
+    robots: isProduction ? "index, follow" : "noindex, nofollow",
     openGraph: {
       siteName: "Guayaquil",
       title: title,
@@ -80,7 +82,7 @@ export default async function Page({ params }: Props) {
   const location = activity.fields.location;
   const youtubeVideoUrl = activity.fields.youtubeVideoUrl;
 
-  // increaseActivityVisit(activity.sys.id);
+  increaseActivityVisitsById(activity.sys.id);
 
   return (
     <>

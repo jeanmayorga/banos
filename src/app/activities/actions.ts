@@ -23,7 +23,7 @@ export async function getActivityBySlug(slug: string) {
   return activity;
 }
 
-export async function increaseActivityVisit(entryId: string) {
+export async function increaseActivityVisitsById(entryId: string) {
   const client = await contentfulManagementClient();
   const entry = await client.getEntry(entryId);
   const currentVisits = entry.fields.visits["en-US"] || 0;
