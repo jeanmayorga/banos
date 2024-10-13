@@ -35,10 +35,7 @@ export function Card({ activity, idx }: Props) {
   return (
     <div className="group" onMouseOver={() => setIsLoaded(true)}>
       <div className="relative">
-        <div
-          className="relative mb-3 overflow-hidden rounded-xl bg-black md:aspect-square"
-          ref={emblaRef}
-        >
+        <div className="relative mb-3 overflow-hidden rounded-xl md:aspect-square" ref={emblaRef}>
           <div className="flex">
             {images.map((image) => (
               <Link
@@ -46,7 +43,7 @@ export function Card({ activity, idx }: Props) {
                 key={image?.sys.id}
                 role="group"
                 aria-roledescription="slide"
-                className="relative aspect-square min-w-0 shrink-0 grow-0 basis-full overflow-hidden"
+                className="relative mr-4 h-48 min-w-0 shrink-0 grow-0 basis-2/3 overflow-hidden rounded-xl lg:aspect-square lg:h-auto lg:basis-full"
               >
                 <Image
                   src={getImageUrl(image) || ""}
