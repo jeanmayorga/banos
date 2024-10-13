@@ -10,7 +10,7 @@ import { Breadcrumds } from "#/components/Breadcrumb";
 import { Container } from "#/components/container";
 import { Typography } from "#/components/ui/typography";
 
-import { getActivityBySlug, getAllActivities, increaseActivityVisitsById } from "../actions";
+import { getActivityBySlug, getAllActivities } from "../actions";
 import { BlockDescription } from "../components/BlockDescription";
 import { BlockGoogleMaps } from "../components/BlockGoogleMaps";
 import { BlockImages } from "../components/BlockImages";
@@ -82,7 +82,7 @@ export default async function Page({ params }: Props) {
   const location = activity.fields.location;
   const youtubeVideoUrl = activity.fields.youtubeVideoUrl;
 
-  increaseActivityVisitsById(activity.sys.id);
+  // increaseActivityVisitsById(activity.sys.id);
 
   return (
     <>
