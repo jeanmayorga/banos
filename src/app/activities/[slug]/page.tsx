@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { isProduction } from "@/api/contentful";
 import { ShareButton } from "@/components/ShareButton";
 import { Button } from "@/components/ui/button";
+import { getImageUrl } from "@/lib/get-image-url";
 
 import { Breadcrumds } from "#/components/Breadcrumb";
 import { Container } from "#/components/container";
@@ -27,12 +28,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const activity = await getActivityBySlug(params.slug);
 
   const title = `${activity?.fields.title} | Baños de agua santa | Ecuador`;
-  const description = (activity?.fields.description.content[0].content[0] as any)?.value;
+  const description = activity?.fields.seoDescription;
   const url = `https://banos.app/activities/${activity?.fields.slug}`;
-  const image = `https://banos.app/api/og?title=${activity?.fields.title}`;
   const images = [
     {
-      url: image,
+      url: getImageUrl(activity?.fields.images[0]) || "",
       width: 1200,
       height: 630,
       alt: title,
@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title,
     applicationName: "Banos de Agua Santa | Ecuador",
     description,
-    keywords: activity?.fields.keywords,
+    keywords: activity?.fields.seoKeywords,
     authors: [
       {
         name: "Jean Paul Mayorga",
@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ],
     robots: isProduction ? "index, follow" : "noindex, nofollow",
     openGraph: {
-      siteName: "Guayaquil",
+      siteName: "Banos de Agua Santa",
       title: title,
       description,
       url,
@@ -65,11 +65,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-// export async function generateStaticParams() {
-//   const activities = await getAllActivities();
+export async function generateStaticParams() {
+  const activities = await getAllActivities();
 
-//   return activities.map((activity) => ({ slug: activity.fields.slug }));
-// }
+  return activities.map((activity) => ({ slug: activity.fields.slug }));
+}
 
 export default async function Page({ params }: Props) {
   const activity = await getActivityBySlug(params.slug);
@@ -80,9 +80,7 @@ export default async function Page({ params }: Props) {
   const images = activity.fields.images;
   const description = activity.fields.description;
   const location = activity.fields.location;
-  const youtubeVideoUrl = activity.fields.youtubeVideoUrl;
-
-  // increaseActivityVisitsById(activity.sys.id);
+  const youtubeVideo = activity.fields.youtubeVideo;
 
   return (
     <>
@@ -141,7 +139,7 @@ export default async function Page({ params }: Props) {
 
       <BlockGoogleMaps location={location} />
 
-      <BlockYoutubeVideo youtubeVideoUrl={youtubeVideoUrl} />
+      <BlockYoutubeVideo youtubeVideo={youtubeVideo} />
     </>
   );
 }
