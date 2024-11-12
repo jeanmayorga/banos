@@ -1,14 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
+import { parseAsString, useQueryState } from "nuqs";
 
 import { getAllActivities } from "../actions";
 
-interface Options {
-  query?: string;
-}
+import { getActivitiesIdsSaved } from "./useActivitySave";
 
-export function useActivities({ query }: Options) {
+export function useActivities() {
+  const [query] = useQueryState("query", parseAsString);
+  const [tab] = useQueryState("tab", parseAsString);
+
   const result = useQuery({
-    queryKey: ["activities", query],
+    queryKey: ["activities", tab, query],
     queryFn: async () => {
       let activities = await getAllActivities();
 
@@ -16,6 +18,11 @@ export function useActivities({ query }: Options) {
         activities = activities.filter((activity) =>
           activity.fields.title.toLowerCase().includes(query),
         );
+      }
+
+      if (tab === "saved") {
+        const activitiesIdsSaved = getActivitiesIdsSaved();
+        activities = activities.filter((activity) => activitiesIdsSaved.includes(activity.sys.id));
       }
 
       return activities;

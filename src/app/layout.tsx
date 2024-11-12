@@ -1,6 +1,7 @@
 import { Analytics } from "@vercel/analytics/react";
 import { Inter } from "next/font/google";
 import Script from "next/script";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Toaster } from "react-hot-toast";
 
 import "./global.css";
@@ -32,11 +33,13 @@ export default function RootLayout({ children }: Props) {
             enableSystem
             disableTransitionOnChange
           >
-            <Header />
-            <Nav />
-            {children}
-            <Footer />
-            <Toaster />
+            <NuqsAdapter>
+              <Header />
+              <Nav />
+              {children}
+              <Footer />
+              <Toaster />
+            </NuqsAdapter>
           </ThemeProvider>
         </LayoutReactQuery>
         <Analytics />

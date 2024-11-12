@@ -38,8 +38,7 @@ import { useActivities } from "./hooks/useActivities";
 // };
 
 export default function Page() {
-  const [query, setQuery] = useState("");
-  const { activities, isLoading } = useActivities({ query });
+  const { activities, isLoading } = useActivities();
 
   return (
     <Container>
@@ -63,7 +62,7 @@ export default function Page() {
           Descubre las mejores aventuras y actividades en el corazón de la naturaleza.
         </Typography>
         <Suspense>
-          <Search onSearch={(value) => setQuery(value)} />
+          <Search />
           <Tabs />
         </Suspense>
       </div>

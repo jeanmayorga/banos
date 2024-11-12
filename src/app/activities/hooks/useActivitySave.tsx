@@ -32,3 +32,10 @@ export function useActivitySave(id: string) {
 
   return { isSaved, toggleSave };
 }
+
+export function getActivitiesIdsSaved() {
+  const savedIds = localStorage.getItem("savedActivities") || "[]";
+  const savedIdsParse = JSON.parse(savedIds) as string[];
+
+  return savedIdsParse;
+}
