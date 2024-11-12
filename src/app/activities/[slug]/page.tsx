@@ -18,6 +18,8 @@ import { BlockImages } from "../components/BlockImages";
 import { BlockYoutubeVideo } from "../components/BlockYoutubeVideo";
 import { SaveButton } from "../components/SaveButton";
 
+export const dynamicParams = true;
+
 interface Props {
   params: {
     slug: string;
