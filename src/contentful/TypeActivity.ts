@@ -10,15 +10,16 @@ import type { TypePlacesSkeleton } from "./TypePlaces";
 
 export interface TypeActivityFields {
   slug: EntryFieldTypes.Symbol;
-  keywords: EntryFieldTypes.Symbol;
   title: EntryFieldTypes.Symbol;
+  seoKeywords: EntryFieldTypes.Symbol;
+  seoDescription: EntryFieldTypes.Symbol;
   description: EntryFieldTypes.RichText;
   images: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
   place: EntryFieldTypes.EntryLink<TypePlacesSkeleton>;
-  price?: EntryFieldTypes.Number;
   location?: EntryFieldTypes.Location;
-  visits?: EntryFieldTypes.Integer;
-  youtubeVideoUrl?: EntryFieldTypes.Symbol;
+  youtubeVideo?: EntryFieldTypes.Symbol;
+  adultPrice: EntryFieldTypes.Number;
+  childPrice: EntryFieldTypes.Integer;
 }
 
 export type TypeActivitySkeleton = EntrySkeletonType<TypeActivityFields, "activity">;

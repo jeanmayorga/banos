@@ -36,7 +36,7 @@ export function Card({ activity, idx }: Props) {
     <div className="group" onMouseOver={() => setIsLoaded(true)}>
       <div className="relative">
         <div
-          className="relative mb-3 overflow-hidden rounded-xl bg-black md:aspect-square"
+          className="relative mb-3 w-full overflow-hidden rounded-xl md:aspect-square"
           ref={emblaRef}
         >
           <div className="flex">
@@ -46,7 +46,7 @@ export function Card({ activity, idx }: Props) {
                 key={image?.sys.id}
                 role="group"
                 aria-roledescription="slide"
-                className="relative aspect-square min-w-0 shrink-0 grow-0 basis-full overflow-hidden"
+                className="relative mr-4 h-48 min-w-0 shrink-0 grow-0 basis-2/3 overflow-hidden rounded-xl lg:aspect-square lg:h-auto lg:basis-full"
               >
                 <Image
                   src={getImageUrl(image) || ""}
@@ -80,7 +80,7 @@ export function Card({ activity, idx }: Props) {
           <HeartIcon className={cn("h-3 w-3", isSaved ? "fill-white" : "text-muted-foreground")} />
         </Button>
 
-        <Button
+        {/* <Button
           size="icon"
           variant="outline"
           className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full opacity-0 transition-all disabled:hidden group-hover:opacity-100"
@@ -99,9 +99,9 @@ export function Card({ activity, idx }: Props) {
         >
           <ArrowRightIcon className="h-4 w-4" />
           <span className="sr-only">Next slide</span>
-        </Button>
+        </Button> */}
 
-        <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 flex-wrap items-center">
+        {/* <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 flex-wrap items-center">
           {scrollSnaps.map((_, index) => (
             <button
               key={index}
@@ -112,7 +112,7 @@ export function Card({ activity, idx }: Props) {
               )}
             />
           ))}
-        </div>
+        </div> */}
       </div>
 
       <Link href={`/activities/${activity.fields.slug}`} className="block">

@@ -7,16 +7,16 @@ import { Container } from "@/components/container";
 import { Typography } from "@/components/ui/typography";
 
 interface Props {
-  youtubeVideoUrl?: string;
+  youtubeVideo?: string;
 }
 
-export function BlockYoutubeVideo({ youtubeVideoUrl }: Props) {
+export function BlockYoutubeVideo({ youtubeVideo }: Props) {
   const [isVisible, setIsVisible] = useState(false);
   const videoRef = useRef<HTMLDivElement | null>(null);
 
-  if (!youtubeVideoUrl) return null;
+  if (!youtubeVideo) return null;
 
-  const videoId = youtubeVideoUrl.split("v=")[1]?.split("&")[0];
+  const videoId = youtubeVideo.split("v=")[1]?.split("&")[0];
   const videoSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
   const thumbnailSrc = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
 
