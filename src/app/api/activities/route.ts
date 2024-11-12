@@ -1,12 +1,12 @@
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const path = `/activities/${body.slug["en-US"]}`;
-    console.log(`revalidate ${path}`);
 
     revalidatePath(path);
+    revalidateTag("activities");
 
     return Response.json({ path });
   } catch (err) {
