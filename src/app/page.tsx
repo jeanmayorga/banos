@@ -82,8 +82,8 @@ export default async function Page() {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselPrevious variant="default" />
+            <CarouselNext variant="default" />
           </Carousel>
         </Container>
       </div>
