@@ -31,11 +31,6 @@ interface Props {
 }
 export function BlockDescription({ document }: Props) {
   return (
-    <article className="mb-8">
-      <Typography variant="h4" component="h2" className="mb-4">
-        Descripción
-      </Typography>
-      {document.content.map((content) => topLevelMapper(content))}
-    </article>
+    <article className="mb-8">{document.content.map((content) => topLevelMapper(content))}</article>
   );
 }

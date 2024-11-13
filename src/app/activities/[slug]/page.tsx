@@ -123,7 +123,7 @@ export default async function Page({ params }: Props) {
             {activity.fields.title}
           </Typography>
           <Typography variant="muted" component="p">
-            {activity.fields.seoDescription}
+            {activity.fields.seoKeywords}
           </Typography>
         </section>
 

@@ -40,7 +40,7 @@ export default async function Page() {
           </Link>
         </div>
         <Container>
-          <Carousel opts={{ align: "start" }} className="w-full">
+          <Carousel opts={{ align: "start", loop: true }} className="w-full">
             <CarouselContent>
               {allActivities.slice(0, 5).map((activity) => (
                 <CarouselItem key={activity.sys.id} className="basis-3/4 lg:basis-1/3">

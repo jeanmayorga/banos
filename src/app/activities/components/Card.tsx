@@ -3,7 +3,14 @@
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { Entry } from "contentful";
 import useEmblaCarousel from "embla-carousel-react";
-import { ArrowLeftIcon, HeartIcon, MapPinIcon } from "lucide-react";
+import {
+  ArrowLeftIcon,
+  CircleDollarSignIcon,
+  Clock3Icon,
+  DollarSignIcon,
+  HeartIcon,
+  MapPinIcon,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -34,7 +41,7 @@ export function Card({ activity, idx }: Props) {
 
   return (
     <div
-      className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-md dark:border-gray-800 dark:bg-black dark:shadow-black"
+      className="group flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-md dark:border-gray-800 dark:bg-black dark:shadow-black"
       onMouseOver={() => setIsLoaded(true)}
     >
       <div className="relative w-full overflow-hidden" ref={emblaRef}>
@@ -112,23 +119,39 @@ export function Card({ activity, idx }: Props) {
         </div>
       </div>
 
-      <Link href={`/activities/${activity.fields.slug}`} className="block p-4">
-        <Typography variant="large" className="truncate font-medium leading-tight">
-          {activity.fields.title}
-        </Typography>
-        <p className="truncate text-sm text-muted-foreground">
-          {activity.fields.place?.fields.title}
-        </p>
-        {activity.fields.openAt && activity.fields.closeAt && (
+      <Link
+        href={`/activities/${activity.fields.slug}`}
+        className="flex flex-grow flex-col justify-between p-4"
+      >
+        <span className="mb-3">
+          <Typography variant="large" className="font-medium leading-tight">
+            {activity.fields.title}
+          </Typography>
           <p className="truncate text-sm text-muted-foreground">
-            {activity.fields.openAt} - {activity.fields.closeAt}
+            {activity.fields.place?.fields.title}
           </p>
-        )}
+        </span>
 
-        <Typography variant="muted" className="mt-4 truncate font-normal leading-tight">
-          <span className="font-semibold">${activity.fields.adultPrice?.toFixed(2)} USD</span> por
-          persona
-        </Typography>
+        <span>
+          {activity.fields.openAt && activity.fields.closeAt && (
+            <Typography
+              variant="muted"
+              className="mb-1 flex items-center truncate font-normal leading-tight"
+            >
+              <Clock3Icon className="mr-1 h-4 w-4 text-gray-400" />
+              {activity.fields.openAt} hasta {activity.fields.closeAt}
+            </Typography>
+          )}
+
+          <Typography
+            variant="muted"
+            className="flex items-center truncate font-normal leading-tight"
+          >
+            <CircleDollarSignIcon className="h-4 w-4 text-gray-400" />
+            <span className="mx-1 font-semibold">{activity.fields.adultPrice?.toFixed(2)} USD</span>
+            <span>por persona</span>
+          </Typography>
+        </span>
       </Link>
     </div>
   );
