@@ -123,7 +123,7 @@ export function Card({ activity, idx }: Props) {
         href={`/activities/${activity.fields.slug}`}
         className="flex flex-grow flex-col justify-between p-4"
       >
-        <span className="mb-3">
+        <span className="mb-4">
           <Typography variant="large" className="font-medium leading-tight">
             {activity.fields.title}
           </Typography>
@@ -143,14 +143,18 @@ export function Card({ activity, idx }: Props) {
             </Typography>
           )}
 
-          <Typography
-            variant="muted"
-            className="flex items-center truncate font-normal leading-tight"
-          >
-            <CircleDollarSignIcon className="h-4 w-4 text-gray-400" />
-            <span className="mx-1 font-semibold">{activity.fields.adultPrice?.toFixed(2)} USD</span>
-            <span>por persona</span>
-          </Typography>
+          {activity.fields.adultPrice && (
+            <Typography
+              variant="muted"
+              className="flex items-center truncate font-normal leading-tight"
+            >
+              <CircleDollarSignIcon className="h-4 w-4 text-gray-400" />
+              <span className="mx-1 font-semibold">
+                {activity.fields.adultPrice?.toFixed(2)} USD
+              </span>
+              <span>por persona</span>
+            </Typography>
+          )}
         </span>
       </Link>
     </div>
