@@ -8,6 +8,6 @@ interface Props {
 }
 export function Container({ children, className }: Props) {
   return (
-    <div className={cn("ms:px-0 container mx-auto max-w-5xl px-4", className)}>{children}</div>
+    <div className={cn("ms:px-0 container mx-auto max-w-6xl px-4", className)}>{children}</div>
   );
 }

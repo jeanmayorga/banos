@@ -14,12 +14,14 @@ export interface TypeActivityFields {
   seoKeywords: EntryFieldTypes.Symbol;
   seoDescription: EntryFieldTypes.Symbol;
   description: EntryFieldTypes.RichText;
+  adultPrice?: EntryFieldTypes.Number;
+  childPrice?: EntryFieldTypes.Integer;
+  openAt?: EntryFieldTypes.Symbol;
+  closeAt?: EntryFieldTypes.Symbol;
   images: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
   place: EntryFieldTypes.EntryLink<TypePlacesSkeleton>;
   location?: EntryFieldTypes.Location;
   youtubeVideo?: EntryFieldTypes.Symbol;
-  adultPrice: EntryFieldTypes.Number;
-  childPrice: EntryFieldTypes.Integer;
 }
 
 export type TypeActivitySkeleton = EntrySkeletonType<TypeActivityFields, "activity">;

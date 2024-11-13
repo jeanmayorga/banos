@@ -31,13 +31,11 @@ interface Props {
 }
 export function BlockDescription({ document }: Props) {
   return (
-    <Container className="mb-8">
-      <article>
-        <Typography variant="h4" component="h2" className="mb-4">
-          Descripción
-        </Typography>
-        {document.content.map((content) => topLevelMapper(content))}
-      </article>
-    </Container>
+    <article className="mb-8">
+      <Typography variant="h4" component="h2" className="mb-4">
+        Descripción
+      </Typography>
+      {document.content.map((content) => topLevelMapper(content))}
+    </article>
   );
 }

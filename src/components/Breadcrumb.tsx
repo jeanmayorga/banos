@@ -10,7 +10,7 @@ interface Props {
 }
 export function Breadcrumds({ items }: Props) {
   return (
-    <div className="flex items-center space-x-1 py-6 text-sm text-muted-foreground">
+    <div className="flex items-center space-x-1 py-6 text-xs text-muted-foreground">
       {items.map((item, idx) => {
         if (idx === items.length - 1) {
           return (

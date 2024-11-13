@@ -6,8 +6,8 @@ import { getAllActivities } from "../actions";
 import { getActivitiesIdsSaved } from "./useActivitySave";
 
 export function useActivities() {
-  const [query] = useQueryState("query", parseAsString);
   const [tab] = useQueryState("tab", parseAsString);
+  const [query] = useQueryState("query", parseAsString);
 
   const result = useQuery({
     queryKey: ["activities", tab, query],
@@ -16,7 +16,7 @@ export function useActivities() {
 
       if (query) {
         activities = activities.filter((activity) =>
-          activity.fields.title.toLowerCase().includes(query),
+          activity.fields.title.toLowerCase().includes(query.toLowerCase()),
         );
       }
 

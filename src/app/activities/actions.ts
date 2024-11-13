@@ -14,7 +14,8 @@ const getAllContentfulActivities = async () => {
 };
 
 export const getAllActivities = async () => {
-  return cache(getAllContentfulActivities, ["activities"], { revalidate: 3600 })();
+  const cached = cache(getAllContentfulActivities, ["activities"], { revalidate: 3600 });
+  return cached();
 };
 
 export async function getActivityBySlug(slug: string) {

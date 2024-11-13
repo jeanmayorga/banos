@@ -59,11 +59,11 @@ export function BlockGoogleMaps({ location }: Props) {
   if (!location) return null;
 
   return (
-    <Container className="mb-8">
+    <section className="mb-8">
       <Typography variant="h4" component="h2" className="mb-4">
         Ubicación
       </Typography>
       <div ref={ref} id="map" className="h-96 w-full rounded-xl border shadow-sm" />
-    </Container>
+    </section>
   );
 }

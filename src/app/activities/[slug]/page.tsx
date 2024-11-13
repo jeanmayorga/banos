@@ -1,4 +1,10 @@
-import { EditIcon, MapPinIcon } from "lucide-react";
+import {
+  CircleDollarSignIcon,
+  Clock3Icon,
+  DollarSignIcon,
+  EditIcon,
+  MapPinIcon,
+} from "lucide-react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -84,39 +90,74 @@ export default async function Page({ params }: Props) {
   const location = activity.fields.location;
   const youtubeVideo = activity.fields.youtubeVideo;
 
+  const priceInUsd = `$${activity.fields.adultPrice?.toFixed(2)} USD`;
+
   return (
     <>
       <Container>
-        <Breadcrumds
-          items={[
-            {
-              text: "Banos",
-              href: "/",
-            },
-            {
-              text: "Actividades",
-              href: `/activities`,
-            },
-            {
-              text: place?.fields.title,
-              href: `/places/${place?.fields.title}`,
-            },
-            {
-              text: activity.fields.title,
-              href: `/activities/${activity.fields.slug}`,
-            },
-          ]}
-        />
+        <div className="mb-4">
+          <Breadcrumds
+            items={[
+              {
+                text: "Banos",
+                href: "/",
+              },
+              {
+                text: "Actividades",
+                href: `/activities`,
+              },
+              {
+                text: place?.fields.title,
+                href: `/places/${place?.fields.title}`,
+              },
+              {
+                text: activity.fields.title,
+                href: `/activities/${activity.fields.slug}`,
+              },
+            ]}
+          />
+        </div>
 
-        <Typography variant="h1" component="h1" className="mb-2">
-          {activity.fields.title}
-        </Typography>
-        <div className="mb-4 lg:flex lg:items-center lg:justify-between">
-          <div className="mb-2 flex items-center lg:mb-0">
-            <MapPinIcon className="mr-1 h-5 w-5 text-muted-foreground" />
-            <Typography variant="p" component="h2">
-              {activity.fields.title}, {place?.fields.title}, Banos, Ecuador
-            </Typography>
+        <section className="mb-8">
+          <Typography variant="h1" component="h1">
+            {activity.fields.title}
+          </Typography>
+          <Typography variant="muted" component="p">
+            {activity.fields.seoDescription}
+          </Typography>
+        </section>
+
+        <div className="mb-8 lg:flex lg:items-center lg:justify-between">
+          <div className="mb-8 flex items-center text-sm lg:mb-0">
+            {activity.fields.openAt && activity.fields.closeAt && (
+              <div className="mr-3 flex flex-col border-r pr-3">
+                <span className="flex items-center text-muted-foreground">
+                  <Clock3Icon className="mr-1 h-4 w-4" />
+                  Horario
+                </span>
+                <span className="ml-5">
+                  {activity.fields.openAt} - {activity.fields.closeAt}
+                </span>
+              </div>
+            )}
+            {activity.fields.adultPrice && (
+              <div className="mr-3 flex flex-col border-r pr-3">
+                <span className="flex items-center text-muted-foreground">
+                  <DollarSignIcon className="mr-1 h-4 w-4" />
+                  Precio
+                </span>
+                <span className="ml-5">{priceInUsd} por persona</span>
+              </div>
+            )}
+            {activity.fields.place && (
+              <div className="flex flex-col">
+                <span className="flex items-center text-muted-foreground">
+                  <MapPinIcon className="mr-1 h-4 w-4" />
+                  Lugar
+                </span>
+                <span className="ml-5">{activity.fields.place?.fields.title}</span>
+              </div>
+            )}
           </div>
           <div className="lg flex space-x-2">
             <a
@@ -137,11 +178,20 @@ export default async function Page({ params }: Props) {
 
       <BlockImages images={images} />
 
-      <BlockDescription document={description} />
-
-      <BlockGoogleMaps location={location} />
-
-      <BlockYoutubeVideo youtubeVideo={youtubeVideo} />
+      <Container
+      // className="lg:grid lg:grid-cols-6"
+      >
+        {/* <div className="col-span-4"> */}
+        <BlockDescription document={description} />
+        <BlockGoogleMaps location={location} />
+        <BlockYoutubeVideo youtubeVideo={youtubeVideo} />
+        {/* </div> */}
+        {/* <div className="col-span-2">
+          <div className="w-full rounded-xl text-foreground">
+            <Typography>Desde {priceInUsd}</Typography>
+          </div>
+        </div> */}
+      </Container>
     </>
   );
 }

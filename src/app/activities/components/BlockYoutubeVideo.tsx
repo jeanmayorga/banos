@@ -20,12 +20,10 @@ export function BlockYoutubeVideo({ youtubeVideo }: Props) {
   const videoSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
   const thumbnailSrc = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
 
-  const handleClick = () => {
-    setIsVisible(true);
-  };
+  const handleClick = () => setIsVisible(true);
 
   return (
-    <Container className="mb-8">
+    <section className="mb-8">
       <Typography variant="h4" component="h2" className="mb-4">
         Video
       </Typography>
@@ -56,6 +54,6 @@ export function BlockYoutubeVideo({ youtubeVideo }: Props) {
           />
         )}
       </div>
-    </Container>
+    </section>
   );
 }
