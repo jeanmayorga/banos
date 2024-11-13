@@ -119,7 +119,7 @@ export default async function Page({ params }: Props) {
         </div>
 
         <section className="mb-8">
-          <Typography variant="h1" component="h1">
+          <Typography variant="h1" component="h1" className="mb-1">
             {activity.fields.title}
           </Typography>
           <Typography variant="muted" component="p">

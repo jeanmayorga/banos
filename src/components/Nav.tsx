@@ -34,7 +34,7 @@ function Item({ href, icon, name }: ItemProps) {
         "border-1 group flex items-center rounded-full border border-transparent px-4 py-2 transition-all active:scale-95",
         "hover:border-gray-200 hover:shadow-sm",
         "dark:hover:border-gray-600",
-        isActive && "bg-rose-400 dark:border-rose-400 dark:hover:border-gray-400",
+        isActive && "bg-[#00a7ac] dark:border-[#00a7ac] dark:hover:border-gray-400",
       )}
     >
       <div

@@ -25,7 +25,7 @@ export default async function Page() {
 
   return (
     <>
-      <div className="h-full bg-gradient-to-b from-[#0a493c] to-white py-10 dark:to-[#0a0a0b]">
+      <div className="h-full bg-gradient-to-b from-[#00a7ac] to-white py-10 dark:to-[#0a0a0b]">
         <div className="mb-8 py-14 text-center">
           <h1 className="mb-2 text-6xl font-semibold tracking-tight text-white">
             Compra tus entradas aqui.
