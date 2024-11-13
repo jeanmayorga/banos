@@ -44,7 +44,7 @@ export function PageActivities() {
         </Suspense>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
         {isLoading && [...Array(12).keys()].map((_number, idx) => <CardSkeleton key={idx} />)}
         {activities.map((activity, idx) => (
           <Card key={activity.fields.slug} activity={activity} idx={idx} />

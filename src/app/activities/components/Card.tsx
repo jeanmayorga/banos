@@ -26,7 +26,7 @@ export function Card({ activity, idx }: Props) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
   });
-  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
+  const { selectedIndex, scrollSnaps } = useDotButton(emblaApi);
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } =
     usePrevNextButtons(emblaApi);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -34,38 +34,33 @@ export function Card({ activity, idx }: Props) {
 
   return (
     <div className="group" onMouseOver={() => setIsLoaded(true)}>
-      <div className="relative">
-        <div
-          className="relative mb-3 w-full overflow-hidden rounded-xl md:aspect-square"
-          ref={emblaRef}
-        >
-          <div className="flex">
-            {images.map((image) => (
-              <Link
-                href={`/activities/${activity.fields.slug}`}
-                key={image?.sys.id}
-                role="group"
-                aria-roledescription="slide"
-                className="relative mr-4 h-48 min-w-0 shrink-0 grow-0 basis-2/3 overflow-hidden rounded-xl lg:aspect-square lg:h-auto lg:basis-full"
-              >
-                <Image
-                  src={getImageUrl(image) || ""}
-                  width={300}
-                  height={300}
-                  quality={isLoaded ? 100 : 50}
-                  className="h-full w-full object-cover opacity-0 transition-opacity"
-                  onLoad={(event) => {
-                    const image = event.target as HTMLElement;
-                    setTimeout(() => {
-                      image.classList.remove("opacity-0");
-                    }, idx * 60);
-                  }}
-                  alt={image?.fields.title || ""}
-                  loading="lazy"
-                />
-              </Link>
-            ))}
-          </div>
+      <div className="relative w-full overflow-hidden rounded-2xl" ref={emblaRef}>
+        <div className="flex">
+          {images.map((image) => (
+            <Link
+              href={`/activities/${activity.fields.slug}`}
+              key={image?.sys.id}
+              role="group"
+              aria-roledescription="slide"
+              className="relative h-[230px] w-full shrink-0 grow-0"
+            >
+              <Image
+                src={getImageUrl(image) || ""}
+                width={300}
+                height={200}
+                quality={isLoaded ? 100 : 50}
+                className="h-full w-full object-cover opacity-0 transition-opacity"
+                onLoad={(event) => {
+                  const image = event.target as HTMLElement;
+                  setTimeout(() => {
+                    image.classList.remove("opacity-0");
+                  }, idx * 60);
+                }}
+                alt={image?.fields.title || ""}
+                loading="lazy"
+              />
+            </Link>
+          ))}
         </div>
 
         <Button
@@ -101,35 +96,29 @@ export function Card({ activity, idx }: Props) {
           <span className="sr-only">Next slide</span>
         </Button> */}
 
-        {/* <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 flex-wrap items-center">
+        <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 flex-wrap items-center">
           {scrollSnaps.map((_, index) => (
             <button
               key={index}
-              onClick={() => onDotButtonClick(index)}
               className={cn(
                 "gray-300 ml-1 flex h-1 w-1 items-center justify-center rounded-full bg-gray-300/50 transition-all",
                 index === selectedIndex && "border-white bg-white",
               )}
             />
           ))}
-        </div> */}
+        </div>
       </div>
-
-      <Link href={`/activities/${activity.fields.slug}`} className="block">
-        <Typography variant="large" className="truncate font-medium leading-tight">
-          {activity.fields.title}
-        </Typography>
-      </Link>
-      <div className="mb-2 flex items-center lg:mb-0">
-        <MapPinIcon className="mr-1 h-4 w-4 flex-none text-muted-foreground" />
+      <div className="pt-2">
+        <div className="flex items-center justify-between">
+          <Typography variant="large" className="truncate font-medium leading-tight">
+            {activity.fields.title}
+          </Typography>
+          <span className="font-semibold">${activity.fields.adultPrice?.toFixed(2)} USD</span>
+        </div>
         <p className="truncate text-sm text-muted-foreground">
-          {activity.fields.place?.fields.title}, Banos de agua santa
+          {activity.fields.place?.fields.title}
         </p>
       </div>
-      {/* <Typography variant="muted">{activity.fields.place?.fields.title}</Typography> */}
-      {/* <Typography variant="muted" className="font-semibold">
-        ${activity.fields.price?.toFixed(2)} USD
-      </Typography> */}
     </div>
   );
 }
