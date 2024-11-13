@@ -25,10 +25,10 @@ export default async function Page() {
 
   return (
     <>
-      <div className="h-full bg-gradient-to-b from-[#0a493c] to-[#0a0a0b] py-10">
+      <div className="h-full bg-gradient-to-b from-[#0a493c] dark:to-[#0a0a0b] to-white py-10">
         <div className="mb-8 py-14 text-center">
-          <h1 className="mb-2 text-6xl font-semibold tracking-tight">Compra tus entradas aqui.</h1>
-          <p className="mb-10 text-lg font-light text-foreground">
+          <h1 className="mb-2 text-6xl font-semibold tracking-tight text-white">Compra tus entradas aqui.</h1>
+          <p className="mb-10 text-lg font-light text-white/70">
             Compra tus entradas con nosotros y ahorra descuentos únicos.
           </p>
           <Button className="rounded-full px-8 py-5" variant="default">
@@ -51,7 +51,7 @@ export default async function Page() {
                       }}
                     />
                     <div className="absolute bottom-0 w-full bg-gradient-to-b from-transparent to-black p-6">
-                      <Typography variant="h2" className="mb-2 drop-shadow-md">
+                      <Typography variant="h2" className="mb-2 drop-shadow-md text-white">
                         {activity.fields.title}
                       </Typography>
 
@@ -61,7 +61,7 @@ export default async function Page() {
                             <span className="flex items-center text-sm font-light text-gray-200 drop-shadow-md">
                               Horario
                             </span>
-                            <span className="font-semibold drop-shadow-md">
+                            <span className="font-semibold drop-shadow-md text-white">
                               {activity.fields.openAt} - {activity.fields.closeAt}
                             </span>
                           </div>
@@ -71,7 +71,7 @@ export default async function Page() {
                             <span className="flex items-center text-sm font-light text-gray-200 drop-shadow-md">
                               Precio
                             </span>
-                            <span className="font-semibold drop-shadow-md">
+                            <span className="font-semibold drop-shadow-md text-white">
                               $ {activity.fields.adultPrice?.toFixed(2)} USD
                             </span>
                           </div>

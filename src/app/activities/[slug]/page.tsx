@@ -135,7 +135,7 @@ export default async function Page({ params }: Props) {
                   <Clock3Icon className="mr-1 h-4 w-4" />
                   Horario
                 </span>
-                <span className="ml-5">
+                <span className="ml-5 font-semibold">
                   {activity.fields.openAt} - {activity.fields.closeAt}
                 </span>
               </div>
@@ -143,10 +143,10 @@ export default async function Page({ params }: Props) {
             {activity.fields.adultPrice && (
               <div className="mr-3 flex flex-col border-r pr-3">
                 <span className="flex items-center text-muted-foreground">
-                  <DollarSignIcon className="mr-1 h-4 w-4" />
+                  <CircleDollarSignIcon className="mr-1 h-4 w-4" />
                   Precio
                 </span>
-                <span className="ml-5">{priceInUsd} por persona</span>
+                <span className="ml-5 font-semibold">{priceInUsd}</span>
               </div>
             )}
             {activity.fields.place && (
@@ -155,7 +155,7 @@ export default async function Page({ params }: Props) {
                   <MapPinIcon className="mr-1 h-4 w-4" />
                   Lugar
                 </span>
-                <span className="ml-5">{activity.fields.place?.fields.title}</span>
+                <span className="ml-5 font-semibold">{activity.fields.place?.fields.title}</span>
               </div>
             )}
           </div>
