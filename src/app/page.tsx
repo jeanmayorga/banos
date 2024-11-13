@@ -1,3 +1,4 @@
+import { Clock3Icon, DollarSignIcon, MapPinIcon } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 
@@ -38,10 +39,10 @@ export default async function Page() {
           <Carousel opts={{ align: "start" }} className="w-full">
             <CarouselContent>
               {allActivities.slice(0, 5).map((activity) => (
-                <CarouselItem key={activity.sys.id} className="md:basis-2/3 lg:basis-1/3">
+                <CarouselItem key={activity.sys.id} className="basis-3/4 lg:basis-1/3">
                   <Link
                     href={`/activities/${activity.fields.slug}`}
-                    className="relative block h-[500px] overflow-hidden rounded-3xl"
+                    className="relative block h-[500px] select-none overflow-hidden rounded-3xl"
                   >
                     <div
                       className="absolute left-0 top-0 h-full w-full bg-cover bg-center"
@@ -49,14 +50,33 @@ export default async function Page() {
                         backgroundImage: `url(${getImageUrl(activity.fields.images?.[0])})`,
                       }}
                     />
-                    <div className="absolute left-0 top-0 h-full w-full bg-gradient-to-b from-transparent to-black/40" />
-                    <div className="absolute bottom-0 p-6">
-                      <Typography variant="h2" className="mb-2">
+                    <div className="absolute bottom-0 w-full bg-gradient-to-b from-transparent to-black p-6">
+                      <Typography variant="h2" className="mb-2 drop-shadow-md">
                         {activity.fields.title}
                       </Typography>
-                      <p className="text-sm text-gray-300">
-                        {(activity.fields.seoDescription || "").slice(0, 100)}
-                      </p>
+
+                      <div className="mb-8 flex items-center text-sm lg:mb-0">
+                        {activity.fields.openAt && activity.fields.closeAt && (
+                          <div className="mr-4 flex flex-col">
+                            <span className="flex items-center text-sm font-light text-gray-200 drop-shadow-md">
+                              Horario
+                            </span>
+                            <span className="font-semibold drop-shadow-md">
+                              {activity.fields.openAt} - {activity.fields.closeAt}
+                            </span>
+                          </div>
+                        )}
+                        {activity.fields.adultPrice && (
+                          <div className="flex flex-col">
+                            <span className="flex items-center text-sm font-light text-gray-200 drop-shadow-md">
+                              Precio
+                            </span>
+                            <span className="font-semibold drop-shadow-md">
+                              $ {activity.fields.adultPrice?.toFixed(2)} USD
+                            </span>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </Link>
                 </CarouselItem>
