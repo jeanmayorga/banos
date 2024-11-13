@@ -33,8 +33,11 @@ export function Card({ activity, idx }: Props) {
   const images = activity.fields.images;
 
   return (
-    <div className="group" onMouseOver={() => setIsLoaded(true)}>
-      <div className="relative w-full overflow-hidden rounded-2xl" ref={emblaRef}>
+    <div
+      className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-md dark:border-gray-800 dark:bg-black dark:shadow-black"
+      onMouseOver={() => setIsLoaded(true)}
+    >
+      <div className="relative w-full overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {images.map((image) => (
             <Link
@@ -42,14 +45,14 @@ export function Card({ activity, idx }: Props) {
               key={image?.sys.id}
               role="group"
               aria-roledescription="slide"
-              className="relative h-[230px] w-full shrink-0 grow-0"
+              className="relative h-[280px] w-full shrink-0 grow-0 lg:h-[200px]"
             >
               <Image
                 src={getImageUrl(image) || ""}
                 width={300}
                 height={200}
                 quality={isLoaded ? 100 : 50}
-                className="h-full w-full object-cover opacity-0 transition-opacity"
+                className="h-full w-full rounded-2xl object-cover opacity-0 transition-opacity"
                 onLoad={(event) => {
                   const image = event.target as HTMLElement;
                   setTimeout(() => {
@@ -75,7 +78,7 @@ export function Card({ activity, idx }: Props) {
           <HeartIcon className={cn("h-3 w-3", isSaved ? "fill-white" : "text-muted-foreground")} />
         </Button>
 
-        {/* <Button
+        <Button
           size="icon"
           variant="outline"
           className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full opacity-0 transition-all disabled:hidden group-hover:opacity-100"
@@ -94,7 +97,7 @@ export function Card({ activity, idx }: Props) {
         >
           <ArrowRightIcon className="h-4 w-4" />
           <span className="sr-only">Next slide</span>
-        </Button> */}
+        </Button>
 
         <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 flex-wrap items-center">
           {scrollSnaps.map((_, index) => (
@@ -108,17 +111,25 @@ export function Card({ activity, idx }: Props) {
           ))}
         </div>
       </div>
-      <div className="pt-2">
-        <div className="flex items-center justify-between">
-          <Typography variant="large" className="truncate font-medium leading-tight">
-            {activity.fields.title}
-          </Typography>
-          <span className="font-semibold">${activity.fields.adultPrice?.toFixed(2)} USD</span>
-        </div>
+
+      <Link href={`/activities/${activity.fields.slug}`} className="block p-4">
+        <Typography variant="large" className="truncate font-medium leading-tight">
+          {activity.fields.title}
+        </Typography>
         <p className="truncate text-sm text-muted-foreground">
           {activity.fields.place?.fields.title}
         </p>
-      </div>
+        {activity.fields.openAt && activity.fields.closeAt && (
+          <p className="truncate text-sm text-muted-foreground">
+            {activity.fields.openAt} - {activity.fields.closeAt}
+          </p>
+        )}
+
+        <Typography variant="muted" className="mt-4 truncate font-normal leading-tight">
+          <span className="font-semibold">${activity.fields.adultPrice?.toFixed(2)} USD</span> por
+          persona
+        </Typography>
+      </Link>
     </div>
   );
 }

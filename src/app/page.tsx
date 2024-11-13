@@ -33,9 +33,11 @@ export default async function Page() {
           <p className="mb-10 text-lg font-light text-white/70">
             Compra tus entradas con nosotros y ahorra descuentos únicos.
           </p>
-          <Button className="rounded-full px-8 py-5" variant="default">
-            ⚡ Ver todas las {allActivities.length} actividades
-          </Button>
+          <Link href="/activities">
+            <Button className="rounded-full px-8 py-5" variant="default">
+              ⚡ Ver todas las {allActivities.length} actividades
+            </Button>
+          </Link>
         </div>
         <Container>
           <Carousel opts={{ align: "start" }} className="w-full">
