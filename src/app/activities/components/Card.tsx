@@ -73,6 +73,10 @@ export function Card({ activity, idx }: Props) {
           ))}
         </div>
 
+        <div className="absolute bottom-1 right-1 rounded-full bg-gray-900/80 px-3 py-1 text-[10px] font-light text-gray-200">
+          {selectedIndex + 1} / {scrollSnaps.length}
+        </div>
+
         <Button
           onClick={toggleSave}
           size="icon-sm"
@@ -111,7 +115,7 @@ export function Card({ activity, idx }: Props) {
             <button
               key={index}
               className={cn(
-                "gray-300 ml-1 flex h-1 w-1 items-center justify-center rounded-full bg-gray-300/50 transition-all",
+                "gray-300 ml-1 flex h-1 w-1 items-center justify-center rounded-full bg-white/60 transition-all",
                 index === selectedIndex && "border-white bg-white",
               )}
             />
@@ -132,7 +136,7 @@ export function Card({ activity, idx }: Props) {
           </p>
         </span>
 
-        <span>
+        <span className="border-t border-dashed border-t-gray-200 pt-4 dark:border-t-gray-800">
           {activity.fields.openAt && activity.fields.closeAt && (
             <Typography
               variant="muted"

@@ -1,10 +1,4 @@
-import {
-  CircleDollarSignIcon,
-  Clock3Icon,
-  DollarSignIcon,
-  EditIcon,
-  MapPinIcon,
-} from "lucide-react";
+import { CircleDollarSignIcon, Clock3Icon, EditIcon, MapPinIcon } from "lucide-react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -12,6 +6,7 @@ import { isProduction } from "@/api/contentful";
 import { ShareButton } from "@/components/ShareButton";
 import { Button } from "@/components/ui/button";
 import { getImageUrl } from "@/lib/get-image-url";
+import { cn } from "@/utils";
 
 import { Breadcrumds } from "#/components/Breadcrumb";
 import { Container } from "#/components/container";
@@ -22,6 +17,7 @@ import { BlockDescription } from "../components/BlockDescription";
 import { BlockGoogleMaps } from "../components/BlockGoogleMaps";
 import { BlockImages } from "../components/BlockImages";
 import { BlockYoutubeVideo } from "../components/BlockYoutubeVideo";
+import { BuyTicketsForm } from "../components/BuyTicketsForm";
 import { SaveButton } from "../components/SaveButton";
 
 export const dynamicParams = true;
@@ -92,6 +88,8 @@ export default async function Page({ params }: Props) {
 
   const priceInUsd = `$${activity.fields.adultPrice?.toFixed(2)} USD`;
 
+  const canBuyTickets = activity.fields.buyCtaEnabled;
+
   return (
     <>
       <Container>
@@ -119,9 +117,9 @@ export default async function Page({ params }: Props) {
         </div>
 
         <section className="mb-8">
-          <Typography variant="h1" component="h1" className="mb-1">
+          <h1 className="mb-1 scroll-m-20 text-4xl font-semibold tracking-tight lg:text-5xl">
             {activity.fields.title}
-          </Typography>
+          </h1>
           <Typography variant="muted" component="p">
             {activity.fields.seoKeywords}
           </Typography>
@@ -178,19 +176,25 @@ export default async function Page({ params }: Props) {
 
       <BlockImages images={images} />
 
-      <Container
-      // className="lg:grid lg:grid-cols-6"
-      >
-        {/* <div className="col-span-4"> */}
-        <BlockDescription document={description} />
-        <BlockGoogleMaps location={location} />
-        <BlockYoutubeVideo youtubeVideo={youtubeVideo} />
-        {/* </div> */}
-        {/* <div className="col-span-2">
-          <div className="w-full rounded-xl text-foreground">
-            <Typography>Desde {priceInUsd}</Typography>
+      <Container className={cn(canBuyTickets && "lg:grid lg:grid-cols-9 lg:gap-4")}>
+        <div className={cn(canBuyTickets && "col-span-6")}>
+          <BlockDescription document={description} />
+          <BlockGoogleMaps location={location} />
+          <BlockYoutubeVideo youtubeVideo={youtubeVideo} />
+        </div>
+        {canBuyTickets && (
+          <div className="col-span-3">
+            <div className="sticky top-10 w-full rounded-xl border border-gray-200 p-5 text-foreground shadow-xl">
+              <div className="mb-8">
+                <span className="mr-1 text-xl font-semibold">
+                  ${activity.fields.adultPrice?.toFixed(2)}
+                </span>
+                <span className="text-base font-light">por persona</span>
+              </div>
+              <BuyTicketsForm />
+            </div>
           </div>
-        </div> */}
+        )}
       </Container>
     </>
   );

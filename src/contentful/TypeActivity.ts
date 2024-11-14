@@ -14,6 +14,7 @@ export interface TypeActivityFields {
   seoKeywords: EntryFieldTypes.Symbol;
   seoDescription: EntryFieldTypes.Symbol;
   description: EntryFieldTypes.RichText;
+  buyCtaEnabled: EntryFieldTypes.Boolean;
   adultPrice?: EntryFieldTypes.Number;
   childPrice?: EntryFieldTypes.Integer;
   openAt?: EntryFieldTypes.Symbol;
@@ -22,6 +23,7 @@ export interface TypeActivityFields {
   place: EntryFieldTypes.EntryLink<TypePlacesSkeleton>;
   location?: EntryFieldTypes.Location;
   youtubeVideo?: EntryFieldTypes.Symbol;
+  tiktokUrls?: EntryFieldTypes.Array<EntryFieldTypes.Symbol>;
 }
 
 export type TypeActivitySkeleton = EntrySkeletonType<TypeActivityFields, "activity">;
