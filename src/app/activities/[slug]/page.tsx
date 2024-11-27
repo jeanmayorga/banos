@@ -86,6 +86,7 @@ export default async function Page({ params }: Props) {
   const location = activity.fields.location;
   const youtubeVideo = activity.fields.youtubeVideo;
 
+  const adultPrice = activity.fields.adultPrice;
   const priceInUsd = `$${activity.fields.adultPrice?.toFixed(2)} USD`;
 
   const canBuyTickets = activity.fields.buyCtaEnabled;
@@ -93,108 +94,67 @@ export default async function Page({ params }: Props) {
   return (
     <>
       <Container>
-        <div className="mb-4">
-          <Breadcrumds
-            items={[
-              {
-                text: "Banos",
-                href: "/",
-              },
-              {
-                text: "Actividades",
-                href: `/activities`,
-              },
-              {
-                text: place?.fields.title,
-                href: `/places/${place?.fields.title}`,
-              },
-              {
-                text: activity.fields.title,
-                href: `/activities/${activity.fields.slug}`,
-              },
-            ]}
-          />
-        </div>
-
-        <section className="mb-8">
-          <h1 className="mb-1 scroll-m-20 text-4xl font-semibold tracking-tight lg:text-5xl">
-            {activity.fields.title}
-          </h1>
-          <Typography variant="muted" component="p">
-            {activity.fields.seoKeywords}
-          </Typography>
-        </section>
-
-        <div className="mb-8 lg:flex lg:items-center lg:justify-between">
-          <div className="mb-8 flex items-center text-sm lg:mb-0">
-            {activity.fields.openAt && activity.fields.closeAt && (
-              <div className="mr-3 flex flex-col border-r pr-3">
-                <span className="flex items-center text-muted-foreground">
-                  <Clock3Icon className="mr-1 h-4 w-4" />
-                  Horario
-                </span>
-                <span className="ml-5 font-semibold">
-                  {activity.fields.openAt} - {activity.fields.closeAt}
-                </span>
-              </div>
-            )}
-            {activity.fields.adultPrice && (
-              <div className="mr-3 flex flex-col border-r pr-3">
-                <span className="flex items-center text-muted-foreground">
-                  <CircleDollarSignIcon className="mr-1 h-4 w-4" />
-                  Precio
-                </span>
-                <span className="ml-5 font-semibold">{priceInUsd}</span>
-              </div>
-            )}
-            {activity.fields.place && (
-              <div className="flex flex-col">
-                <span className="flex items-center text-muted-foreground">
-                  <MapPinIcon className="mr-1 h-4 w-4" />
-                  Lugar
-                </span>
-                <span className="ml-5 font-semibold">{activity.fields.place?.fields.title}</span>
-              </div>
-            )}
+        <div className="gap-8 md:my-40 md:grid md:grid-cols-2">
+          <div>
+            <BlockImages images={images} />
           </div>
-          <div className="lg flex space-x-2">
-            <a
-              href={`https://api.whatsapp.com/send?phone=593962975512&text=Hola, quiero que edites esta pagina: https://banos.app/activities/${activity?.fields.slug}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button className="rounded-full" variant="outline">
-                <EditIcon className="mr-1 h-6 w-4 text-muted-foreground" />
-                Editar
-              </Button>
-            </a>
-            <SaveButton id={activity.sys.id} />
-            <ShareButton />
-          </div>
-        </div>
-      </Container>
-
-      <BlockImages images={images} />
-
-      <Container className={cn(canBuyTickets && "lg:grid lg:grid-cols-9 lg:gap-4")}>
-        <div className={cn(canBuyTickets && "col-span-6")}>
-          <BlockDescription document={description} />
-          <BlockGoogleMaps location={location} />
-          <BlockYoutubeVideo youtubeVideo={youtubeVideo} />
-        </div>
-        {canBuyTickets && (
-          <div className="col-span-3">
-            <div className="sticky top-10 w-full rounded-xl border border-gray-200 p-5 text-foreground shadow-xl">
-              <div className="mb-8">
-                <span className="mr-1 text-xl font-semibold">
-                  ${activity.fields.adultPrice?.toFixed(2)}
-                </span>
-                <span className="text-base font-light">por persona</span>
-              </div>
-              <BuyTicketsForm />
+          <div>
+            <section className="mb-8">
+              <h1 className="mb-4 scroll-m-20 text-balance text-center text-5xl font-bold tracking-tight lg:text-5xl">
+                {activity.fields.title}
+              </h1>
+              <Typography
+                variant="muted"
+                component="p"
+                className="text-balance text-center text-xs"
+              >
+                {activity.fields.seoKeywords}
+              </Typography>
+            </section>
+            <div className="mb-8 flex items-center justify-center text-sm">
+              {activity.fields.openAt && activity.fields.closeAt && (
+                <div className="flex min-w-24 flex-col items-center border-r px-4">
+                  <Clock3Icon className="mb-3 h-6 w-6 text-[#00a7ac]" />
+                  <span className="font-semibold text-[#007276]">
+                    {activity.fields.openAt} - {activity.fields.closeAt}
+                  </span>
+                </div>
+              )}
+              {activity.fields.adultPrice && (
+                <div className="flex min-w-24 flex-col items-center border-r px-4">
+                  <CircleDollarSignIcon className="mb-3 h-6 w-6 text-[#00a7ac]" />
+                  <span className="font-semibold text-[#007276]">$ {adultPrice} USD</span>
+                </div>
+              )}
+              {activity.fields.place && (
+                <div className="flex min-w-24 flex-col items-center px-4">
+                  <MapPinIcon className="mb-3 h-6 w-6 text-[#00a7ac]" />
+                  <span className="font-semibold text-[#007276]">
+                    {activity.fields.place?.fields.title}
+                  </span>
+                </div>
+              )}
             </div>
+            <div className="lg mb-8 flex justify-center space-x-2">
+              {/* <a
+                href={`https://api.whatsapp.com/send?phone=593962975512&text=Hola, quiero que edites esta pagina: https://banos.app/activities/${activity?.fields.slug}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button className="rounded-full" variant="outline">
+                  <EditIcon className="mr-1 h-6 w-4 text-muted-foreground" />
+                  Editar
+                </Button>
+              </a> */}
+              <SaveButton id={activity.sys.id} />
+              <ShareButton />
+            </div>
+
+            <BlockDescription document={description} />
+            <BlockGoogleMaps location={location} />
+            <BlockYoutubeVideo youtubeVideo={youtubeVideo} />
           </div>
-        )}
+        </div>
       </Container>
     </>
   );

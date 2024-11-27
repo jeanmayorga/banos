@@ -11,7 +11,7 @@ function textMapper(content: TextMapper[]) {
       variant="p"
       component="p"
       key={JSON.stringify(block)}
-      className="mb-4 last-of-type:mb-0"
+      className="mb-4 text-balance text-sm leading-normal last-of-type:mb-0"
     >
       {block.value}
     </Typography>
@@ -31,6 +31,13 @@ interface Props {
 }
 export function BlockDescription({ document }: Props) {
   return (
-    <article className="mb-8">{document.content.map((content) => topLevelMapper(content))}</article>
+    <>
+      <div className="mb-2 text-sm font-semibold uppercase tracking-tight text-[#007276]">
+        Descripción:
+      </div>
+      <article className="mb-8">
+        {document.content.map((content) => topLevelMapper(content))}
+      </article>
+    </>
   );
 }

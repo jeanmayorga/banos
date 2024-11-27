@@ -29,15 +29,15 @@ export function BlockImages({ images }: Props) {
   const [index, setIndex] = useState(-1);
 
   return (
-    <section className="relative mb-8 w-full overflow-hidden">
-      <div className="mb-4 overflow-hidden pl-4 lg:pl-[calc((100vw-70rem)/2)]" ref={emblaRef}>
+    <section className="relative mb-8 mt-8 w-full overflow-hidden md:sticky md:top-32 md:mt-0">
+      <div className="mb-4 overflow-hidden rounded-3xl" ref={emblaRef}>
         <div className="flex">
           {images.map((image) => (
             <div
               key={image?.sys.id}
               role="group"
               aria-roledescription="slide"
-              className="lg:basis-3/3 relative mr-4 h-48 min-w-0 shrink-0 grow-0 basis-2/3 overflow-hidden rounded-xl bg-black md:basis-2/5 lg:h-96"
+              className="relative mr-4 h-[400px] min-w-0 shrink-0 grow-0 basis-3/4 overflow-hidden rounded-3xl bg-black lg:h-[650px]"
             >
               <Image
                 onClick={() => setIndex(1)}

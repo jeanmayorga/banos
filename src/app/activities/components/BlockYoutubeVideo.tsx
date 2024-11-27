@@ -24,9 +24,10 @@ export function BlockYoutubeVideo({ youtubeVideo }: Props) {
 
   return (
     <section className="mb-8">
-      <Typography variant="h4" component="h2" className="mb-4">
-        Video
-      </Typography>
+      <div className="mb-2 text-sm font-semibold uppercase tracking-tight text-[#007276]">
+        Video:
+      </div>
+
       <div
         ref={videoRef}
         className="group relative h-0 cursor-pointer overflow-hidden rounded-2xl pb-[56.25%]"

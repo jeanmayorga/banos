@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Popover, PopoverTrigger, PopoverContent } from "@radix-ui/react-popover";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, SearchIcon } from "lucide-react";
 // import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -14,6 +14,7 @@ import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Form, FormField, FormItem, FormControl, FormLabel } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -53,81 +54,30 @@ export default function Page() {
         </Typography>
 
         <Typography variant="muted" component="p" className="mb-8">
-          Si estás en Baños y no sabes qué hacer, no te preocupes. Este encantador destino tiene
-          muchísimo por ofrecer.
+          Si estás en Baños y no sabes qué hacer, no te preocupes. Nosotros te ayudamos.
         </Typography>
 
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="mb-8 grid grid-cols-8 rounded-3xl bg-white p-2 shadow-sm"
-          >
-            <FormField
-              control={form.control}
-              name="date"
-              render={({ field }) => (
-                <FormItem className="col-span-3 space-y-0 border-r pr-4">
-                  <FormLabel className="pl-3 text-gray-600">Fecha:</FormLabel>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant="ghost"
-                          className="w-full rounded-full pl-3 text-left font-normal text-gray-500"
-                        >
-                          {field.value ? (
-                            format(field.value, "PPP", { locale: es })
-                          ) : (
-                            <span>Selecciona una fecha:</span>
-                          )}
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent
-                      className="z-10 w-auto rounded-3xl border bg-white p-4 shadow-sm"
-                      align="start"
-                    >
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        disabled={(date) => date < new Date()}
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="people"
-              render={({ field }) => (
-                <FormItem className="col-span-3 space-y-0 px-4">
-                  <FormLabel className="pl-3 text-gray-600">Número de personas:</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger className="w-full rounded-full border-none text-gray-500 shadow-none hover:bg-gray-100">
-                        <SelectValue placeholder="Número de personas" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {[...Array(10).keys()].map((number) => (
-                        <SelectItem key={number} value={String(number + 1)}>
-                          {number + 1}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormItem>
-              )}
-            />
-            <div className="col-span-2 flex items-center">
-              <Button className="w-full rounded-3xl bg-[#00a7ac] py-6">Búscar</Button>
+        <div className="mb-8 flex justify-between rounded-3xl bg-white p-4 shadow-sm">
+          <div>
+            <div className="relative">
+              <Input placeholder="Búscar..." className="w-full rounded-full md:w-80" />
+              <SearchIcon className="absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
             </div>
-          </form>
-        </Form>
+          </div>
+          <div>
+            <Select>
+              <SelectTrigger className="rounded-full">
+                <SelectValue placeholder="Ordenar por" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="more_popular">Mas populares primero</SelectItem>
+                <SelectItem value="less_popular">Menos populares primero</SelectItem>
+                <SelectItem value="more_expensive">Mas caros primero</SelectItem>
+                <SelectItem value="cheaper">Mas baratos primero</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
       </Container>
 
       <Container>
