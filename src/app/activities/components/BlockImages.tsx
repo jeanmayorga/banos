@@ -33,7 +33,10 @@ export function BlockImages({ images }: Props) {
       <Button
         size="icon"
         variant="outline"
-        className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full"
+        className={cn(
+          "absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full transition-all",
+          prevBtnDisabled ? "invisible" : "visible",
+        )}
         disabled={prevBtnDisabled}
         onClick={onPrevButtonClick}
       >
@@ -43,7 +46,10 @@ export function BlockImages({ images }: Props) {
       <Button
         size="icon"
         variant="outline"
-        className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full"
+        className={cn(
+          "absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full transition-all",
+          nextBtnDisabled ? "invisible" : "visible",
+        )}
         disabled={nextBtnDisabled}
         onClick={onNextButtonClick}
       >
@@ -80,9 +86,9 @@ export function BlockImages({ images }: Props) {
             key={index}
             onClick={() => onDotButtonClick(index)}
             className={cn(
-              "h-3 rounded-full transition-all duration-300",
+              "h-2 rounded-full transition-all duration-300",
               "hover:bg-primary/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
-              index === selectedIndex ? "w-6 bg-gray-700" : "w-3 bg-gray-300",
+              index === selectedIndex ? "w-6 bg-gray-400" : "w-2 bg-gray-300",
             )}
           />
         ))}
