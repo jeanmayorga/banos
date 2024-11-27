@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { CalendarIcon, SearchIcon } from "lucide-react";
 // import Image from "next/image";
+import { Suspense } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -77,7 +78,9 @@ export default function Page() {
               </Select>
             </div> */}
           </div>
-          <Tabs />
+          <Suspense>
+            <Tabs />
+          </Suspense>
         </div>
         <div className="mb-24 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
           {isLoading && [...Array(12).keys()].map((_number, idx) => <CardSkeleton key={idx} />)}
