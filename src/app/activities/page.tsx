@@ -5,12 +5,12 @@ import { Popover, PopoverTrigger, PopoverContent } from "@radix-ui/react-popover
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
-import Image from "next/image";
+// import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Container } from "@/components/container";
-import { Search } from "@/components/search";
+// import { Search } from "@/components/search";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Form, FormField, FormItem, FormControl, FormLabel } from "@/components/ui/form";
@@ -131,7 +131,6 @@ export default function Page() {
       </Container>
 
       <Container>
-        <Select></Select>
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
           {isLoading && [...Array(12).keys()].map((_number, idx) => <CardSkeleton key={idx} />)}
           {activities.map((activity, idx) => (
