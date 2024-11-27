@@ -58,26 +58,25 @@ export default function Page() {
           Si estás en Baños y no sabes qué hacer, no te preocupes. Nosotros te ayudamos.
         </Typography>
 
-        <div className="mb-4 flex justify-between rounded-3xl bg-white p-4 shadow-sm">
-          <div>
+        <div className="mb-4 rounded-3xl bg-white p-4 shadow-sm">
+          <div className="mb-4">
             <div className="relative">
-              <Input placeholder="Búscar..." className="w-full rounded-full md:w-[400px]" />
+              <Input placeholder="Búscar..." className="group w-full rounded-full md:w-[400px]" />
               <SearchIcon className="absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
             </div>
+
+            {/* <div>
+              <Select>
+                <SelectTrigger className="rounded-full">
+                  <SelectValue placeholder="Filtrar por lugar" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Todos</SelectItem>
+                  <SelectItem value="all">Centro de Baños</SelectItem>
+                </SelectContent>
+              </Select>
+            </div> */}
           </div>
-          <div>
-            <Select>
-              <SelectTrigger className="rounded-full">
-                <SelectValue placeholder="Filtrar por lugar" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Todos</SelectItem>
-                <SelectItem value="all">Centro de Baños</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-        <div className="mb-4">
           <Tabs />
         </div>
         <div className="mb-24 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
