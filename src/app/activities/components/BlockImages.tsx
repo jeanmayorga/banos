@@ -26,10 +26,31 @@ export function BlockImages({ images }: Props) {
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } =
     usePrevNextButtons(emblaApi);
 
-  const [index, setIndex] = useState(-1);
+  // const [index, setIndex] = useState(-1);
 
   return (
     <section className="relative mb-8 mt-8 w-full overflow-hidden md:sticky md:top-32 md:mt-0">
+      <Button
+        size="icon"
+        variant="outline"
+        className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full"
+        disabled={prevBtnDisabled}
+        onClick={onPrevButtonClick}
+      >
+        <ArrowLeftIcon className="h-4 w-4" />
+        <span className="sr-only">Previous slide</span>
+      </Button>
+      <Button
+        size="icon"
+        variant="outline"
+        className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full"
+        disabled={nextBtnDisabled}
+        onClick={onNextButtonClick}
+      >
+        <ArrowRightIcon className="h-4 w-4" />
+        <span className="sr-only">Next slide</span>
+      </Button>
+
       <div className="mb-4 overflow-hidden rounded-3xl" ref={emblaRef}>
         <div className="flex">
           {images.map((image) => (
@@ -40,60 +61,34 @@ export function BlockImages({ images }: Props) {
               className="relative mr-4 h-[400px] min-w-0 shrink-0 grow-0 basis-3/4 overflow-hidden rounded-3xl bg-black lg:h-[650px]"
             >
               <Image
-                onClick={() => setIndex(1)}
+                // onClick={() => setIndex(1)}
                 src={getImageUrl(image) || ""}
                 width={400}
                 height={200}
                 quality={80}
                 alt={image?.fields.title || ""}
-                className="h-full w-full cursor-pointer object-cover"
+                className="h-full w-full object-cover"
               />
             </div>
           ))}
         </div>
       </div>
 
-      <Container>
-        <div className="flex items-center justify-between">
-          <div className="flex space-x-2">
-            <Button
-              size="icon"
-              variant="outline"
-              className="rounded-full"
-              disabled={prevBtnDisabled}
-              onClick={onPrevButtonClick}
-            >
-              <ArrowLeftIcon className="h-4 w-4" />
-              <span className="sr-only">Previous slide</span>
-            </Button>
-            <Button
-              size="icon"
-              variant="outline"
-              className="rounded-full"
-              disabled={nextBtnDisabled}
-              onClick={onNextButtonClick}
-            >
-              <ArrowRightIcon className="h-4 w-4" />
-              <span className="sr-only">Next slide</span>
-            </Button>
-          </div>
-          <div className="flex flex-wrap items-center">
-            {scrollSnaps.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => onDotButtonClick(index)}
-                className={cn(
-                  "ml-1 flex h-4 w-4 items-center justify-center rounded-full border-2 border-gray-300 transition-all",
-                  "dark:border-gray-500",
-                  index === selectedIndex && "border-gray-400 dark:border-white",
-                )}
-              />
-            ))}
-          </div>
-        </div>
-      </Container>
+      <div className="flex w-full flex-wrap items-center justify-center gap-1">
+        {scrollSnaps.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => onDotButtonClick(index)}
+            className={cn(
+              "h-3 rounded-full transition-all duration-300",
+              "hover:bg-primary/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+              index === selectedIndex ? "w-6 bg-gray-700" : "w-3 bg-gray-300",
+            )}
+          />
+        ))}
+      </div>
 
-      <Lightbox
+      {/* <Lightbox
         index={index}
         open={index >= 0}
         close={() => setIndex(-1)}
@@ -101,7 +96,7 @@ export function BlockImages({ images }: Props) {
           src: image?.fields.file?.url || "",
           alt: image?.fields.title || "",
         }))}
-      />
+      /> */}
     </section>
   );
 }
