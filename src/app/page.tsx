@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 import { Container } from "@/components/container";
+import { Header } from "@/components/Header";
+import { Hero } from "@/components/Hero";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -25,21 +27,12 @@ export default async function Page() {
 
   return (
     <>
-      <div className="h-full bg-gradient-to-b from-[#00a7ac] to-white py-10 dark:to-[#0a0a0b]">
-        <div className="mb-8 py-14 text-center">
-          <h1 className="mb-2 text-6xl font-semibold tracking-tight text-white">
-            Compra tus entradas aqui.
-          </h1>
-          <p className="mb-10 text-lg font-light text-white/70">
-            Compra tus entradas con nosotros y ahorra descuentos únicos.
-          </p>
-          <Link href="/activities">
-            <Button className="rounded-full px-8 py-5" variant="default">
-              ⚡ Ver todas las {allActivities.length} actividades
-            </Button>
-          </Link>
-        </div>
+      <Header />
+      <div className="h-full py-10">
         <Container>
+          <Typography variant="h1" className="mb-8">
+            Destacados
+          </Typography>
           <Carousel opts={{ align: "start", loop: true }} className="w-full">
             <CarouselContent>
               {allActivities.slice(0, 5).map((activity) => (

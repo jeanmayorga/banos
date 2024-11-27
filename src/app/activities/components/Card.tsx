@@ -79,11 +79,11 @@ export function Card({ activity, idx }: Props) {
 
         <Button
           onClick={toggleSave}
-          size="icon-sm"
+          size="icon"
           variant="secondary"
           className={cn(
-            "absolute right-2 top-2 rounded-full",
-            isSaved && "bg-rose-400 text-white hover:bg-rose-500 hover:text-white",
+            "absolute right-2 top-2 hidden rounded-full group-hover:flex",
+            isSaved && "flex bg-rose-400 text-white hover:bg-rose-500 hover:text-white",
           )}
         >
           <HeartIcon className={cn("h-3 w-3", isSaved ? "fill-white" : "text-muted-foreground")} />

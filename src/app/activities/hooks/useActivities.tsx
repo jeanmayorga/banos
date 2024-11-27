@@ -10,6 +10,7 @@ export function useActivities() {
   const [query] = useQueryState("query", parseAsString);
 
   const result = useQuery({
+    refetchOnWindowFocus: false,
     queryKey: ["activities", tab, query],
     queryFn: async () => {
       let activities = await getAllActivities();

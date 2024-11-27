@@ -7,8 +7,6 @@ import { Toaster } from "react-hot-toast";
 import "./global.css";
 
 import { Footer } from "#/components/Footer";
-import { Header } from "#/components/Header";
-import { Nav } from "#/components/Nav";
 
 import { LayoutReactQuery } from "./layout-react-query";
 import { ThemeProvider } from "./theme-provider";
@@ -25,7 +23,7 @@ interface Props {
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="es" className={inter.className}>
-      <body>
+      <body className="bg-gray-50">
         <LayoutReactQuery>
           <ThemeProvider
             attribute="class"
@@ -34,10 +32,7 @@ export default function RootLayout({ children }: Props) {
             disableTransitionOnChange
           >
             <NuqsAdapter>
-              <Header />
-              <Nav />
               {children}
-              <Footer />
               <Toaster />
             </NuqsAdapter>
           </ThemeProvider>
