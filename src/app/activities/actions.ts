@@ -13,10 +13,18 @@ const getAllContentfulActivities = async () => {
   return entries.items;
 };
 
-export const getAllActivities = async () => {
-  // const cached = cache(getAllContentfulActivities, ["activitie2s"], { revalidate: 3600 });
-  // return cached();
-  return getAllContentfulActivities();
+interface GetActivitiesOptions {
+  page?: number;
+  limit?: number;
+}
+export const getAllActivities = async ({ limit = 1000, page = 0 }: GetActivitiesOptions) => {
+  const entries = await contentfulClient.getEntries<TypeActivitySkeleton>({
+    content_type: "activity",
+    limit,
+    skip: page * limit,
+  });
+
+  return entries.items;
 };
 
 export async function getActivityBySlug(slug: string) {

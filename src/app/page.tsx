@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const allActivities = await getAllActivities();
+  const allActivities = await getAllActivities({ limit: 4 });
 
   return (
     <>

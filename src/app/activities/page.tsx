@@ -26,6 +26,7 @@ import { Typography } from "@/components/ui/typography";
 
 import { Card } from "./components/Card";
 import { CardSkeleton } from "./components/CardSkeleton";
+import { Tabs } from "./components/Tabs";
 import { useActivities } from "./hooks/useActivities";
 
 const FormSchema = z.object({
@@ -48,40 +49,38 @@ export default function Page() {
   }
   return (
     <>
-      <Container className="mt-32">
+      <Container className="mt-24">
         <Typography variant="h1" component="h1" className="mb-2">
           Actividades
         </Typography>
 
-        <Typography variant="muted" component="p" className="mb-8">
+        <Typography variant="muted" component="p" className="mb-4">
           Si estás en Baños y no sabes qué hacer, no te preocupes. Nosotros te ayudamos.
         </Typography>
 
-        <div className="mb-8 flex justify-between rounded-3xl bg-white p-4 shadow-sm">
+        <div className="mb-4 flex justify-between rounded-3xl bg-white p-4 shadow-sm">
           <div>
             <div className="relative">
-              <Input placeholder="Búscar..." className="w-full rounded-full md:w-80" />
+              <Input placeholder="Búscar..." className="w-full rounded-full md:w-[400px]" />
               <SearchIcon className="absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
             </div>
           </div>
           <div>
             <Select>
               <SelectTrigger className="rounded-full">
-                <SelectValue placeholder="Ordenar por" />
+                <SelectValue placeholder="Filtrar por lugar" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="more_popular">Mas populares primero</SelectItem>
-                <SelectItem value="less_popular">Menos populares primero</SelectItem>
-                <SelectItem value="more_expensive">Mas caros primero</SelectItem>
-                <SelectItem value="cheaper">Mas baratos primero</SelectItem>
+                <SelectItem value="all">Todos</SelectItem>
+                <SelectItem value="all">Centro de Baños</SelectItem>
               </SelectContent>
             </Select>
           </div>
         </div>
-      </Container>
-
-      <Container>
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+        <div className="mb-4">
+          <Tabs />
+        </div>
+        <div className="mb-24 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
           {isLoading && [...Array(12).keys()].map((_number, idx) => <CardSkeleton key={idx} />)}
           {activities.map((activity, idx) => (
             <Card key={activity.fields.slug} activity={activity} idx={idx} />

@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { isProduction } from "@/api/contentful";
+import ScrollUp from "@/components/ScrollUp";
 import { ShareButton } from "@/components/ShareButton";
 import { Button } from "@/components/ui/button";
 import { getImageUrl } from "@/lib/get-image-url";
@@ -70,7 +71,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const activities = await getAllActivities();
+  const activities = await getAllActivities({ limit: 1000 });
 
   return activities.map((activity) => ({ slug: activity.fields.slug }));
 }
@@ -93,6 +94,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <>
+      <ScrollUp />
       <Container>
         <div className="gap-8 md:my-40 md:grid md:grid-cols-2">
           <div>

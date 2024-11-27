@@ -5,7 +5,7 @@ import { getAllActivities } from "./activities/actions";
 const domain = "https://www.banos.app";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const activitiesResponse = await getAllActivities();
+  const activitiesResponse = await getAllActivities({ limit: 1000 });
 
   const activitiesPages: MetadataRoute.Sitemap = activitiesResponse.map((activity) => ({
     url: `${domain}/activities/${activity.fields.slug}`,

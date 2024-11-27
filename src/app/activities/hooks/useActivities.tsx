@@ -10,7 +10,7 @@ export function useActivities() {
     refetchOnWindowFocus: false,
     queryKey: ["activities"],
     queryFn: async () => {
-      let activities = await getAllActivities();
+      let activities = await getAllActivities({ limit: 36, page: 0 });
 
       // if (query) {
       //   activities = activities.filter((activity) =>
