@@ -1,19 +1,14 @@
 "use client";
 
-import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
 import { Asset } from "contentful";
 import useEmblaCarousel from "embla-carousel-react";
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
-import Lightbox from "yet-another-react-lightbox";
 
-import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { useDotButton, usePrevNextButtons } from "@/hooks/useCarousel";
 import { getImageUrl } from "@/lib/get-image-url";
 import { cn } from "@/utils/cn";
-
-import "yet-another-react-lightbox/styles.css";
 
 interface Props {
   images: (Asset<"WITHOUT_UNRESOLVABLE_LINKS", string> | undefined)[];
@@ -26,13 +21,11 @@ export function BlockImages({ images }: Props) {
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } =
     usePrevNextButtons(emblaApi);
 
-  // const [index, setIndex] = useState(-1);
-
   return (
     <section className="relative mb-8 mt-8 w-full overflow-hidden md:sticky md:top-32 md:mt-0">
       <Button
         size="icon"
-        variant="outline"
+        variant="secondary"
         className={cn(
           "absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full transition-all",
           prevBtnDisabled ? "invisible" : "visible",
@@ -40,12 +33,12 @@ export function BlockImages({ images }: Props) {
         disabled={prevBtnDisabled}
         onClick={onPrevButtonClick}
       >
-        <ArrowLeftIcon className="h-4 w-4" />
+        <ArrowLeftIcon className="h-4 w-4" strokeWidth={3} />
         <span className="sr-only">Previous slide</span>
       </Button>
       <Button
         size="icon"
-        variant="outline"
+        variant="secondary"
         className={cn(
           "absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full transition-all",
           nextBtnDisabled ? "invisible" : "visible",
@@ -53,21 +46,26 @@ export function BlockImages({ images }: Props) {
         disabled={nextBtnDisabled}
         onClick={onNextButtonClick}
       >
-        <ArrowRightIcon className="h-4 w-4" />
+        <ArrowRightIcon className="h-4 w-4" strokeWidth={3} />
         <span className="sr-only">Next slide</span>
       </Button>
 
       <div className="mb-4 overflow-hidden rounded-3xl" ref={emblaRef}>
         <div className="flex">
-          {images.map((image) => (
+          {images.map((image, index) => (
             <div
               key={image?.sys.id}
               role="group"
               aria-roledescription="slide"
               className="relative mr-4 h-[400px] min-w-0 shrink-0 grow-0 basis-3/4 overflow-hidden rounded-3xl bg-black lg:h-[650px]"
             >
+              <div
+                className={cn(
+                  "absolute left-0 top-0 h-full w-full bg-black/30 transition-all",
+                  index === selectedIndex && "bg-transparent",
+                )}
+              />
               <Image
-                // onClick={() => setIndex(1)}
                 src={getImageUrl(image) || ""}
                 width={400}
                 height={200}
@@ -93,16 +91,6 @@ export function BlockImages({ images }: Props) {
           />
         ))}
       </div>
-
-      {/* <Lightbox
-        index={index}
-        open={index >= 0}
-        close={() => setIndex(-1)}
-        slides={images.map((image) => ({
-          src: image?.fields.file?.url || "",
-          alt: image?.fields.title || "",
-        }))}
-      /> */}
     </section>
   );
 }

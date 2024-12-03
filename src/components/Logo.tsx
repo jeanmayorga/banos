@@ -17,7 +17,7 @@ export function Logo({ size, className }: Props) {
     return (
       <div className="relative select-none">
         <div className={cn("text-4xl leading-none text-gray-50", satisfy.className, className)}>
-          Banos
+          Baños
         </div>
       </div>
     );
@@ -26,7 +26,7 @@ export function Logo({ size, className }: Props) {
     return (
       <div className="relative select-none">
         <div className={cn(`text-5xl leading-none text-gray-50 ${satisfy.className}`, className)}>
-          Banos
+          Baños
         </div>
         <div
           className={cn(
@@ -43,7 +43,7 @@ export function Logo({ size, className }: Props) {
   return (
     <div className="relative w-[200px] select-none">
       <div className={cn(`text-7xl leading-none text-gray-50 ${satisfy.className}`, className)}>
-        Banos
+        Baños
       </div>
       <div
         className={cn(

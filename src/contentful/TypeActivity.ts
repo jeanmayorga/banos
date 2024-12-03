@@ -23,7 +23,8 @@ export interface TypeActivityFields {
   place: EntryFieldTypes.EntryLink<TypePlacesSkeleton>;
   location?: EntryFieldTypes.Location;
   youtubeVideo?: EntryFieldTypes.Symbol;
-  tiktokUrls?: EntryFieldTypes.Array<EntryFieldTypes.Symbol>;
+  visits?: EntryFieldTypes.Integer;
+  tiktokUrl?: EntryFieldTypes.Symbol;
 }
 
 export type TypeActivitySkeleton = EntrySkeletonType<TypeActivityFields, "activity">;

@@ -23,7 +23,7 @@ export function BlockGoogleMaps({ location }: Props) {
         rel="noopener noreferrer"
       >
         <img
-          src={`https://maps.googleapis.com/maps/api/staticmap?size=500x300&zoom=14&maptype=roadmap\&markers=size:mid%7Ccolor:red%7C${lat},${lng}&key=AIzaSyBn6Gu0M2bZgVZ-NioKAVtrrGc1yKraYk0`}
+          src={`https://maps.googleapis.com/maps/api/staticmap?size=500x200&zoom=14&maptype=roadmap\&markers=size:mid%7Ccolor:red%7C${lat},${lng}&key=AIzaSyBn6Gu0M2bZgVZ-NioKAVtrrGc1yKraYk0`}
           className="w-full rounded-3xl"
         />
       </a>

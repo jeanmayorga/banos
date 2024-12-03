@@ -58,8 +58,8 @@ export function Card({ activity, idx }: Props) {
                 src={getImageUrl(image) || ""}
                 width={300}
                 height={200}
-                quality={isLoaded ? 100 : 50}
-                className="h-full w-full rounded-2xl object-cover opacity-0 transition-opacity"
+                quality={isLoaded ? 100 : 10}
+                className="h-full w-full object-cover opacity-0 transition-opacity"
                 onLoad={(event) => {
                   const image = event.target as HTMLElement;
                   setTimeout(() => {

@@ -96,7 +96,7 @@ export default async function Page({ params }: Props) {
     <>
       <ScrollUp />
       <Container>
-        <div className="gap-8 md:my-40 md:grid md:grid-cols-2">
+        <div className="gap-16 md:my-40 md:grid md:grid-cols-2">
           <div>
             <BlockImages images={images} />
           </div>
