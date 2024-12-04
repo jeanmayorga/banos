@@ -12,8 +12,9 @@ import { cn } from "@/utils/cn";
 
 interface Props {
   images: (Asset<"WITHOUT_UNRESOLVABLE_LINKS", string> | undefined)[];
+  tiktokVideoId?: string;
 }
-export function BlockImages({ images }: Props) {
+export function BlockImages({ images, tiktokVideoId }: Props) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
   });
@@ -52,29 +53,47 @@ export function BlockImages({ images }: Props) {
 
       <div className="mb-4 overflow-hidden rounded-3xl" ref={emblaRef}>
         <div className="flex">
-          {images.map((image, index) => (
+          {tiktokVideoId && (
             <div
-              key={image?.sys.id}
+              key={0}
               role="group"
               aria-roledescription="slide"
-              className="relative mr-4 h-[400px] min-w-0 shrink-0 grow-0 basis-3/4 overflow-hidden rounded-3xl bg-black lg:h-[650px]"
+              className="relative mr-4 aspect-[9/16] min-w-0 shrink-0 grow-0 basis-3/4 overflow-hidden rounded-3xl bg-black"
             >
-              <div
-                className={cn(
-                  "absolute left-0 top-0 h-full w-full bg-black/30 transition-all",
-                  index === selectedIndex && "bg-transparent",
-                )}
-              />
-              <Image
-                src={getImageUrl(image) || ""}
-                width={400}
-                height={200}
-                quality={80}
-                alt={image?.fields.title || ""}
-                className="h-full w-full object-cover"
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.tiktok.com/embed/v3/7377172765188607237"
+                className="h-full"
               />
             </div>
-          ))}
+          )}
+          {images.map((image, index) => {
+            const currentIdx = tiktokVideoId ? index + 1 : index;
+            return (
+              <div
+                key={image?.sys.id}
+                role="group"
+                aria-roledescription="slide"
+                className="relative mr-4 aspect-[9/16] min-w-0 shrink-0 grow-0 basis-3/4 overflow-hidden rounded-3xl bg-black"
+              >
+                <div
+                  className={cn(
+                    "absolute left-0 top-0 h-full w-full bg-gray-600/50 transition-all",
+                    currentIdx === selectedIndex && "bg-transparent",
+                  )}
+                />
+                <Image
+                  src={getImageUrl(image) || ""}
+                  width={400}
+                  height={200}
+                  quality={80}
+                  alt={image?.fields.title || ""}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
 

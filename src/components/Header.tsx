@@ -15,15 +15,15 @@ export function Header() {
         <Logo size="sm" className="text-[#00a7ac] dark:text-white" />
       </Link>
       <div className="hidden md:block">
-        {/* <Link href="/lugares"> */}
-        <Button variant="ghost" disabled className="rounded-full">
-          <MapPinIcon className="mr-2 h-4 w-4" />
-          Lugares
-        </Button>
-        {/* </Link> */}
+        <Link href="/places">
+          <Button variant="ghost" className="rounded-full">
+            <MapPinIcon className="h-4 w-4" />
+            Lugares
+          </Button>
+        </Link>
         <Link href="/activities">
           <Button variant="ghost" className="rounded-full">
-            <TentTree className="mr-2 h-4 w-4" />
+            <TentTree className="h-4 w-4" />
             Actividades
           </Button>
         </Link>

@@ -41,7 +41,7 @@ export function Card({ activity, idx }: Props) {
 
   return (
     <div
-      className="group flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm dark:border-gray-800 dark:bg-black dark:shadow-black"
+      className="group flex flex-col overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm dark:border-gray-800 dark:bg-black dark:shadow-black"
       onMouseOver={() => setIsLoaded(true)}
     >
       <div className="relative w-full overflow-hidden" ref={emblaRef}>

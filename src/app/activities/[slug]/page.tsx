@@ -82,15 +82,17 @@ export default async function Page({ params }: Props) {
   if (!activity) return notFound();
 
   const place = activity.fields.place;
+  const tiktokVideoId = activity.fields.tiktokVideoId;
   const images = activity.fields.images;
   const description = activity.fields.description;
   const location = activity.fields.location;
   const youtubeVideo = activity.fields.youtubeVideo;
 
   const adultPrice = activity.fields.adultPrice;
+  const childPrice = activity.fields.childPrice;
   const priceInUsd = `$${activity.fields.adultPrice?.toFixed(2)} USD`;
 
-  const canBuyTickets = activity.fields.buyCtaEnabled;
+  const isPurchaseEnabled = activity.fields.isPurchaseEnabled;
 
   return (
     <>
@@ -98,7 +100,7 @@ export default async function Page({ params }: Props) {
       <Container>
         <div className="gap-16 md:my-40 md:grid md:grid-cols-2">
           <div>
-            <BlockImages images={images} />
+            <BlockImages images={images} tiktokVideoId={tiktokVideoId} />
           </div>
           <div>
             <section className="mb-8">
@@ -151,6 +153,10 @@ export default async function Page({ params }: Props) {
               <SaveButton id={activity.sys.id} />
               <ShareButton />
             </div>
+
+            {isPurchaseEnabled && (
+              <BuyTicketsForm adultPrice={adultPrice} childPrice={childPrice} />
+            )}
 
             <BlockDescription document={description} />
             <BlockGoogleMaps location={location} />

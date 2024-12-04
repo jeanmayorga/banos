@@ -21,12 +21,11 @@ export default async function Page() {
         </Typography>
 
         <div className="mb-4 rounded-3xl bg-white p-4 shadow-sm">
-          <div className="mb-4">
-            <Suspense>
-              <Search />
-            </Suspense>
-          </div>
+          <Suspense>
+            <Search />
+          </Suspense>
         </div>
+
         <div>
           {places.map((place) => (
             <div key={place.sys.id}>{place.fields.title}</div>

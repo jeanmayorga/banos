@@ -83,20 +83,22 @@ export default function Page({ searchParams }: Props) {
         <Typography variant="h1" component="h1" className="text-gray-700">
           Encuentra actividades
         </Typography>
-        <Typography variant="lead" component="h2" className="mb-6 text-base">
+        <Typography variant="lead" component="h2" className="mb-4 text-base">
           Si estás en Baños y no sabes qué hacer, no te preocupes. Aqui te ayudamos.
         </Typography>
-        <div className="mb-8 rounded-3xl bg-white p-4 shadow-sm">
-          <div className="mb-4">
-            <Suspense>
-              <Search />
-              {/* <PlacesSelect /> */}
-            </Suspense>
-          </div>
+
+        <div className="mb-4 rounded-3xl bg-white p-4 shadow-sm">
+          <Suspense>
+            <Search />
+            {/* <PlacesSelect /> */}
+          </Suspense>
+        </div>
+        <div className="mb-4 rounded-3xl bg-white p-4 shadow-sm">
           <Suspense>
             <Tabs />
           </Suspense>
         </div>
+
         <div className="mb-24 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
           {isRefetching &&
             [...Array(DEFAULT_LIMIT).keys()].map((_number, idx) => <CardSkeleton key={idx} />)}

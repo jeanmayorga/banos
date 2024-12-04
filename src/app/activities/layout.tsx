@@ -5,7 +5,6 @@ import { Header } from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "Que hacer en Banos de Agua Santa | Ecuador",
-  metadataBase: new URL("https://banos.app"),
   description: "Aqui tienes una lista de actividades para hacer en Banos de agua santa Ecuador",
   applicationName: "Banos.app",
   keywords: "que hacer en banos, ecuador, banos de agua santa, actividades, fotos",
