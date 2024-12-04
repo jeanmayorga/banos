@@ -10,7 +10,7 @@ interface GetActivitiesOptions {
   order?: string[];
   ids?: string[];
   query?: string;
-  bySlug?: string;
+  byPlaceSlug?: string;
 }
 export const getAllActivities = async ({
   limit = 1000,
@@ -18,13 +18,13 @@ export const getAllActivities = async ({
   ids = [],
   order = [],
   query,
-  bySlug,
+  byPlaceSlug,
 }: GetActivitiesOptions) => {
   const containsIdsObj = ids.length > 0 ? { "sys.id[in]": ids } : {};
   const orderObj = order.length > 0 ? { order } : {};
   const queryObj = query ? { "fields.title[match]": query } : {};
-  const slugObj = bySlug
-    ? { "fields.place.sys.contentType.sys.id": "places", "fields.place.fields.slug": bySlug }
+  const slugObj = byPlaceSlug
+    ? { "fields.place.sys.contentType.sys.id": "places", "fields.place.fields.slug": byPlaceSlug }
     : {};
 
   const entries = await contentfulClient.getEntries<TypeActivitySkeleton>({

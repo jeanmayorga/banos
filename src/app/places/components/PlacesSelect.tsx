@@ -15,10 +15,9 @@ import {
 import { getPlaces } from "../actions";
 
 export function PlacesSelect() {
-  const [_, setPlaceId] = useQueryState("placeId", {
+  const [place, setPlace] = useQueryState("place", {
     shallow: false,
-    throttleMs: 1000,
-    defaultValue: "",
+    defaultValue: "all",
     clearOnDefault: true,
   });
   const { data: places } = useQuery({
@@ -27,7 +26,7 @@ export function PlacesSelect() {
   });
 
   return (
-    <Select onValueChange={(e) => setPlaceId(e)}>
+    <Select onValueChange={(e) => setPlace(e)} defaultValue={place}>
       <SelectTrigger className="mb-0 rounded-full border-none bg-gray-100 text-gray-500">
         <SelectValue placeholder="Todos los lugares" defaultValue="all" />
       </SelectTrigger>

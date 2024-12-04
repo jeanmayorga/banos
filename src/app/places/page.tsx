@@ -47,7 +47,7 @@ async function PlacesActivities(props: {
   place: Entry<TypePlacesSkeleton, "WITHOUT_UNRESOLVABLE_LINKS", string>;
 }) {
   const place = props.place;
-  const activities = await getAllActivities({ limit: 3, bySlug: place.fields.slug });
+  const activities = await getAllActivities({ limit: 3, byPlaceSlug: place.fields.slug });
 
   if (activities.length === 0) return null;
 

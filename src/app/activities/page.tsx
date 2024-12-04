@@ -10,6 +10,8 @@ import { useObserver } from "@/hooks/useObserver";
 
 // import { PlacesSelect } from "../places/components/PlacesSelect";
 
+import { PlacesSelect } from "../places/components/PlacesSelect";
+
 import { getAllActivities } from "./actions";
 import { Card } from "./components/Card";
 import { CardSkeleton } from "./components/CardSkeleton";
@@ -22,7 +24,7 @@ interface Props {
   searchParams: {
     tab?: string;
     query?: string;
-    placeId: string;
+    place?: string;
   };
 }
 export default function Page({ searchParams }: Props) {
@@ -52,6 +54,7 @@ export default function Page({ searchParams }: Props) {
         ids,
         order,
         query: searchParams.query,
+        byPlaceSlug: searchParams.place === "all" ? undefined : searchParams.place,
       });
     },
     initialPageParam: 0,
@@ -77,18 +80,18 @@ export default function Page({ searchParams }: Props) {
 
   return (
     <>
-      <Container className="mt-24">
-        <Typography variant="h1" component="h1" className="text-gray-700">
+      <Container className="mt-12 md:mt-24">
+        <Typography variant="h1" component="h1" className="text-4xl text-gray-700 md:text-5xl">
           Encuentra actividades
         </Typography>
         <Typography variant="lead" component="h2" className="mb-4 text-base">
           Si estás en Baños y no sabes qué hacer, no te preocupes. Aqui te ayudamos.
         </Typography>
 
-        <div className="mb-4 rounded-3xl bg-white p-4 shadow-sm">
+        <div className="mb-4 grid gap-4 rounded-3xl bg-white p-4 shadow-sm md:grid-cols-2">
           <Suspense>
             <Search />
-            {/* <PlacesSelect /> */}
+            <PlacesSelect />
           </Suspense>
         </div>
         <div className="mb-4 rounded-3xl bg-white p-4 shadow-sm">
