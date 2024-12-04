@@ -13,8 +13,13 @@ import { Card } from "../activities/components/Card";
 
 import { getPlaces } from "./actions";
 
-export default async function Page() {
-  const places = await getPlaces();
+interface Props {
+  searchParams: {
+    query: string;
+  };
+}
+export default async function Page({ searchParams }: Props) {
+  const places = await getPlaces({ query: searchParams.query });
 
   return (
     <>
@@ -54,7 +59,13 @@ async function PlacesActivities(props: {
   return (
     <div className="mb-16">
       <div className="mb-4 flex items-end justify-between">
-        <h2 className="text-3xl font-medium">{place.fields.title}</h2>
+        <div className="flex items-end">
+          <h2 className="text-3xl font-medium">{place.fields.title}</h2>
+
+          <Typography variant="lead" component="h2" className="mb-[2px] ml-2 text-base">
+            {activities.length} items
+          </Typography>
+        </div>
         <Link href={`/places/${place.fields.slug}`}>
           <Button className="rounded-full" variant="default" size="sm">
             Ver todos
