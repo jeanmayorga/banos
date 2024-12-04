@@ -26,8 +26,6 @@ interface Props {
   };
 }
 export default function Page({ searchParams }: Props) {
-  console.log({ searchParams });
-
   const { data, isFetching, isRefetching, refetch, fetchNextPage } = useInfiniteQuery({
     queryKey: ["activities", "1"],
     queryFn: (options) => {

@@ -1,8 +1,15 @@
+import { Entry } from "contentful";
+import Link from "next/link";
 import { Suspense } from "react";
 
 import { Container } from "@/components/container";
 import { Search } from "@/components/search";
+import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
+import { TypePlacesSkeleton } from "@/contentful";
+
+import { getAllActivities } from "../activities/actions";
+import { Card } from "../activities/components/Card";
 
 import { getPlaces } from "./actions";
 
@@ -20,7 +27,7 @@ export default async function Page() {
           Un lugar donde encuentras varias actividades
         </Typography>
 
-        <div className="mb-4 rounded-3xl bg-white p-4 shadow-sm">
+        <div className="mb-8 rounded-3xl bg-white p-4 shadow-sm">
           <Suspense>
             <Search />
           </Suspense>
@@ -28,10 +35,37 @@ export default async function Page() {
 
         <div>
           {places.map((place) => (
-            <div key={place.sys.id}>{place.fields.title}</div>
+            <PlacesActivities place={place} key={place.sys.id} />
           ))}
         </div>
       </Container>
     </>
+  );
+}
+
+async function PlacesActivities(props: {
+  place: Entry<TypePlacesSkeleton, "WITHOUT_UNRESOLVABLE_LINKS", string>;
+}) {
+  const place = props.place;
+  const activities = await getAllActivities({ limit: 3, bySlug: place.fields.slug });
+
+  if (activities.length === 0) return null;
+
+  return (
+    <div className="mb-16">
+      <div className="mb-4 flex items-end justify-between">
+        <h2 className="text-3xl font-medium">{place.fields.title}</h2>
+        <Link href={`/places/${place.fields.slug}`}>
+          <Button className="rounded-full" variant="default" size="sm">
+            Ver todos
+          </Button>
+        </Link>
+      </div>
+      <div className="gap-4 md:grid md:grid-cols-3">
+        {activities.map((activity, idx) => (
+          <Card key={activity.fields.slug} activity={activity} idx={idx} />
+        ))}
+      </div>
+    </div>
   );
 }
