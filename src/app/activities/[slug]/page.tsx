@@ -97,8 +97,46 @@ export default async function Page({ params }: Props) {
   return (
     <>
       <ScrollUp />
-      <Container>
-        <div className="gap-16 md:my-40 md:grid md:grid-cols-2">
+      <Container className="md:my-24">
+        <div className="mb-8 gap-16 md:grid md:grid-cols-2">
+          <div>
+            <Breadcrumds
+              items={[
+                {
+                  text: "Banos",
+                  href: "/",
+                },
+                {
+                  text: "Actividades",
+                  href: `/activities`,
+                },
+                {
+                  text: place?.fields.title,
+                  href: `/places/${place?.fields.slug}`,
+                },
+                {
+                  text: activity.fields.title,
+                  href: `/activities/${activity.fields.slug}`,
+                },
+              ]}
+            />
+          </div>
+          <div className="flex items-center justify-center">
+            {/* <a
+              href={`https://api.whatsapp.com/send?phone=593962975512&text=Hola, quiero que edites esta pagina: https://banos.app/activities/${activity?.fields.slug}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button className="rounded-full" variant="outline">
+                <EditIcon className="mr-1 h-6 w-4 text-muted-foreground" />
+                Editar
+              </Button>
+            </a> */}
+            <SaveButton id={activity.sys.id} />
+            {/* <ShareButton /> */}
+          </div>
+        </div>
+        <div className="gap-16 md:grid md:grid-cols-2">
           <div>
             <BlockImages images={images} tiktokVideoId={tiktokVideoId} />
           </div>
@@ -138,20 +176,6 @@ export default async function Page({ params }: Props) {
                   </span>
                 </div>
               )}
-            </div>
-            <div className="lg mb-8 flex justify-center space-x-2">
-              {/* <a
-                href={`https://api.whatsapp.com/send?phone=593962975512&text=Hola, quiero que edites esta pagina: https://banos.app/activities/${activity?.fields.slug}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button className="rounded-full" variant="outline">
-                  <EditIcon className="mr-1 h-6 w-4 text-muted-foreground" />
-                  Editar
-                </Button>
-              </a> */}
-              <SaveButton id={activity.sys.id} />
-              <ShareButton />
             </div>
 
             {isPurchaseEnabled && (

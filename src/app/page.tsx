@@ -1,10 +1,9 @@
-import { Clock3Icon, DollarSignIcon, MapPinIcon } from "lucide-react";
 import { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/container";
 import { Header } from "@/components/Header";
-import { Hero } from "@/components/Hero";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -17,23 +16,57 @@ import { Typography } from "@/components/ui/typography";
 import { getImageUrl } from "@/lib/get-image-url";
 
 import { getAllActivities } from "./activities/actions";
-
 export const metadata: Metadata = {
   title: "Banos de Agua Santa | Ecuador",
 };
 
 export default async function Page() {
-  const allActivities = await getAllActivities({ limit: 4 });
+  const allActivities = await getAllActivities({ limit: 4, order: ["-fields.visits"] });
 
   return (
     <>
       <Header />
-      <div className="h-full py-10">
+      <Container className="my-16">
+        <div className="relative h-[450px] w-full overflow-hidden rounded-3xl bg-slate-500">
+          <Image
+            src="https://images.ctfassets.net/3nb2uoch90ye/10X17L8ijbDOyWq7pf7MPX/7b2d162a41092f4a331a716fc47a4bcc/potra.jpeg"
+            alt="Baños de Agua Santa"
+            fill
+            className="z-0 rounded-3xl object-cover"
+          />
+          <div className="absolute left-0 top-0 z-10 h-full w-full bg-black/40" />
+          <div className="absolute top-1/2 z-10 w-full -translate-y-1/2 px-4 text-center">
+            <Typography
+              variant="h1"
+              component="h1"
+              className="text-balance text-4xl text-white md:text-6xl"
+            >
+              Compra tus entradas aqui
+            </Typography>
+            <p className="mb-8 text-balance text-lg text-white/80">
+              Descuentos únicos, aventuras sin límites: Compra tus entradas ahora.
+            </p>
+            <div className="space-x-4">
+              <Link href="/activities">
+                <Button className="rounded-full" size="lg">
+                  Comprar entradas
+                </Button>
+              </Link>
+              <Link href="/activities">
+                <Button className="rounded-full" size="lg" variant="outline">
+                  Ver lugares
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </Container>
+      <div className="bg-primary py-16">
         <Container>
-          <Typography variant="h1" className="mb-8">
-            Destacados
+          <Typography variant="h1" component="h1" className="mb-8 text-balance text-4xl text-white">
+            ¿Qué hacer en Baños, Ecuador?
           </Typography>
-          <Carousel opts={{ align: "start", loop: true }} className="w-full">
+          <Carousel opts={{ align: "start", loop: false }} className="w-full">
             <CarouselContent>
               {allActivities.slice(0, 5).map((activity) => (
                 <CarouselItem key={activity.sys.id} className="basis-3/4 lg:basis-1/3">
@@ -79,8 +112,8 @@ export default async function Page() {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious variant="default" />
-            <CarouselNext variant="default" />
+            <CarouselPrevious variant="secondary" />
+            <CarouselNext variant="secondary" />
           </Carousel>
         </Container>
       </div>
