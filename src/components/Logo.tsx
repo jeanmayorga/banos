@@ -30,7 +30,7 @@ export function Logo({ size, className }: Props) {
         </div>
         <div
           className={cn(
-            `ml-[26px] mt-[-25px] text-2xl leading-none text-gray-50 ${satisfy.className}`,
+            `ml-[26px] mt-[-10px] text-2xl leading-none text-gray-50 ${satisfy.className}`,
             className,
           )}
         >

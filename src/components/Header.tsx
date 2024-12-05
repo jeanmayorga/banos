@@ -29,12 +29,11 @@ export function Header() {
         </Link>
       </div>
       <div>
-        {/* <Link href="/auth"> */}
-        <Button disabled className="rounded-full" variant="secondary">
-          <CircleUserRoundIcon className="mr-2 h-4 w-4" />
-          Iniciar sesión
-        </Button>
-        {/* </Link> */}
+        <Link href="/auth">
+          <Button className="rounded-full" variant="secondary" size="icon">
+            <CircleUserRoundIcon className="h-4 w-4" />
+          </Button>
+        </Link>
       </div>
       {/* <div className="absolute right-4">
           <ModeToggle />

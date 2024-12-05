@@ -4,7 +4,7 @@ import Script from "next/script";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Toaster } from "react-hot-toast";
 
-import "./global.css";
+import "./globals.css";
 
 import { Footer } from "#/components/Footer";
 
