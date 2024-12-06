@@ -1,9 +1,18 @@
 "use client";
 
+import { TZDate } from "@date-fns/tz";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import { CalendarIcon, MinusIcon, PlusIcon, TicketPlusIcon, UsersRoundIcon } from "lucide-react";
+import {
+  CalendarIcon,
+  MinusIcon,
+  PlusIcon,
+  TicketCheckIcon,
+  TicketPlusIcon,
+  UsersRoundIcon,
+} from "lucide-react";
 import { useMemo, useState } from "react";
+import toast from "react-hot-toast";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -12,154 +21,181 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
 import { Activity } from "../actions";
+import { DEFAULT_MAX_ADULTS, DEFAULT_MAX_CHILDREN } from "../config";
 
 interface Props {
   activity: Activity;
 }
 export function BlockPurchase({ activity }: Props) {
-  const [date, setDate] = useState<string | undefined>(undefined);
-  const [adults, setAdults] = useState(0);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [date, setDate] = useState<Date | undefined>(undefined);
+  const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
 
-  const isAddAdultDisbled = adults >= 9;
-  const isMinusAdultDisabled = adults <= 0;
-  const isAddChildrenDisbled = children >= 9;
+  const isAddAdultDisbled = adults >= DEFAULT_MAX_ADULTS;
+  const isMinusAdultDisabled = adults <= 1;
+  const isAddChildrenDisbled = children >= DEFAULT_MAX_CHILDREN;
   const isMinusChildrenDisabled = children <= 0;
+  const adultsPrice = activity.fields.adultPrice || 0;
+  const childPrice = activity.fields.childPrice || 0;
 
   const total = useMemo(() => {
-    const adultsPrice = activity.fields.adultPrice || 0;
-    const childPrice = activity.fields.childPrice || 0;
-
     const adultsTotal = adults * adultsPrice;
     const childrenTotal = children * childPrice;
 
     return adultsTotal + childrenTotal;
-  }, [adults, children, activity.fields]);
+  }, [adults, adultsPrice, childPrice, children]);
+
+  function buyTickets() {
+    if (!date) {
+      toast.error("Te falta seleccionar una fecha.");
+      return;
+    }
+
+    toast.success("Comprando...");
+  }
 
   return (
-    <div className="mb-8 space-y-4 rounded-3xl bg-white px-8 py-8 shadow-sm">
-      <div>
-        <h2 className="text-xl leading-none tracking-tight text-gray-700">Comprar entradas</h2>
-        <p className="text-sm tracking-tight text-gray-400">
-          Al terminar la compra, recibirás un código QR para entrar.
-        </p>
+    <div className="mb-8 rounded-3xl bg-white py-8 shadow-sm">
+      <div className="mb-6 flex border-b border-dashed px-8 pb-6">
+        <TicketCheckIcon className="mr-2 mt-[-2px] text-gray-500" />
+        <div>
+          <h2 className="text-xl leading-none tracking-tight text-gray-600">Comprar entradas</h2>
+          <p className="text-sm tracking-tight text-gray-400">
+            Al terminar la compra, recibirás un código QR.
+          </p>
+        </div>
       </div>
 
-      <div className="flex flex-col">
-        <div className="mb-1 text-sm tracking-tight text-gray-600">¿Cuándo quieres ir?</div>
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              className={cn(
-                "group w-full justify-start rounded-full bg-gray-50 pl-3 font-normal text-gray-400 hover:text-gray-500",
-              )}
-            >
-              <CalendarIcon className="h-4 w-4" />
-              {date ? format(date, "PPP", { locale: es }) : "Selecciona una fecha"}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto rounded-3xl p-4" align="start">
-            <Calendar
-              mode="single"
-              selected={new Date(date || "")}
-              onSelect={(e) => setDate(e?.toISOString())}
-              disabled={(date) => date <= new Date()}
-              initialFocus
-            />
-          </PopoverContent>
-        </Popover>
-      </div>
+      <div className="space-y-4 px-8">
+        <div className="relative flex flex-col">
+          <div className="mb-1 text-sm tracking-tight text-gray-600">¿Cuándo quieres ir?</div>
+          <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
+            <PopoverTrigger>
+              <Button
+                variant="outline"
+                className={cn(
+                  "group w-full justify-start rounded-full bg-white pl-3 font-normal text-gray-400 hover:text-gray-500",
+                )}
+              >
+                <CalendarIcon className="h-4 w-4" />
+                {date ? format(date, "PPP", { locale: es }) : "Selecciona una fecha"}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto rounded-3xl p-4" align="start">
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={(newDate) => {
+                  setDate(newDate);
+                  setIsCalendarOpen(false);
+                }}
+                disabled={{ before: new TZDate(new Date(), "America/Guayaquil") }}
+                initialFocus
+              />
+            </PopoverContent>
+          </Popover>
+        </div>
 
-      <div className="flex flex-col">
-        <div className="mb-1 text-sm tracking-tight text-gray-600">¿Cuántas personas son?</div>
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              className={cn(
-                "group w-full justify-start rounded-full bg-gray-50 pl-3 font-normal text-gray-400 hover:text-gray-500",
-              )}
-            >
-              <UsersRoundIcon className="h-4 w-4" />
-              {adults + children === 0 ? "0 Personas" : `${adults + children} Personas`}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto rounded-3xl p-4" align="start">
-            <div className="grid grid-cols-2 gap-8">
-              <div>
-                <p className="text-lg leading-none tracking-tight text-gray-700">Adultos</p>
-                <p className="mb-4 text-xs tracking-tight text-gray-400">Desde 18 años</p>
-                <div className="flex items-center gap-3">
-                  <Button
-                    size="icon"
-                    variant="secondary"
-                    className="rounded-full"
-                    disabled={isMinusAdultDisabled}
-                    onClick={() => setAdults(adults - 1)}
-                  >
-                    <MinusIcon />
-                  </Button>
-                  <p className="min-w-7 text-center text-lg leading-none tracking-tight text-gray-700">
-                    {adults}
-                  </p>
-                  <Button
-                    size="icon"
-                    variant="secondary"
-                    className="rounded-full"
-                    disabled={isAddAdultDisbled}
-                    onClick={() => setAdults(adults + 1)}
-                  >
-                    <PlusIcon />
-                  </Button>
+        <div className="flex flex-col">
+          <div className="mb-1 text-sm tracking-tight text-gray-600">¿Cuántas personas son?</div>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className={cn(
+                  "group w-full justify-start rounded-full bg-white pl-3 font-normal text-gray-400 hover:text-gray-500",
+                )}
+              >
+                <UsersRoundIcon className="h-4 w-4" />
+                {adults + children === 0 ? "0 Personas" : `${adults + children} Personas`}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto rounded-3xl p-4" align="start">
+              <div className="grid grid-cols-2 gap-8">
+                <div>
+                  <p className="text-lg leading-none tracking-tight text-gray-700">Adultos</p>
+                  <p className="mb-4 text-xs tracking-tight text-gray-400">Desde 18 años</p>
+                  <div className="flex items-center gap-3">
+                    <Button
+                      size="icon"
+                      variant="secondary"
+                      className="rounded-full"
+                      disabled={isMinusAdultDisabled}
+                      onClick={() => setAdults(adults - 1)}
+                    >
+                      <MinusIcon />
+                    </Button>
+                    <p className="min-w-7 text-center text-lg leading-none tracking-tight text-gray-700">
+                      {adults}
+                    </p>
+                    <Button
+                      size="icon"
+                      variant="secondary"
+                      className="rounded-full"
+                      disabled={isAddAdultDisbled}
+                      onClick={() => setAdults(adults + 1)}
+                    >
+                      <PlusIcon />
+                    </Button>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-lg leading-none tracking-tight text-gray-700">Menores</p>
+                  <p className="mb-4 text-xs tracking-tight text-gray-400">Hasta 18 años</p>
+                  <div className="flex items-center gap-3">
+                    <Button
+                      size="icon"
+                      variant="secondary"
+                      className="rounded-full"
+                      disabled={isMinusChildrenDisabled}
+                      onClick={() => setChildren(children - 1)}
+                    >
+                      <MinusIcon />
+                    </Button>
+                    <p className="min-w-7 text-center text-lg leading-none tracking-tight text-gray-700">
+                      {children}
+                    </p>
+                    <Button
+                      size="icon"
+                      variant="secondary"
+                      className="rounded-full"
+                      disabled={isAddChildrenDisbled}
+                      onClick={() => setChildren(children + 1)}
+                    >
+                      <PlusIcon />
+                    </Button>
+                  </div>
                 </div>
               </div>
-              <div>
-                <p className="text-lg leading-none tracking-tight text-gray-700">Menores</p>
-                <p className="mb-4 text-xs tracking-tight text-gray-400">Hasta 18 años</p>
-                <div className="flex items-center gap-3">
-                  <Button
-                    size="icon"
-                    variant="secondary"
-                    className="rounded-full"
-                    disabled={isMinusChildrenDisabled}
-                    onClick={() => setChildren(children - 1)}
-                  >
-                    <MinusIcon />
-                  </Button>
-                  <p className="min-w-7 text-center text-lg leading-none tracking-tight text-gray-700">
-                    {children}
-                  </p>
-                  <Button
-                    size="icon"
-                    variant="secondary"
-                    className="rounded-full"
-                    disabled={isAddChildrenDisbled}
-                    onClick={() => setChildren(children + 1)}
-                  >
-                    <PlusIcon />
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </PopoverContent>
-        </Popover>
-      </div>
+            </PopoverContent>
+          </Popover>
+        </div>
 
-      <div></div>
+        <div />
 
-      <Button type="submit" className="w-full rounded-full">
-        <TicketPlusIcon />
-        Comprar entradas
-      </Button>
+        <Button type="submit" className="w-full rounded-full" onClick={buyTickets}>
+          <TicketPlusIcon />
+          Comprar entradas
+        </Button>
 
-      <p className="text-center text-xs text-gray-400">No se hará ningún cargo por el momento</p>
+        <p className="text-center text-xs text-gray-400">No se hará ningún cargo por el momento</p>
 
-      <Separator />
-
-      <div className="flex justify-between text-base font-medium tracking-tight text-gray-600">
-        <span>Total con impuestos</span>
-        <span>${total.toFixed(2)}</span>
+        <div className="tracking-tight">
+          <div className="flex justify-between text-sm text-gray-500">
+            <span>Total adultos:</span>
+            <span>${(adults * adultsPrice).toFixed(2)}</span>
+          </div>
+          <div className="mb-4 flex justify-between text-sm text-gray-500">
+            <span>Total menores:</span>
+            <span>${(children * childPrice).toFixed(2)}</span>
+          </div>
+          <Separator className="mb-4" />
+          <div className="flex justify-between text-base font-medium text-gray-600">
+            <span>Total con impuestos</span>
+            <span>${total.toFixed(2)}</span>
+          </div>
+        </div>
       </div>
     </div>
   );
