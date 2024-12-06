@@ -84,13 +84,13 @@ export default function Page({ searchParams }: Props) {
           subtitle="Si estás en Baños y no sabes qué hacer, no te preocupes. Aqui te ayudamos."
         />
 
-        <div className="mb-4 grid gap-4 rounded-3xl bg-white p-4 shadow-sm md:grid-cols-2">
+        <div className="mb-4 grid gap-4 rounded-3xl border border-transparent bg-white p-4 shadow-sm dark:border-gray-800 dark:bg-black md:grid-cols-2">
           <Suspense>
             <Search />
             <PlacesSelect />
           </Suspense>
         </div>
-        <div className="mb-4 rounded-3xl bg-white p-4 shadow-sm">
+        <div className="mb-4 rounded-3xl border border-transparent bg-white p-4 shadow-sm dark:border-gray-800 dark:bg-black">
           <Suspense>
             <Tabs />
           </Suspense>

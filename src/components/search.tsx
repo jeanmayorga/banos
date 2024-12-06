@@ -21,7 +21,7 @@ export function Search() {
       <Input
         placeholder="Buscar"
         className={cn(
-          "w-full rounded-xl border-0 bg-gray-100 pl-11 text-base text-gray-500 transition-all duration-300 placeholder:text-gray-400 dark:bg-gray-700 dark:text-gray-300",
+          "w-full rounded-xl border-0 bg-gray-100 pl-11 text-base text-gray-500 transition-all duration-300 placeholder:text-gray-400",
         )}
         defaultValue={query}
         onChange={(e) => setQuery(e.target.value)}

@@ -107,7 +107,6 @@ export function DrawerUpdateCurrentUser({ currentUser, open, setOpen }: Props) {
                 )}
               />
               <AlertDialogFooter>
-                <AlertDialogCancel className="rounded-full">Cancelar</AlertDialogCancel>
                 <Button type="submit" className="rounded-full" disabled={loading}>
                   {loading ? <Loader /> : <SaveIcon />}
                   Guardar

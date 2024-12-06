@@ -27,7 +27,7 @@ export function PlacesSelect() {
 
   return (
     <Select onValueChange={(e) => setPlace(e)} defaultValue={place}>
-      <SelectTrigger className="mb-0 rounded-full border-none bg-gray-100 text-gray-500">
+      <SelectTrigger className="mb-0">
         <SelectValue placeholder="Todos los lugares" defaultValue="all" />
       </SelectTrigger>
       <SelectContent>
