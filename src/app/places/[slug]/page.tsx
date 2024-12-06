@@ -1,4 +1,4 @@
-import { getAllActivities } from "@/app/activities/actions";
+import { getActivities } from "@/app/activities/actions";
 import { Card } from "@/app/activities/components/Card";
 import { Container } from "@/components/container";
 import ScrollUp from "@/components/ScrollUp";
@@ -15,7 +15,7 @@ export default async function Page({ params }: Props) {
   const slug = params.slug;
 
   const place = await getPlaceBySlug(slug);
-  const activities = await getAllActivities({ limit: 3, byPlaceSlug: slug });
+  const activities = await getActivities({ limit: 3, byPlaceSlug: slug });
 
   return (
     <>

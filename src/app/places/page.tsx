@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { TypePlacesSkeleton } from "@/contentful";
 
-import { getAllActivities } from "../activities/actions";
+import { getActivities } from "../activities/actions";
 import { Card } from "../activities/components/Card";
 
 import { getPlaces } from "./actions";
@@ -52,7 +52,7 @@ async function PlacesActivities(props: {
   place: Entry<TypePlacesSkeleton, "WITHOUT_UNRESOLVABLE_LINKS", string>;
 }) {
   const place = props.place;
-  const activities = await getAllActivities({ limit: 3, byPlaceSlug: place.fields.slug });
+  const activities = await getActivities({ limit: 3, byPlaceSlug: place.fields.slug });
 
   if (activities.length === 0) return null;
 

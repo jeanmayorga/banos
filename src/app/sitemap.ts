@@ -1,11 +1,11 @@
 import { MetadataRoute } from "next";
 
-import { getAllActivities } from "./activities/actions";
+import { getActivities } from "./activities/actions";
 
 const domain = "https://www.banos.app";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const activitiesResponse = await getAllActivities({ limit: 1000 });
+  const activitiesResponse = await getActivities({ limit: 1000 });
 
   const activitiesPages: MetadataRoute.Sitemap = activitiesResponse.map((activity) => ({
     url: `${domain}/activities/${activity.fields.slug}`,
