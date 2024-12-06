@@ -103,3 +103,15 @@ export async function addVisit(entryId: string) {
     console.error(`cannot add visit ${entryId}`, error);
   }
 }
+
+export async function getTikTokImage(id: string) {
+  interface Response {
+    thumbnail_url: string;
+  }
+  const url = `https://www.tiktok.com/@username/video/${id}`;
+  const oembedUrl = `https://www.tiktok.com/oembed?url=${encodeURIComponent(url)}`;
+  const request = await fetch(oembedUrl);
+  const response = await request.json();
+  const typedResponse = response as Response;
+  return typedResponse.thumbnail_url || "";
+}

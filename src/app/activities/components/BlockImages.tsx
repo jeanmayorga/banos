@@ -10,6 +10,8 @@ import { useDotButton, usePrevNextButtons } from "@/hooks/useCarousel";
 import { getImageUrl } from "@/lib/get-image-url";
 import { cn } from "@/utils/cn";
 
+import { BlockTikTokVideo } from "./BlockTikTokVideo";
+
 interface Props {
   images: (Asset<"WITHOUT_UNRESOLVABLE_LINKS", string> | undefined)[];
   tiktokVideoId?: string;
@@ -60,12 +62,13 @@ export function BlockImages({ images, tiktokVideoId }: Props) {
               aria-roledescription="slide"
               className="relative mr-4 aspect-[9/16] min-w-0 shrink-0 grow-0 basis-3/4 overflow-hidden rounded-3xl bg-black"
             >
-              <iframe
+              <BlockTikTokVideo tiktokVideoId={tiktokVideoId} />
+              {/* <iframe
                 width="100%"
                 height="100%"
                 src={`https://www.tiktok.com/embed/v3/${tiktokVideoId}`}
                 className="h-full"
-              />
+              /> */}
             </div>
           )}
           {images.map((image, index) => {
