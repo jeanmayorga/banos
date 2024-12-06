@@ -1,5 +1,6 @@
-import { CircleDollarSignIcon, Clock3Icon, MapPinIcon, PersonStandingIcon } from "lucide-react";
+import { CircleDollarSignIcon, Clock3Icon, PersonStandingIcon } from "lucide-react";
 import { Metadata } from "next";
+import Head from "next/head";
 import { notFound } from "next/navigation";
 
 import { isProduction } from "@/api/contentful";
@@ -14,8 +15,8 @@ import { getActivityBySlug, getActivities } from "../actions";
 import { BlockDescription } from "../components/BlockDescription";
 import { BlockGoogleMaps } from "../components/BlockGoogleMaps";
 import { BlockImages } from "../components/BlockImages";
+import { BlockPurchase } from "../components/BlockPurchase";
 import { BlockYoutubeVideo } from "../components/BlockYoutubeVideo";
-import { BuyTicketsForm } from "../components/BuyTicketsForm";
 
 export const dynamicParams = true;
 
@@ -52,7 +53,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     robots: isProduction ? "index, follow" : "noindex, nofollow",
     openGraph: {
       url,
-      type: "website",
       images: [image],
     },
   };
@@ -67,6 +67,7 @@ export default async function Page({ params }: Props) {
   const activity = await getActivityBySlug(params.slug);
   if (!activity) return notFound();
 
+  const title = activity.fields.title;
   const place = activity.fields.place;
   const tiktokVideoId = activity.fields.tiktokVideoId;
   const images = activity.fields.images;
@@ -79,12 +80,30 @@ export default async function Page({ params }: Props) {
 
   const isPurchaseEnabled = activity.fields.isPurchaseEnabled;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: title,
+    image: getImageUrl(activity.fields.images[0]),
+    description: activity.fields.seoDescription,
+    offers: {
+      "@type": "Offer",
+      availability: "https://schema.org/InStock",
+      price: adultPrice?.toFixed(2),
+      priceCurrency: "USD",
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <ScrollUp />
       <Container className="md:my-24">
         <Breadcrumds
-          className="mb-8"
+          className="mb-0"
           items={[
             {
               text: "Actividades",
@@ -112,7 +131,7 @@ export default async function Page({ params }: Props) {
             </a> */}
         {/* <SaveButton id={activity.sys.id} /> */}
         {/* <ShareButton /> */}
-        <div className="gap-16 md:grid md:grid-cols-2">
+        <div className="gap-16 md:mb-4 md:grid md:grid-cols-2">
           <div>
             <BlockImages images={images} tiktokVideoId={tiktokVideoId} />
           </div>
@@ -129,17 +148,19 @@ export default async function Page({ params }: Props) {
                 {activity.fields.seoKeywords}
               </Typography>
             </section>
-            <div className="mb-8 flex items-start justify-center text-center text-sm">
+
+            <div className="no-scrollbar mb-8 flex items-start justify-center overflow-x-auto text-center text-sm">
               {activity.fields.openAt && activity.fields.closeAt && (
-                <div className="flex min-w-24 flex-col items-center border-r px-4">
+                <div className="flex min-w-32 flex-col items-center border-r">
                   <Clock3Icon className="mb-3 h-6 w-6 text-[#00a7ac]" />
                   <span className="font-semibold text-[#007276]">
-                    {activity.fields.openAt}-{activity.fields.closeAt}
+                    {activity.fields.openAt} - {activity.fields.closeAt}
                   </span>
+                  <span className="block text-xs font-light text-[#007276]">horario</span>
                 </div>
               )}
               {activity.fields.adultPrice && (
-                <div className="flex min-w-[110px] flex-col items-center border-r px-4">
+                <div className="flex min-w-32 flex-col items-center border-r">
                   <CircleDollarSignIcon className="mb-3 h-6 w-6 text-[#00a7ac]" />
                   <span className="font-semibold text-[#007276]">
                     $ {adultPrice?.toFixed(2)} USD
@@ -148,7 +169,7 @@ export default async function Page({ params }: Props) {
                 </div>
               )}
               {activity.fields.childPrice && (
-                <div className="flex min-w-[110px] flex-col items-center border-r px-4">
+                <div className="flex min-w-32 flex-col items-center">
                   <PersonStandingIcon className="mb-3 h-6 w-6 text-[#00a7ac]" />
                   <span className="font-semibold text-[#007276]">
                     $ {childPrice?.toFixed(2)} USD
@@ -156,25 +177,23 @@ export default async function Page({ params }: Props) {
                   <span className="block text-xs font-light text-[#007276]">niños</span>
                 </div>
               )}
-              {activity.fields.place && (
-                <div className="flex min-w-24 flex-col items-center px-4">
+              {/* {activity.fields.place && (
+                <div className="flex min-w-32 flex-col items-center">
                   <MapPinIcon className="mb-3 h-6 w-6 text-[#00a7ac]" />
                   <span className="font-semibold text-[#007276]">
                     {activity.fields.place?.fields.title}
                   </span>
                 </div>
-              )}
+              )} */}
             </div>
 
-            {isPurchaseEnabled && (
-              <BuyTicketsForm adultPrice={adultPrice} childPrice={childPrice} />
-            )}
+            {isPurchaseEnabled && <BlockPurchase activity={activity} />}
 
             <BlockDescription document={description} />
-            <BlockGoogleMaps location={location} />
             <BlockYoutubeVideo youtubeVideo={youtubeVideo} />
           </div>
         </div>
+        <BlockGoogleMaps location={location} />
       </Container>
     </>
   );

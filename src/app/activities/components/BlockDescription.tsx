@@ -1,6 +1,5 @@
 import { Document, TopLevelBlock, Text, Block, Inline } from "@contentful/rich-text-types";
 
-import { Container } from "@/components/container";
 import { Typography } from "@/components/ui/typography";
 
 type TextMapper = (Block | Inline | Text) & { value?: string };

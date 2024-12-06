@@ -2,9 +2,9 @@ import { Logo } from "./Logo";
 
 export function Footer() {
   return (
-    <footer className="mt-8 py-4">
-      <div className="my-8 flex items-center justify-center">
-        <Logo className="text-primary" />
+    <footer>
+      <div className="flex items-center justify-center py-16">
+        <Logo className="text-gray-500" />
       </div>
     </footer>
   );

@@ -23,7 +23,7 @@ export function BlockImages({ images, tiktokVideoId }: Props) {
     usePrevNextButtons(emblaApi);
 
   return (
-    <section className="relative mb-8 mt-8 w-full overflow-hidden md:sticky md:top-32 md:mt-0">
+    <section className="relative mb-8 w-full overflow-hidden md:sticky md:top-32 md:mb-0">
       <Button
         size="icon"
         variant="secondary"
