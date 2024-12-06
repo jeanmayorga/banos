@@ -20,9 +20,7 @@ export function Search() {
       <SearchIcon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
       <Input
         placeholder="Buscar"
-        className={cn(
-          "w-full rounded-xl border-0 bg-gray-100 pl-11 text-base text-gray-500 transition-all duration-300 placeholder:text-gray-400",
-        )}
+        className={cn("w-full border-0 pl-11 text-base transition-all duration-300")}
         defaultValue={query}
         onChange={(e) => setQuery(e.target.value)}
       />
