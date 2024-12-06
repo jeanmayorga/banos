@@ -92,13 +92,14 @@ export async function addVisit(entryId: string) {
   try {
     const client = await contentfulManagementClient();
     let entry = await client.getEntry(entryId);
+    const newCount = Number(entry.fields?.visits?.["en-US"] || 0) + 1;
     entry.fields.visits = {
-      "en-US": Number(entry.fields.visits["en-US"] || 0) + 1,
+      "en-US": newCount,
     };
     entry = await entry.update();
     await entry.publish();
-    console.log(`add visit -> ${entry.fields.slug["en-US"]} -> ${entry.fields.visits["en-US"]}`);
+    console.log(`add visit -> ${entry.fields.slug["en-US"]} -> ${newCount}`);
   } catch (error) {
-    console.error(`cannot add visit ${entryId}`);
+    console.error(`cannot add visit ${entryId}`, error);
   }
 }

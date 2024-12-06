@@ -63,7 +63,7 @@ export function BlockImages({ images, tiktokVideoId }: Props) {
               <iframe
                 width="100%"
                 height="100%"
-                src="https://www.tiktok.com/embed/v3/7377172765188607237"
+                src={`https://www.tiktok.com/embed/v3/${tiktokVideoId}`}
                 className="h-full"
               />
             </div>
