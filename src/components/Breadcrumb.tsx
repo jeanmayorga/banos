@@ -2,15 +2,20 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { Fragment } from "react";
 
+import { cn } from "@/utils";
+
 interface Props {
+  className?: string;
   items: {
     href: string;
     text: string | React.ReactNode;
   }[];
 }
-export function Breadcrumds({ items }: Props) {
+export function Breadcrumds({ className, items }: Props) {
   return (
-    <div className="flex items-center space-x-1 py-6 text-xs text-muted-foreground">
+    <div
+      className={cn("flex items-center space-x-1 py-6 text-xs text-muted-foreground", className)}
+    >
       {items.map((item, idx) => {
         if (idx === items.length - 1) {
           return (

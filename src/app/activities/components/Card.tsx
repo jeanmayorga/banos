@@ -3,14 +3,7 @@
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { Entry } from "contentful";
 import useEmblaCarousel from "embla-carousel-react";
-import {
-  ArrowLeftIcon,
-  CircleDollarSignIcon,
-  Clock3Icon,
-  DollarSignIcon,
-  HeartIcon,
-  MapPinIcon,
-} from "lucide-react";
+import { ArrowLeftIcon, CircleDollarSignIcon, Clock3Icon, HeartIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";

@@ -15,13 +15,13 @@ import {
 import { Typography } from "@/components/ui/typography";
 import { getImageUrl } from "@/lib/get-image-url";
 
-import { getAllActivities } from "./activities/actions";
+import { getActivities } from "./activities/actions";
 export const metadata: Metadata = {
   title: "Banos de Agua Santa | Ecuador",
 };
 
 export default async function Page() {
-  const allActivities = await getAllActivities({ limit: 4, order: ["-fields.visits"] });
+  const activities = await getActivities({ limit: 4, byTab: "most-visited" });
 
   return (
     <>
@@ -68,7 +68,7 @@ export default async function Page() {
           </Typography>
           <Carousel opts={{ align: "start", loop: false }} className="w-full">
             <CarouselContent>
-              {allActivities.slice(0, 5).map((activity) => (
+              {activities.slice(0, 5).map((activity) => (
                 <CarouselItem key={activity.sys.id} className="basis-3/4 lg:basis-1/3">
                   <Link
                     href={`/activities/${activity.fields.slug}`}

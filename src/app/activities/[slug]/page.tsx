@@ -1,25 +1,21 @@
-import { CircleDollarSignIcon, Clock3Icon, EditIcon, MapPinIcon } from "lucide-react";
+import { CircleDollarSignIcon, Clock3Icon, MapPinIcon, PersonStandingIcon } from "lucide-react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { isProduction } from "@/api/contentful";
 import ScrollUp from "@/components/ScrollUp";
-import { ShareButton } from "@/components/ShareButton";
-import { Button } from "@/components/ui/button";
 import { getImageUrl } from "@/lib/get-image-url";
-import { cn } from "@/utils";
 
 import { Breadcrumds } from "#/components/Breadcrumb";
 import { Container } from "#/components/container";
 import { Typography } from "#/components/ui/typography";
 
-import { getActivityBySlug, getAllActivities } from "../actions";
+import { getActivityBySlug, getActivities } from "../actions";
 import { BlockDescription } from "../components/BlockDescription";
 import { BlockGoogleMaps } from "../components/BlockGoogleMaps";
 import { BlockImages } from "../components/BlockImages";
 import { BlockYoutubeVideo } from "../components/BlockYoutubeVideo";
 import { BuyTicketsForm } from "../components/BuyTicketsForm";
-import { SaveButton } from "../components/SaveButton";
 
 export const dynamicParams = true;
 
@@ -31,54 +27,44 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const activity = await getActivityBySlug(params.slug);
+  if (!activity) return notFound();
 
-  const title = `${activity?.fields.title} | Baños de agua santa | Ecuador`;
-  const description = activity?.fields.seoDescription;
-  const url = `https://banos.app/activities/${activity?.fields.slug}`;
-  const images = [
-    {
-      url: getImageUrl(activity?.fields.images[0]) || "",
-      width: 1200,
-      height: 630,
-      alt: title,
-    },
-  ];
+  const title = `${activity.fields.title} | Baños de agua santa | Ecuador`;
+  const description = activity.fields.seoDescription;
+  const keywords = activity?.fields.seoKeywords;
+  const url = `https://banos.app/activities/${activity.fields.slug}`;
+  const image = {
+    url: getImageUrl(activity.fields.images[0]) || "",
+    width: 1200,
+    height: 630,
+    alt: title,
+  };
+  const author = {
+    name: "Jean Paul Mayorga",
+    url: "https://jeanmayorga.com",
+  };
 
   return {
     title,
-    applicationName: "Banos de Agua Santa | Ecuador",
     description,
-    keywords: activity?.fields.seoKeywords,
-    authors: [
-      {
-        name: "Jean Paul Mayorga",
-        url: "https://jeanmayorga.com",
-      },
-    ],
+    keywords,
+    authors: [author],
     robots: isProduction ? "index, follow" : "noindex, nofollow",
     openGraph: {
-      siteName: "Banos de Agua Santa",
-      title: title,
-      description,
       url,
       type: "website",
-      images,
-    },
-    alternates: {
-      canonical: url,
+      images: [image],
     },
   };
 }
 
 export async function generateStaticParams() {
-  const activities = await getAllActivities({ limit: 1000 });
-
+  const activities = await getActivities({ limit: 1000 });
   return activities.map((activity) => ({ slug: activity.fields.slug }));
 }
 
 export default async function Page({ params }: Props) {
   const activity = await getActivityBySlug(params.slug);
-
   if (!activity) return notFound();
 
   const place = activity.fields.place;
@@ -90,7 +76,6 @@ export default async function Page({ params }: Props) {
 
   const adultPrice = activity.fields.adultPrice;
   const childPrice = activity.fields.childPrice;
-  const priceInUsd = `$${activity.fields.adultPrice?.toFixed(2)} USD`;
 
   const isPurchaseEnabled = activity.fields.isPurchaseEnabled;
 
@@ -98,31 +83,24 @@ export default async function Page({ params }: Props) {
     <>
       <ScrollUp />
       <Container className="md:my-24">
-        <div className="mb-8 gap-16 md:grid md:grid-cols-2">
-          <div>
-            <Breadcrumds
-              items={[
-                {
-                  text: "Banos",
-                  href: "/",
-                },
-                {
-                  text: "Actividades",
-                  href: `/activities`,
-                },
-                {
-                  text: place?.fields.title,
-                  href: `/places/${place?.fields.slug}`,
-                },
-                {
-                  text: activity.fields.title,
-                  href: `/activities/${activity.fields.slug}`,
-                },
-              ]}
-            />
-          </div>
-          <div className="flex items-center justify-center">
-            {/* <a
+        <Breadcrumds
+          className="mb-8"
+          items={[
+            {
+              text: "Actividades",
+              href: `/activities`,
+            },
+            {
+              text: place?.fields.title,
+              href: `/places/${place?.fields.slug}`,
+            },
+            {
+              text: activity.fields.title,
+              href: `/activities/${activity.fields.slug}`,
+            },
+          ]}
+        />
+        {/* <a
               href={`https://api.whatsapp.com/send?phone=593962975512&text=Hola, quiero que edites esta pagina: https://banos.app/activities/${activity?.fields.slug}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -132,10 +110,8 @@ export default async function Page({ params }: Props) {
                 Editar
               </Button>
             </a> */}
-            <SaveButton id={activity.sys.id} />
-            {/* <ShareButton /> */}
-          </div>
-        </div>
+        {/* <SaveButton id={activity.sys.id} /> */}
+        {/* <ShareButton /> */}
         <div className="gap-16 md:grid md:grid-cols-2">
           <div>
             <BlockImages images={images} tiktokVideoId={tiktokVideoId} />
@@ -153,19 +129,31 @@ export default async function Page({ params }: Props) {
                 {activity.fields.seoKeywords}
               </Typography>
             </section>
-            <div className="mb-8 flex items-center justify-center text-sm">
+            <div className="mb-8 flex items-start justify-center text-center text-sm">
               {activity.fields.openAt && activity.fields.closeAt && (
                 <div className="flex min-w-24 flex-col items-center border-r px-4">
                   <Clock3Icon className="mb-3 h-6 w-6 text-[#00a7ac]" />
                   <span className="font-semibold text-[#007276]">
-                    {activity.fields.openAt} - {activity.fields.closeAt}
+                    {activity.fields.openAt}-{activity.fields.closeAt}
                   </span>
                 </div>
               )}
               {activity.fields.adultPrice && (
-                <div className="flex min-w-24 flex-col items-center border-r px-4">
+                <div className="flex min-w-[110px] flex-col items-center border-r px-4">
                   <CircleDollarSignIcon className="mb-3 h-6 w-6 text-[#00a7ac]" />
-                  <span className="font-semibold text-[#007276]">$ {adultPrice} USD</span>
+                  <span className="font-semibold text-[#007276]">
+                    $ {adultPrice?.toFixed(2)} USD
+                  </span>
+                  <span className="block text-xs font-light text-[#007276]">adultos</span>
+                </div>
+              )}
+              {activity.fields.childPrice && (
+                <div className="flex min-w-[110px] flex-col items-center border-r px-4">
+                  <PersonStandingIcon className="mb-3 h-6 w-6 text-[#00a7ac]" />
+                  <span className="font-semibold text-[#007276]">
+                    $ {childPrice?.toFixed(2)} USD
+                  </span>
+                  <span className="block text-xs font-light text-[#007276]">niños</span>
                 </div>
               )}
               {activity.fields.place && (

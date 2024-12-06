@@ -1,41 +1,78 @@
 "use server";
 
+import { Entry } from "contentful";
+
 import { contentfulClient } from "@/api/contentful";
 import { TypeActivitySkeleton } from "@/contentful";
 
+export type Activity = Entry<TypeActivitySkeleton, "WITHOUT_UNRESOLVABLE_LINKS", string>;
+export type GetActivityOptionsTab = "most-visited" | "cheaper" | "most-expensive";
 interface GetActivitiesOptions {
   page?: number;
   limit?: number;
-  tab?: string;
-  order?: string[];
-  ids?: string[];
   query?: string;
+  byTab?: GetActivityOptionsTab;
+  byIds?: string[];
   byPlaceSlug?: string;
 }
-export const getAllActivities = async ({
-  limit = 1000,
+export const getActivities = async ({
   page = 0,
-  ids = [],
-  order = [],
-  query,
-  byPlaceSlug,
-}: GetActivitiesOptions) => {
-  const containsIdsObj = ids.length > 0 ? { "sys.id[in]": ids } : {};
-  const orderObj = order.length > 0 ? { order } : {};
-  const queryObj = query ? { "fields.title[match]": query } : {};
-  const slugObj = byPlaceSlug
-    ? { "fields.place.sys.contentType.sys.id": "places", "fields.place.fields.slug": byPlaceSlug }
-    : {};
+  limit = 1000,
+  query = undefined,
+  byTab = "most-visited",
+  byIds = [],
+  byPlaceSlug = undefined,
+}: GetActivitiesOptions): Promise<Activity[]> => {
+  console.time("getActivities");
+  function getQueryObj() {
+    if (query) return { "fields.title[match]": query };
+    return undefined;
+  }
+  function getOrderObj() {
+    if (byTab === "most-visited") {
+      return { order: ["-fields.visits"] };
+    }
+    if (byTab === "cheaper") {
+      return { order: ["fields.adultPrice"] };
+    }
+    if (byTab === "most-expensive") {
+      return { order: ["-fields.adultPrice"] };
+    }
+    return undefined;
+  }
+  function getByIdsObj() {
+    if (byIds.length > 0) return { "sys.id[in]": byIds };
+    return undefined;
+  }
+  function getByPlaceSlugObj() {
+    if (byPlaceSlug) {
+      return {
+        "fields.place.sys.contentType.sys.id": "places",
+        "fields.place.fields.slug": byPlaceSlug,
+      };
+    }
+    return undefined;
+  }
 
   const entries = await contentfulClient.getEntries<TypeActivitySkeleton>({
     content_type: "activity",
-    limit,
     skip: page * limit,
-    ...slugObj,
-    ...containsIdsObj,
-    ...orderObj,
-    ...queryObj,
+    limit,
+    ...getQueryObj(),
+    ...getOrderObj(),
+    ...getByIdsObj(),
+    ...getByPlaceSlugObj(),
   });
+  console.log("getActivities ->", {
+    content_type: "activity",
+    skip: page * limit,
+    limit,
+    ...getQueryObj(),
+    ...getOrderObj(),
+    ...getByIdsObj(),
+    ...getByPlaceSlugObj(),
+  });
+  console.timeEnd("getActivities");
 
   return entries.items;
 };
