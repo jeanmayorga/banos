@@ -1,9 +1,24 @@
-import { CircleUserRoundIcon, MapPinIcon, TentTree } from "lucide-react";
+import { CircleUserRoundIcon, MapPinIcon, MenuIcon, TentTree, TicketIcon } from "lucide-react";
 import Link from "next/link";
+
+import { SignInButton } from "@/app/auth/components/SignInButton";
+import { SignInForm } from "@/app/auth/components/SignInForm";
 
 import { Logo } from "./Logo";
 // import { ModeToggle } from "./mode-toggle";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./ui/alert-dialog";
 import { Button } from "./ui/button";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
 
 export function Header() {
   return (
@@ -15,25 +30,60 @@ export function Header() {
         <Logo size="sm" className="text-[#00a7ac] dark:text-white" />
       </Link>
       <div className="hidden md:block">
-        <Link href="/places">
+        {/* <Link href="/places">
           <Button variant="ghost" className="rounded-full">
             <MapPinIcon className="h-4 w-4" />
             Lugares
           </Button>
-        </Link>
+        </Link> */}
         <Link href="/activities">
           <Button variant="ghost" className="rounded-full">
             <TentTree className="h-4 w-4" />
             Actividades
           </Button>
         </Link>
-      </div>
-      <div>
-        <Link href="/auth">
-          <Button className="rounded-full" variant="secondary" size="icon">
-            <CircleUserRoundIcon className="h-4 w-4" />
+        <Link href="/tickets">
+          <Button variant="ghost" className="rounded-full">
+            <TicketIcon className="h-4 w-4" />
+            Mis tickets
           </Button>
         </Link>
+      </div>
+      <div className="flex space-x-4">
+        <SignInButton />
+        <div className="block md:hidden">
+          <Sheet>
+            <SheetTrigger>
+              <Button className="rounded-full" variant="secondary" size="icon">
+                <MenuIcon className="h-4 w-4" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent>
+              <SheetHeader>
+                <SheetTitle className="mb-8">Menu</SheetTitle>
+
+                {/* <Link href="/places">
+                  <Button variant="ghost" className="w-full rounded-full">
+                    <MapPinIcon className="h-4 w-4" />
+                    Lugares
+                  </Button>
+                </Link> */}
+                <Link href="/activities">
+                  <Button variant="ghost" className="w-full rounded-full">
+                    <TentTree className="h-4 w-4" />
+                    Actividades
+                  </Button>
+                </Link>
+                <Link href="/tickets">
+                  <Button variant="ghost" className="w-full rounded-full">
+                    <TicketIcon className="h-4 w-4" />
+                    Mis entradas
+                  </Button>
+                </Link>
+              </SheetHeader>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
       {/* <div className="absolute right-4">
           <ModeToggle />
