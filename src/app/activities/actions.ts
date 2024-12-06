@@ -79,13 +79,18 @@ export const getActivities = async ({
 };
 
 export async function getActivityBySlug(slug: string) {
+  console.time("getActivityBySlug");
   const entries = await contentfulClient.getEntries<TypeActivitySkeleton>({
     content_type: "activity",
     "fields.slug[in]": [slug],
   });
-
+  console.log("getActivityBySlug ->", {
+    content_type: "activity",
+    "fields.slug[in]": [slug],
+  });
   if (entries.items.length === 0) return null;
   const activity = entries.items[0];
+  console.timeEnd("getActivityBySlug");
   return activity;
 }
 
@@ -134,9 +139,10 @@ export async function createActivityReservation(options: CreateActivityReservati
 export interface ActivityReservation {
   id: string;
   uuid: string;
+  slug: string;
   date: string;
   adults: number;
-  childern: number;
+  children: number;
   total: number;
   status: "pending" | "paid" | "cancel";
   email: string | null;
@@ -146,7 +152,11 @@ export interface ActivityReservation {
 }
 export async function getActivityReservation(uuid: string) {
   const supabase = await createClient();
-  const { data, error } = await supabase.from("a-reservations").select("*").eq("uuid", uuid);
+  const { data, error } = await supabase
+    .from("a-reservations")
+    .select("*")
+    .eq("uuid", uuid)
+    .single();
 
   return data as unknown as ActivityReservation;
 }
