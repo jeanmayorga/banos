@@ -4,6 +4,7 @@ import { Entry } from "contentful";
 
 import { contentfulClient, contentfulManagementClient } from "@/api/contentful";
 import { TypeActivitySkeleton } from "@/contentful";
+import { createClient } from "@/utils/supabase/server";
 
 export type Activity = Entry<TypeActivitySkeleton, "WITHOUT_UNRESOLVABLE_LINKS", string>;
 export type GetActivityOptionsTab = "most-visited" | "cheaper" | "most-expensive";
@@ -114,4 +115,38 @@ export async function getTikTokImage(id: string) {
   const response = await request.json();
   const typedResponse = response as Response;
   return typedResponse.thumbnail_url || "";
+}
+
+export interface CreateActivityReservationDTO {
+  date: string;
+  slug: string;
+  adults: number;
+  children: number;
+  total: number;
+}
+export async function createActivityReservation(options: CreateActivityReservationDTO) {
+  const supabase = await createClient();
+  const { data, error } = await supabase.from("a-reservations").insert(options).select().single();
+
+  return data as unknown as ActivityReservation;
+}
+
+export interface ActivityReservation {
+  id: string;
+  uuid: string;
+  date: string;
+  adults: number;
+  childern: number;
+  total: number;
+  status: "pending" | "paid" | "cancel";
+  email: string | null;
+  phone: string | null;
+  phone_country_code: string | null;
+  created_at: string;
+}
+export async function getActivityReservation(uuid: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase.from("a-reservations").select("*").eq("uuid", uuid);
+
+  return data as unknown as ActivityReservation;
 }

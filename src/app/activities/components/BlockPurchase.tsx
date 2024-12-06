@@ -5,12 +5,14 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import {
   CalendarIcon,
+  Loader,
   MinusIcon,
   PlusIcon,
   TicketCheckIcon,
   TicketPlusIcon,
   UsersRoundIcon,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -18,15 +20,24 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
-import { Activity } from "../actions";
+import { Activity, createActivityReservation } from "../actions";
 import { DEFAULT_MAX_ADULTS, DEFAULT_MAX_CHILDREN } from "../config";
 
 interface Props {
   activity: Activity;
 }
 export function BlockPurchase({ activity }: Props) {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [adults, setAdults] = useState(1);
@@ -46,17 +57,36 @@ export function BlockPurchase({ activity }: Props) {
     return adultsTotal + childrenTotal;
   }, [adults, adultsPrice, childPrice, children]);
 
-  function buyTickets() {
+  async function buyTickets() {
     if (!date) {
       toast.error("Te falta seleccionar una fecha.");
       return;
     }
+    setLoading(true);
+    const reservation = await createActivityReservation({
+      date: date.toISOString(),
+      slug: activity.fields.slug,
+      adults,
+      children,
+      total,
+    });
 
-    toast.success("Comprando...");
+    if (reservation) {
+      router.push(`/activities/reservations/${reservation.uuid}`);
+      return;
+    } else {
+      setLoading(false);
+      toast.error("No pudimos crear la reserva.");
+    }
   }
 
   return (
-    <div className="mb-8 rounded-3xl bg-white py-8 shadow-sm">
+    <div className="relative mb-8 overflow-hidden rounded-3xl bg-white py-8 shadow-sm">
+      {loading && (
+        <div className="absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center bg-black/10">
+          <Loader className="animate-spin" />
+        </div>
+      )}
       <div className="mb-6 flex border-b border-dashed px-8 pb-6">
         <TicketCheckIcon className="mr-2 mt-[-2px] text-gray-500" />
         <div>
@@ -174,7 +204,12 @@ export function BlockPurchase({ activity }: Props) {
 
         <div />
 
-        <Button type="submit" className="w-full rounded-full" onClick={buyTickets}>
+        <Button
+          type="submit"
+          className="w-full rounded-full"
+          onClick={buyTickets}
+          disabled={loading}
+        >
           <TicketPlusIcon />
           Comprar entradas
         </Button>
