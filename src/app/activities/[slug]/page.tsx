@@ -11,7 +11,7 @@ import { Breadcrumds } from "#/components/Breadcrumb";
 import { Container } from "#/components/container";
 import { Typography } from "#/components/ui/typography";
 
-import { getActivityBySlug, getActivities } from "../actions";
+import { getActivityBySlug, getActivities, addVisit } from "../actions";
 import { BlockDescription } from "../components/BlockDescription";
 import { BlockGoogleMaps } from "../components/BlockGoogleMaps";
 import { BlockImages } from "../components/BlockImages";
@@ -94,12 +94,15 @@ export default async function Page({ params }: Props) {
     },
   };
 
+  addVisit(activity.sys.id);
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      {/* <AddVisit /> */}
       <ScrollUp />
       <Container className="md:my-24">
         <Breadcrumds

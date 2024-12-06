@@ -2,7 +2,7 @@
 
 import { Entry } from "contentful";
 
-import { contentfulClient } from "@/api/contentful";
+import { contentfulClient, contentfulManagementClient } from "@/api/contentful";
 import { TypeActivitySkeleton } from "@/contentful";
 
 export type Activity = Entry<TypeActivitySkeleton, "WITHOUT_UNRESOLVABLE_LINKS", string>;
@@ -28,7 +28,7 @@ export const getActivities = async ({
     if (query) return { "fields.title[match]": query };
     return undefined;
   }
-  function getOrderObj() {
+  function getByTabObj() {
     if (byTab === "most-visited") {
       return { order: ["-fields.visits"] };
     }
@@ -59,7 +59,7 @@ export const getActivities = async ({
     skip: page * limit,
     limit,
     ...getQueryObj(),
-    ...getOrderObj(),
+    ...getByTabObj(),
     ...getByIdsObj(),
     ...getByPlaceSlugObj(),
   });
@@ -68,7 +68,7 @@ export const getActivities = async ({
     skip: page * limit,
     limit,
     ...getQueryObj(),
-    ...getOrderObj(),
+    ...getByTabObj(),
     ...getByIdsObj(),
     ...getByPlaceSlugObj(),
   });
@@ -86,4 +86,19 @@ export async function getActivityBySlug(slug: string) {
   if (entries.items.length === 0) return null;
   const activity = entries.items[0];
   return activity;
+}
+
+export async function addVisit(entryId: string) {
+  try {
+    const client = await contentfulManagementClient();
+    let entry = await client.getEntry(entryId);
+    entry.fields.visits = {
+      "en-US": Number(entry.fields.visits["en-US"] || 0) + 1,
+    };
+    entry = await entry.update();
+    await entry.publish();
+    console.log(`add visit -> ${entry.fields.slug["en-US"]} -> ${entry.fields.visits["en-US"]}`);
+  } catch (error) {
+    console.error(`cannot add visit ${entryId}`);
+  }
 }
