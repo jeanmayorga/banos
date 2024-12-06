@@ -1,22 +1,9 @@
-import { CircleUserRoundIcon, MapPinIcon, MenuIcon, TentTree, TicketIcon } from "lucide-react";
+import { MenuIcon, TentTree, TicketIcon } from "lucide-react";
 import Link from "next/link";
 
 import { SignInButton } from "@/app/auth/components/SignInButton";
-import { SignInForm } from "@/app/auth/components/SignInForm";
 
 import { Logo } from "./Logo";
-// import { ModeToggle } from "./mode-toggle";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "./ui/alert-dialog";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
 
