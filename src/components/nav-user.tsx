@@ -1,10 +1,10 @@
 "use client";
 
 import { CaretSortIcon } from "@radix-ui/react-icons";
-import { User } from "@supabase/supabase-js";
 import { LogOut } from "lucide-react";
 
 import { authSignOut } from "@/app/auth/actions";
+import { CurrentUser } from "@/app/dashboard/actions";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -22,8 +22,11 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-export function NavUser({ user }: { user: User | null }) {
+export function NavUser({ user }: { user: CurrentUser | null }) {
   const { isMobile } = useSidebar();
+
+  const fullName =
+    user?.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : "Sin Nombre";
 
   return (
     <SidebarMenu>
@@ -41,8 +44,8 @@ export function NavUser({ user }: { user: User | null }) {
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{user?.email}</span>
-                <span className="truncate text-xs">{user?.id}</span>
+                <span className="truncate font-semibold">{fullName}</span>
+                <span className="truncate text-xs">{user?.email}</span>
               </div>
               <CaretSortIcon className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -62,8 +65,8 @@ export function NavUser({ user }: { user: User | null }) {
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{user?.email}</span>
-                  <span className="truncate text-xs">{user?.id}</span>
+                  <span className="truncate font-semibold">{fullName}</span>
+                  <span className="truncate text-xs">{user?.email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>

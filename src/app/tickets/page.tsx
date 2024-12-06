@@ -9,10 +9,7 @@ export default function Page() {
     <>
       <Header />
       <Container className="mt-12 md:mt-24">
-        <Title
-          title="Encuentra actividades"
-          subtitle="Si estás en Baños y no sabes qué hacer, no te preocupes. Aqui te ayudamos."
-        />
+        <Title title="Tickets" subtitle="Todavia no has comprado nada y no tienes ningun ticket." />
       </Container>
     </>
   );

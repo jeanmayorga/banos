@@ -1,4 +1,4 @@
-import { Command, NotebookTextIcon } from "lucide-react";
+import { NotebookTextIcon } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
@@ -20,21 +20,16 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { createClient } from "@/utils/supabase/server";
+
+import { getCurrentUser } from "./actions";
 
 interface Props {
   children: ReactNode;
 }
 export default async function Layout({ children }: Props) {
-  const supabase = await createClient();
+  const user = await getCurrentUser();
 
-  const { data, error } = await supabase.auth.getUser();
-
-  const user = data.user;
-
-  if (error || !data?.user) {
-    redirect("/");
-  }
+  if (!user) redirect("/");
 
   return (
     <>
@@ -68,7 +63,7 @@ export default async function Layout({ children }: Props) {
         </Sidebar>
         <SidebarInset>
           <header className="flex h-16 shrink-0 items-center gap-2">
-            <div className="flex items-center gap-2 px-4">
+            <div className="flex items-center gap-2 px-16">
               <SidebarTrigger className="-ml-1" />
               <Separator orientation="vertical" className="mr-2 h-4" />
               {/* <Breadcrumb>
