@@ -27,9 +27,9 @@ interface Props {
   children: ReactNode;
 }
 export default async function Layout({ children }: Props) {
-  const user = await getCurrentUser();
+  const currentUser = await getCurrentUser();
 
-  if (!user) redirect("/");
+  if (!currentUser) redirect("/");
 
   return (
     <>
@@ -44,6 +44,7 @@ export default async function Layout({ children }: Props) {
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarHeader>
+
           <SidebarContent>
             <SidebarGroup className="group-data-[collapsible=icon]:hidden">
               <SidebarGroupLabel>Menu</SidebarGroupLabel>
@@ -57,8 +58,9 @@ export default async function Layout({ children }: Props) {
               </SidebarMenu>
             </SidebarGroup>
           </SidebarContent>
+
           <SidebarFooter>
-            <NavUser user={user} />
+            <NavUser currentUser={currentUser} />
           </SidebarFooter>
         </Sidebar>
         <SidebarInset>

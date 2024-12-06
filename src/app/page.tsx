@@ -26,8 +26,8 @@ export default async function Page() {
   return (
     <>
       <Header />
-      <Container className="my-16">
-        <div className="relative h-[450px] w-full overflow-hidden rounded-3xl bg-slate-500">
+      <Container className="-mt-14">
+        <div className="relative mb-16 h-[450px] w-full overflow-hidden rounded-3xl bg-slate-500">
           <Image
             src="https://images.ctfassets.net/3nb2uoch90ye/10X17L8ijbDOyWq7pf7MPX/7b2d162a41092f4a331a716fc47a4bcc/potra.jpeg"
             alt="Baños de Agua Santa"

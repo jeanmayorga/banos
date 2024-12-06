@@ -32,3 +32,23 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
 
   return null;
 }
+
+export interface CurrentUserDTO {
+  firstName: string;
+  lastName: string;
+  businessName: string;
+}
+export async function updateCurrentUser(dto: CurrentUserDTO) {
+  const supabase = await createClient();
+  const { data: authData } = await supabase.auth.getUser();
+  if (authData) {
+    await supabase
+      .from("profiles")
+      .update({
+        first_name: dto.firstName,
+        last_name: dto.lastName,
+        business_name: dto.businessName,
+      })
+      .eq("id", authData.user?.id);
+  }
+}
