@@ -5,10 +5,8 @@ import { Suspense, useEffect } from "react";
 
 import { Container } from "@/components/container";
 import { Search } from "@/components/search";
-import { Typography } from "@/components/ui/typography";
+import { Title } from "@/components/Title";
 import { useObserver } from "@/hooks/useObserver";
-
-// import { PlacesSelect } from "../places/components/PlacesSelect";
 
 import { PlacesSelect } from "../places/components/PlacesSelect";
 
@@ -81,12 +79,10 @@ export default function Page({ searchParams }: Props) {
   return (
     <>
       <Container className="mt-12 md:mt-24">
-        <Typography variant="h1" component="h1" className="text-4xl text-gray-700 md:text-5xl">
-          Encuentra actividades
-        </Typography>
-        <Typography variant="lead" component="h2" className="mb-4 text-base">
-          Si estás en Baños y no sabes qué hacer, no te preocupes. Aqui te ayudamos.
-        </Typography>
+        <Title
+          title="Encuentra actividades"
+          subtitle="Si estás en Baños y no sabes qué hacer, no te preocupes. Aqui te ayudamos."
+        />
 
         <div className="mb-4 grid gap-4 rounded-3xl bg-white p-4 shadow-sm md:grid-cols-2">
           <Suspense>

@@ -1,9 +1,9 @@
-import { Typography } from "@/components/ui/typography";
+import { Title } from "@/components/Title";
 
 export default function Page() {
   return (
     <div className="px-4">
-      <Typography variant="h1">Reservas</Typography>
+      <Title title="Reservas" subtitle="Todas las reservas" />
     </div>
   );
 }

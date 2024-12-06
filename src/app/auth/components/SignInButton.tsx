@@ -7,18 +7,15 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -33,11 +30,9 @@ import { Separator } from "@/components/ui/separator";
 import { authSignIn } from "../actions";
 
 const Schema = z.object({
-  email: z.string().min(2, {
-    message: "email must be at least 2 characters.",
-  }),
+  email: z.string().min(1, { message: "El email es requerido." }).email("No es un email válido."),
   password: z.string().min(2, {
-    message: "Password must be at least 2 characters.",
+    message: "Tu contraseña esta incompleta.",
   }),
 });
 
@@ -69,23 +64,15 @@ export function SignInButton() {
       <Button className="rounded-full" variant="secondary" onClick={() => setOpen(true)}>
         <CircleUserRoundIcon className="h-4 w-4" /> Cuenta
       </Button>
-      <AlertDialog open={open} onOpenChange={setOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle className="text-3xl">Cuenta</AlertDialogTitle>
-            <AlertDialogDescription className="!mt-0">
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="text-3xl">Cuenta</DialogTitle>
+            <DialogDescription className="!mt-0">
               Gestiona tus tickets de forma fácil y rápida
-            </AlertDialogDescription>
-          </AlertDialogHeader>
+            </DialogDescription>
+          </DialogHeader>
           <Separator />
-          <Button
-            className="absolute right-2 top-2 rounded-full"
-            variant="ghost"
-            size="icon"
-            onClick={() => setOpen(false)}
-          >
-            <XIcon />
-          </Button>
 
           {error && (
             <Alert variant="destructive">
@@ -134,17 +121,16 @@ export function SignInButton() {
                   </FormItem>
                 )}
               />
-              <AlertDialogFooter className="mt-8">
-                <AlertDialogCancel className="rounded-full">Cancelar</AlertDialogCancel>
+              <div className="mt-8 flex justify-end">
                 <Button className="rounded-full" type="submit" disabled={loading}>
                   {loading ? <LoaderIcon /> : <LogInIcon />}
                   Iniciar sesión
                 </Button>
-              </AlertDialogFooter>
+              </div>
             </form>
           </Form>
-        </AlertDialogContent>
-      </AlertDialog>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

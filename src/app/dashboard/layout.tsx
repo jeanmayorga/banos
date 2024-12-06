@@ -43,11 +43,9 @@ export default async function Layout({ children }: Props) {
           <SidebarHeader>
             <SidebarMenu>
               <SidebarMenuItem>
-                {/* <SidebarMenuButton size="lg" asChild> */}
-                <Link href="/dashboard">
+                <Link href="/dashboard" className="w-full text-center">
                   <Logo size="md" className="text-red" />
                 </Link>
-                {/* </SidebarMenuButton> */}
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarHeader>
