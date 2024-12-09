@@ -16,13 +16,14 @@ import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import toast from "react-hot-toast";
 
+import { createTicket } from "@/app/tickets/actions";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
-import { Activity, createActivityReservation } from "../actions";
+import { Activity } from "../actions";
 import { DEFAULT_MAX_ADULTS, DEFAULT_MAX_CHILDREN } from "../config";
 
 interface Props {
@@ -56,20 +57,25 @@ export function BlockPurchase({ activity }: Props) {
       return;
     }
     setLoading(true);
-    const reservation = await createActivityReservation({
-      date: date.toISOString(),
+    const ticket = await createTicket({
+      type: "activity",
+      check_in: date,
       slug: activity.fields.slug,
-      adults,
-      children,
-      total,
+      adults_quantity: adults,
+      children_quantity: children,
+      adults_price: adultsPrice,
+      children_price: childPrice,
+      tax_amount: 0,
+      subtotal_amount: 0,
+      total_amount: total,
     });
 
-    if (reservation) {
-      router.push(`/activities/reservations/${reservation.uuid}`);
+    if (ticket) {
+      router.push(`/tickets/${ticket.uuid}`);
       return;
     } else {
       setLoading(false);
-      toast.error("No pudimos crear la reserva.");
+      toast.error("No pudimos crear un ticket.");
     }
   }
 

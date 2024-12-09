@@ -81,7 +81,8 @@ export default async function Layout({ children }: Props) {
             </Breadcrumb> */}
             </div>
           </header>
-          {children}
+
+          <div className="px-16">{children}</div>
         </SidebarInset>
       </SidebarProvider>
     </>

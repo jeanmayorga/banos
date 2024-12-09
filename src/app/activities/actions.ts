@@ -78,7 +78,8 @@ export const getActivities = async ({
   return entries.items;
 };
 
-export async function getActivityBySlug(slug: string) {
+export async function getActivityBySlug(slug?: string): Promise<Activity | null> {
+  if (!slug) return null;
   console.time("getActivityBySlug");
   const entries = await contentfulClient.getEntries<TypeActivitySkeleton>({
     content_type: "activity",

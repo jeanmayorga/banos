@@ -38,7 +38,7 @@ export function Header() {
       </div>
       <div className="flex space-x-4">
         <SignInButton />
-        <div className="block md:hidden">
+        {/* <div className="block md:hidden">
           <Sheet>
             <SheetTrigger>
               <Button className="rounded-full" variant="secondary" size="icon">
@@ -48,13 +48,6 @@ export function Header() {
             <SheetContent>
               <SheetHeader>
                 <SheetTitle className="mb-8">Menu</SheetTitle>
-
-                {/* <Link href="/places">
-                  <Button variant="ghost" className="w-full rounded-full">
-                    <MapPinIcon className="h-4 w-4" />
-                    Lugares
-                  </Button>
-                </Link> */}
                 <Link href="/activities">
                   <Button variant="ghost" className="w-full rounded-full">
                     <TentTree className="h-4 w-4" />
@@ -70,7 +63,7 @@ export function Header() {
               </SheetHeader>
             </SheetContent>
           </Sheet>
-        </div>
+        </div> */}
       </div>
       {/* <div className="absolute right-4">
           <ModeToggle />
