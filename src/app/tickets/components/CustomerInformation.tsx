@@ -1,7 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRightIcon } from "lucide-react";
+import { ArrowRightIcon, Loader2Icon } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -26,6 +27,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { updateTicket } from "../actions";
 import { Ticket } from "../types";
 
 const FormSchema = z.object({
@@ -45,6 +47,8 @@ interface Props {
   ticket: Ticket;
 }
 export function CustomerInformation({ activity, ticket }: Props) {
+  const [loading, setLoading] = useState(true);
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -57,8 +61,10 @@ export function CustomerInformation({ activity, ticket }: Props) {
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    setLoading(true);
+    await updateTicket(ticket.uuid, data);
+    setLoading(false);
   }
 
   return (
@@ -204,9 +210,9 @@ export function CustomerInformation({ activity, ticket }: Props) {
           </div>
         </Paper>
         <div className="flex justify-end">
-          <Button type="submit" className="rounded-3xl">
+          <Button type="submit" className="rounded-3xl" disabled={loading}>
             Siguiente
-            <ArrowRightIcon />
+            {loading ? <Loader2Icon className="animate-spin" /> : <ArrowRightIcon />}
           </Button>
         </div>
       </form>

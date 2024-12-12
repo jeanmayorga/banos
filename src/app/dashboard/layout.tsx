@@ -5,6 +5,14 @@ import { ReactNode } from "react";
 
 import { Logo } from "@/components/Logo";
 import { NavUser } from "@/components/nav-user";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import {
   Sidebar,
@@ -49,12 +57,14 @@ export default async function Layout({ children }: Props) {
             <SidebarGroup className="group-data-[collapsible=icon]:hidden">
               <SidebarGroupLabel>Menu</SidebarGroupLabel>
               <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton>
-                    <NotebookTextIcon />
-                    Reservas
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
+                <Link href="/dashboard/tickets">
+                  <SidebarMenuItem>
+                    <SidebarMenuButton>
+                      <NotebookTextIcon />
+                      Tickets
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </Link>
               </SidebarMenu>
             </SidebarGroup>
           </SidebarContent>
@@ -68,17 +78,17 @@ export default async function Layout({ children }: Props) {
             <div className="flex items-center gap-2 px-16">
               <SidebarTrigger className="-ml-1" />
               <Separator orientation="vertical" className="mr-2 h-4" />
-              {/* <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">Building Your Application</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb> */}
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem className="hidden md:block">
+                    <BreadcrumbLink href="#">Building Your Application</BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator className="hidden md:block" />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
             </div>
           </header>
 

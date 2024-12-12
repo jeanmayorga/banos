@@ -1,9 +1,8 @@
 import { Title } from "@/components/Title";
 
-export default function Page() {
-  return (
-    <div className="px-16">
-      <Title title="Reservas" subtitle="Todas las reservas" />
-    </div>
-  );
+import { getCurrentUser } from "./actions";
+
+export default async function Page() {
+  const currentUser = await getCurrentUser();
+  return <div className="px-16">Hola, {currentUser?.firstName}</div>;
 }
