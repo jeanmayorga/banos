@@ -26,6 +26,7 @@ export function HeaderTicketScanButton() {
           <Separator />
           <Scanner
             allowMultiple={false}
+            classNames={{ container: "aspect-square w-full" }}
             components={{
               audio: true,
               tracker: outline,

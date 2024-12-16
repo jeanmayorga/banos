@@ -1,7 +1,7 @@
 import { MenuIcon, TentTree, TicketIcon } from "lucide-react";
 import Link from "next/link";
 
-import { getCurrentUser } from "@/app/dashboard/actions";
+import { getSession } from "@/app/services/session.service";
 import { cn } from "@/utils";
 
 import { HeaderAccountButton } from "./header-account-button";
@@ -12,13 +12,13 @@ import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
 
 export async function Header() {
-  const currentUser = await getCurrentUser();
+  const session = await getSession();
 
   return (
     <header
       className={cn(
         "sticky top-0 z-30 flex flex-row items-center justify-between bg-white px-8 py-4 shadow-sm dark:border-b dark:border-gray-800 dark:bg-black dark:shadow-black md:top-6 md:mx-auto md:mb-12 md:w-full md:rounded-3xl md:dark:border",
-        currentUser ? "md:max-w-5xl" : "md:max-w-2xl",
+        session ? "md:max-w-5xl" : "md:max-w-2xl",
       )}
     >
       <Link href="/">
@@ -37,12 +37,13 @@ export async function Header() {
             Mis tickets
           </Button>
         </Link>
-        {currentUser && <HeaderTicketScanButton />}
+        {session && <HeaderTicketScanButton />}
       </div>
       <div className="flex space-x-4">
-        {currentUser ? <HeaderAccountButton currentUser={currentUser} /> : <HeaderSignInButton />}
+        {session ? <HeaderAccountButton currentUser={session} /> : <HeaderSignInButton />}
 
         <div className="block md:hidden">
+          {/* Aqui es el problema del doble button */}
           <Sheet>
             <SheetTrigger>
               <Button className="rounded-full" variant="secondary" size="icon">

@@ -1,12 +1,13 @@
 "use client";
 
 import { CaretSortIcon } from "@radix-ui/react-icons";
-import { CircleUserRoundIcon, LogOutIcon, UserPenIcon } from "lucide-react";
+import { CircleUserRoundIcon, LogOutIcon, TentTreeIcon, UserPenIcon } from "lucide-react";
+import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
-import { authSignOut } from "@/app/auth/actions";
 import { CurrentUser } from "@/app/dashboard/actions";
+import { signOut } from "@/app/services/login.services";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 
@@ -34,6 +35,11 @@ export function HeaderAccountButton({ currentUser }: Props) {
     if (shouldOpen) setOpenAccountDialog(true);
   }, [currentUser]);
 
+  async function handleSignOut() {
+    await signOut();
+    location.reload();
+  }
+
   return (
     <>
       <DropdownMenu>
@@ -48,6 +54,7 @@ export function HeaderAccountButton({ currentUser }: Props) {
           align="end"
           sideOffset={4}
         >
+          <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
           <DropdownMenuLabel className="p-0 font-normal">
             <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
               <Avatar className="h-8 w-8 rounded-lg">
@@ -63,6 +70,15 @@ export function HeaderAccountButton({ currentUser }: Props) {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
+          <DropdownMenuLabel>Actividades</DropdownMenuLabel>
+          <DropdownMenuGroup>
+            <Link href="/dashboard/activities">
+              <DropdownMenuItem>
+                <TentTreeIcon className="mr-2 h-4 w-4" />
+                Actualizar cuenta
+              </DropdownMenuItem>
+            </Link>
+          </DropdownMenuGroup>
           <DropdownMenuGroup>
             <DropdownMenuItem onClick={() => setOpenAccountDialog(true)}>
               <UserPenIcon className="mr-2 h-4 w-4" />
@@ -70,7 +86,7 @@ export function HeaderAccountButton({ currentUser }: Props) {
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => authSignOut()}>
+          <DropdownMenuItem onClick={handleSignOut}>
             <LogOutIcon className="mr-2 h-4 w-4" />
             Cerrar sesión
           </DropdownMenuItem>

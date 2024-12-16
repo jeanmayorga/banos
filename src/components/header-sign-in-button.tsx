@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { authSignIn } from "@/app/auth/actions";
+import { signInWithPassword } from "@/app/services/login.services";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -41,18 +41,21 @@ export function HeaderSignInButton() {
     },
   });
 
-  async function onSubmit(data: z.infer<typeof Schema>) {
+  async function onSubmit(formData: z.infer<typeof Schema>) {
     setLoading(true);
-    const currentUrl = window.location.href;
-    const error = await authSignIn({
-      email: data.email,
-      password: data.password,
-      redirectTo: currentUrl,
+    const { data, error } = await signInWithPassword({
+      email: formData.email,
+      password: formData.password,
     });
 
     if (error) {
       setError(true);
       setLoading(false);
+      return;
+    }
+
+    if (data?.session) {
+      location.reload();
     }
   }
 
