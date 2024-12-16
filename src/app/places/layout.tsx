@@ -1,8 +1,6 @@
 import { Metadata } from "next";
 import { ReactNode } from "react";
 
-import { Header } from "@/components/header";
-
 export const metadata: Metadata = {
   title: "Que hacer en Banos de Agua Santa | Ecuador",
   description: "Aqui tienes una lista de actividades para hacer en Banos de agua santa Ecuador",
@@ -19,10 +17,5 @@ interface Props {
   children: ReactNode;
 }
 export default function Layout({ children }: Props) {
-  return (
-    <>
-      <Header />
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }
