@@ -1,10 +1,11 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader, SaveIcon } from "lucide-react";
+import { Loader2Icon, SaveIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { CurrentUser, updateCurrentUser } from "@/app/dashboard/actions";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -23,8 +24,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import { CurrentUser, updateCurrentUser } from "../actions";
-
 const FormSchema = z.object({
   firstName: z.string().min(2, { message: "minimo de 2 caracteres" }),
   lastName: z.string().min(2, { message: "minimo de 2 caracteres" }),
@@ -36,7 +35,7 @@ interface Props {
   open: boolean;
   setOpen: (open: boolean) => void;
 }
-export function DrawerUpdateCurrentUser({ currentUser, open, setOpen }: Props) {
+export function HeaderAccountDialog({ currentUser, open, setOpen }: Props) {
   const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -63,7 +62,10 @@ export function DrawerUpdateCurrentUser({ currentUser, open, setOpen }: Props) {
           </AlertDialogHeader>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-              <Input value={currentUser.email} disabled className="mb-6" />
+              <div>
+                <FormLabel>Correo electrónico:</FormLabel>
+                <Input value={currentUser.email} disabled className="mb-4" />
+              </div>
               <div className="mb-4 grid grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
@@ -92,22 +94,9 @@ export function DrawerUpdateCurrentUser({ currentUser, open, setOpen }: Props) {
                   )}
                 />
               </div>
-              <FormField
-                control={form.control}
-                name="businessName"
-                render={({ field }) => (
-                  <FormItem className="mb-4">
-                    <FormLabel>Nombre del negocio:</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <AlertDialogFooter>
                 <Button type="submit" className="rounded-full" disabled={loading}>
-                  {loading ? <Loader /> : <SaveIcon />}
+                  {loading ? <Loader2Icon className="animate-spin" /> : <SaveIcon />}
                   Guardar
                 </Button>
               </AlertDialogFooter>

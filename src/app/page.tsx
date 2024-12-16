@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/container";
-import { Header } from "@/components/Header";
+import { Header } from "@/components/header";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -25,7 +25,6 @@ export default async function Page() {
 
   return (
     <>
-      <Header />
       <Container className="-mt-14">
         <div className="relative mb-16 h-[450px] w-full overflow-hidden rounded-3xl bg-slate-500">
           <Image

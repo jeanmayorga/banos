@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import {
   CalendarIcon,
-  Loader,
+  Loader2Icon,
   MinusIcon,
   PlusIcon,
   TicketCheckIcon,
@@ -44,6 +44,8 @@ export function BlockPurchase({ activity }: Props) {
   const adultsPrice = activity.fields.adultPrice || 0;
   const childPrice = activity.fields.childPrice || 0;
 
+  const slug = activity.fields.slug;
+
   const total = useMemo(() => {
     const adultsTotal = adults * adultsPrice;
     const childrenTotal = children * childPrice;
@@ -58,8 +60,7 @@ export function BlockPurchase({ activity }: Props) {
     }
     setLoading(true);
     const ticket = await createTicket({
-      type: "activity",
-      check_in: date,
+      date: date,
       slug: activity.fields.slug,
       adults_quantity: adults,
       children_quantity: children,
@@ -71,7 +72,7 @@ export function BlockPurchase({ activity }: Props) {
     });
 
     if (ticket) {
-      router.push(`/tickets/${ticket.uuid}`);
+      router.push(`/activities/tickets/${ticket.uuid}/customer`);
       return;
     } else {
       setLoading(false);
@@ -81,11 +82,6 @@ export function BlockPurchase({ activity }: Props) {
 
   return (
     <div className="relative mb-8 overflow-hidden rounded-3xl bg-white py-8 shadow-sm">
-      {loading && (
-        <div className="absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center bg-black/10">
-          <Loader className="animate-spin" />
-        </div>
-      )}
       <div className="mb-6 flex border-b border-dashed px-8 pb-6">
         <TicketCheckIcon className="mr-2 mt-[-2px] text-gray-500" />
         <div>
@@ -100,11 +96,12 @@ export function BlockPurchase({ activity }: Props) {
         <div className="relative flex flex-col">
           <div className="mb-1 text-sm tracking-tight text-gray-600">¿Cuándo quieres ir?</div>
           <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
-            <PopoverTrigger>
+            <PopoverTrigger disabled={loading}>
               <Button
+                disabled={loading}
                 variant="outline"
                 className={cn(
-                  "group w-full justify-start rounded-full bg-white pl-3 font-normal text-gray-400 hover:text-gray-500",
+                  "group w-full justify-start rounded-full pl-3 font-normal text-gray-400 hover:text-gray-500",
                 )}
               >
                 <CalendarIcon className="h-4 w-4" />
@@ -129,8 +126,9 @@ export function BlockPurchase({ activity }: Props) {
         <div className="flex flex-col">
           <div className="mb-1 text-sm tracking-tight text-gray-600">¿Cuántas personas son?</div>
           <Popover>
-            <PopoverTrigger asChild>
+            <PopoverTrigger asChild disabled={loading}>
               <Button
+                disabled={loading}
                 variant="outline"
                 className={cn(
                   "group w-full justify-start rounded-full bg-white pl-3 font-normal text-gray-400 hover:text-gray-500",
@@ -209,7 +207,7 @@ export function BlockPurchase({ activity }: Props) {
           onClick={buyTickets}
           disabled={loading}
         >
-          <TicketPlusIcon />
+          {loading ? <Loader2Icon className="animate-spin" /> : <TicketPlusIcon />}
           Comprar entradas
         </Button>
 

@@ -1,6 +1,5 @@
 import { CircleDollarSignIcon, Clock3Icon, PersonStandingIcon } from "lucide-react";
 import { Metadata } from "next";
-import Head from "next/head";
 import { notFound } from "next/navigation";
 
 import { isProduction } from "@/api/contentful";
@@ -44,13 +43,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     name: "Jean Paul Mayorga",
     url: "https://jeanmayorga.com",
   };
+  const robots = isProduction ? "index, follow" : "noindex, nofollow";
 
   return {
     title,
     description,
     keywords,
     authors: [author],
-    robots: isProduction ? "index, follow" : "noindex, nofollow",
+    robots,
     openGraph: {
       url,
       images: [image],
@@ -102,7 +102,6 @@ export default async function Page({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      {/* <AddVisit /> */}
       <ScrollUp />
       <Container className="md:my-24">
         <Breadcrumds

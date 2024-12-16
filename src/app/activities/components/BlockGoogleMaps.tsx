@@ -6,9 +6,7 @@ import { LinkIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
-import { Typography } from "@/components/ui/typography";
 
 interface Props {
   location?: EntryFields.Location;

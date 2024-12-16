@@ -6,6 +6,8 @@ import { Toaster } from "react-hot-toast";
 
 import "./globals.css";
 
+import { Header } from "@/components/header";
+
 import { Footer } from "#/components/Footer";
 
 import { LayoutReactQuery } from "./layout-react-query";
@@ -32,7 +34,9 @@ export default function RootLayout({ children }: Props) {
             disableTransitionOnChange
           >
             <NuqsAdapter>
+              <Header />
               {children}
+              <Footer />
               <Toaster />
             </NuqsAdapter>
           </ThemeProvider>

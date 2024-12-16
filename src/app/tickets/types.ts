@@ -1,5 +1,3 @@
-export type TicketType = "activity" | "hotel";
-
 export type TicketStatus = "not_used" | "used";
 export type TicketPaymentStatus = "pending" | "cancel" | "paid";
 
@@ -9,8 +7,7 @@ export interface Ticket {
   status: TicketStatus;
   payment_status: TicketPaymentStatus;
   payment_id: number;
-  type: TicketType;
-  check_in: string;
+  date: string;
   slug: string;
   adults_quantity: number;
   children_quantity: number;
@@ -32,8 +29,7 @@ export interface TicketDTO {
   status?: TicketStatus;
   payment_status?: TicketPaymentStatus;
   payment_id?: number;
-  type?: TicketType;
-  check_in?: Date;
+  date?: Date;
   slug?: string;
   adults_quantity?: number;
   children_quantity?: number;

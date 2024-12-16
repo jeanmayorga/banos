@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { Suspense } from "react";
 
 import { Container } from "@/components/container";
@@ -8,6 +9,18 @@ import { PlacesSelect } from "../places/components/PlacesSelect";
 
 import { ListActivities } from "./components/ListActivities";
 import { Tabs } from "./components/Tabs";
+
+export const metadata: Metadata = {
+  title: "Que hacer en Banos de Agua Santa | Ecuador",
+  description: "Aqui tienes una lista de actividades para hacer en Banos de agua santa Ecuador",
+  applicationName: "Banos.app",
+  keywords: "que hacer en banos, ecuador, banos de agua santa, actividades, fotos",
+  robots: "index, follow",
+  openGraph: {
+    type: "website",
+    url: `https://banos.app/activities`,
+  },
+};
 
 interface Props {
   searchParams: {

@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 import { Container } from "@/components/container";
-import { Header } from "@/components/Header";
+import { Header } from "@/components/header";
 import { Typography } from "@/components/ui/typography";
 
 export default function Error({

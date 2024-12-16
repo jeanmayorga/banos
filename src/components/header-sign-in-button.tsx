@@ -1,21 +1,15 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircle, CircleUserRoundIcon, LoaderIcon, LogInIcon, XIcon } from "lucide-react";
+import { AlertCircle, CircleUserRoundIcon, Loader2Icon, LogInIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { authSignIn } from "@/app/auth/actions";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -27,8 +21,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 
-import { authSignIn } from "../actions";
-
 const Schema = z.object({
   email: z.string().min(1, { message: "El email es requerido." }).email("No es un email válido."),
   password: z.string().min(2, {
@@ -36,7 +28,7 @@ const Schema = z.object({
   }),
 });
 
-export function SignInButton() {
+export function HeaderSignInButton() {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
@@ -51,7 +43,12 @@ export function SignInButton() {
 
   async function onSubmit(data: z.infer<typeof Schema>) {
     setLoading(true);
-    const error = await authSignIn({ email: data.email, password: data.password });
+    const currentUrl = window.location.href;
+    const error = await authSignIn({
+      email: data.email,
+      password: data.password,
+      redirectTo: currentUrl,
+    });
 
     if (error) {
       setError(true);
@@ -68,9 +65,6 @@ export function SignInButton() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="text-3xl">Cuenta</DialogTitle>
-            <DialogDescription className="!mt-0">
-              Gestiona tus tickets de forma fácil y rápida
-            </DialogDescription>
           </DialogHeader>
           <Separator />
 
@@ -92,7 +86,7 @@ export function SignInButton() {
                     <FormLabel>Correo electrónico:</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="jean@hotmail.com"
+                        placeholder="micorreo@hotmail.com"
                         autoComplete=""
                         className="rounded-full bg-gray-50"
                         disabled={loading}
@@ -111,6 +105,7 @@ export function SignInButton() {
                     <FormLabel>Contraseña:</FormLabel>
                     <FormControl>
                       <Input
+                        placeholder="********"
                         type="password"
                         disabled={loading}
                         className="rounded-full bg-gray-50"
@@ -123,7 +118,7 @@ export function SignInButton() {
               />
               <div className="mt-8 flex justify-end">
                 <Button className="rounded-full" type="submit" disabled={loading}>
-                  {loading ? <LoaderIcon /> : <LogInIcon />}
+                  {loading ? <Loader2Icon className="animate-spin" /> : <LogInIcon />}
                   Iniciar sesión
                 </Button>
               </div>

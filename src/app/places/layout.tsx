@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { ReactNode } from "react";
 
-import { Header } from "@/components/Header";
+import { Header } from "@/components/header";
 
 export const metadata: Metadata = {
   title: "Que hacer en Banos de Agua Santa | Ecuador",

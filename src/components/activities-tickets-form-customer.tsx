@@ -2,11 +2,13 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRightIcon, Loader2Icon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Activity } from "@/app/activities/actions";
+import { updateTicket } from "@/app/tickets/actions";
+import { Ticket } from "@/app/tickets/types";
 import countries from "@/components/countries.json";
 import { Paper } from "@/components/paper";
 import { Button } from "@/components/ui/button";
@@ -27,9 +29,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { updateTicket } from "../actions";
-import { Ticket } from "../types";
-
 const FormSchema = z.object({
   customer_email: z
     .string()
@@ -43,28 +42,29 @@ const FormSchema = z.object({
 });
 
 interface Props {
-  activity: Activity;
-  ticket: Ticket;
+  uuid: string;
+  ticket?: Ticket | null;
 }
-export function CustomerInformation({ activity, ticket }: Props) {
-  const [loading, setLoading] = useState(true);
+export function ActivitiesTicketsFormCustomer({ uuid, ticket }: Props) {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      customer_email: ticket.customer_email || "",
-      customer_name: ticket.customer_name || "",
-      customer_document: ticket.customer_document || "cedula_de_identidad",
-      customer_id: ticket.customer_id || "",
-      customer_phone_country_code: ticket.customer_phone_country_code || "EC+593",
-      customer_phone: ticket.customer_phone || "",
+      customer_email: ticket?.customer_email || "",
+      customer_name: ticket?.customer_name || "",
+      customer_document: ticket?.customer_document || "cedula_de_identidad",
+      customer_id: ticket?.customer_id || "",
+      customer_phone_country_code: ticket?.customer_phone_country_code || "EC+593",
+      customer_phone: ticket?.customer_phone || "",
     },
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setLoading(true);
-    await updateTicket(ticket.uuid, data);
-    setLoading(false);
+    await updateTicket(uuid, data);
+    router.push(`/activities/tickets/${uuid}/payment`);
   }
 
   return (
