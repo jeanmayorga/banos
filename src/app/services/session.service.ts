@@ -11,6 +11,7 @@ export interface Session {
   role: "admin" | "business" | "visitor";
 }
 export async function getSession(): Promise<Session | null> {
+  console.log("-> getSession()");
   const supabase = await createClient();
   const { data: userData, error: userError } = await supabase.auth.getUser();
   const { data: profileData, error: profileError } = await supabase

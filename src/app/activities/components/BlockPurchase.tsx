@@ -82,7 +82,7 @@ export function BlockPurchase({ activity }: Props) {
 
   return (
     <div className="relative mb-8 overflow-hidden rounded-3xl bg-white py-8 shadow-sm">
-      <div className="mb-6 flex border-b border-dashed px-8 pb-6">
+      <div className="mb-6 flex border-b border-dashed px-4 pb-6 md:px-8">
         <TicketCheckIcon className="mr-2 mt-[-2px] text-gray-500" />
         <div>
           <h2 className="text-xl leading-none tracking-tight text-gray-600">Comprar entradas</h2>
@@ -92,7 +92,7 @@ export function BlockPurchase({ activity }: Props) {
         </div>
       </div>
 
-      <div className="space-y-4 px-8">
+      <div className="space-y-4 px-4 md:px-8">
         <div className="relative flex flex-col">
           <div className="mb-1 text-sm tracking-tight text-gray-600">¿Cuándo quieres ir?</div>
           <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>

@@ -1,3 +1,5 @@
+import { formatDate } from "date-fns";
+import { es } from "date-fns/locale";
 import { notFound } from "next/navigation";
 import { ReactNode } from "react";
 
@@ -7,6 +9,7 @@ import { ActivitiesTicketsSummary } from "@/components/activities-tickets-summar
 import { Container } from "@/components/container";
 import ScrollUp from "@/components/ScrollUp";
 import { Title } from "@/components/Title";
+import { capitalize } from "@/utils/capitalize";
 
 interface Props {
   params: {
@@ -29,11 +32,17 @@ export default async function Layout({ params, children }: Props) {
       <ScrollUp />
       <Container className="my-4 md:my-24">
         <Title
-          title={`Entrada - ${activity.fields.title}`}
-          subtitle={`Código #${uuid.split("-")[4]}`}
+          subtitle={capitalize(
+            formatDate(new Date(ticket.date), "EEEE, d 'de' MMMM 'del' yyyy", { locale: es }),
+          )}
+          title={activity.fields.title}
         />
-        <div className="grid gap-4 md:grid-cols-3">
-          <div className="col-span-2">{children}</div>
+        {/* <Title
+          title={`Entrada para ${activity.fields.title}`}
+          subtitle={`Código único #${uuid.split("-")[4]}`}
+        /> */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="mb-4 md:col-span-2 md:mb-0">{children}</div>
           <ActivitiesTicketsSummary ticket={ticket} activity={activity} />
         </div>
       </Container>

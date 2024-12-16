@@ -18,7 +18,7 @@ export function ActivitiesFormTicketPayment({ uuid, ticket }: Props) {
   return (
     <>
       <Paper className="mb-8 p-8">
-        <h2 className="mb-8 text-xl leading-none tracking-tight text-gray-600">
+        <h2 className="mb-8 text-xl leading-none tracking-tight text-gray-600 dark:text-gray-100">
           ¿Cómo te gustaría pagar?
         </h2>
         <div>
@@ -34,7 +34,7 @@ export function ActivitiesFormTicketPayment({ uuid, ticket }: Props) {
                 </span>
               </AccordionTrigger>
               <AccordionContent>
-                <div className="mb-4 rounded-3xl bg-gray-50 p-6">
+                <div className="mb-4 rounded-3xl bg-gray-50 p-6 dark:bg-gray-900">
                   <TitleMini className="mb-4">Datos para la transferencia</TitleMini>
                   <p>Daniel Esteban Chávez</p>
                   <p>Cuenta de ahorro transaccional</p>
@@ -71,7 +71,7 @@ export function ActivitiesFormTicketPayment({ uuid, ticket }: Props) {
       </Paper>
 
       <Paper className="mb-8 p-8">
-        <h2 className="mb-8 text-xl leading-none tracking-tight text-gray-600">
+        <h2 className="mb-8 text-xl leading-none tracking-tight text-gray-600 dark:text-gray-100">
           Persona asignada para el pago manual
         </h2>
         <div className="flex justify-between">
@@ -82,7 +82,9 @@ export function ActivitiesFormTicketPayment({ uuid, ticket }: Props) {
             </Avatar>
             <div>
               <H4>Daniel Esteban Chávez</H4>
-              <p className="text-sm font-medium text-gray-500">Soporte</p>
+              <p className="text-xs font-medium text-gray-500 dark:text-gray-300">
+                daniel@banos.app
+              </p>
             </div>
           </div>
           <div className="flex gap-2">

@@ -110,7 +110,7 @@ export function ActivitiesTicketsFormCustomer({ uuid, ticket }: Props) {
             )}
           />
 
-          <div className="mb-4 grid grid-cols-3 gap-4">
+          <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
             <FormField
               control={form.control}
               name="customer_document"
@@ -134,7 +134,7 @@ export function ActivitiesTicketsFormCustomer({ uuid, ticket }: Props) {
                 </FormItem>
               )}
             />
-            <div className="col-span-2">
+            <div className="md:col-span-2">
               <FormField
                 control={form.control}
                 name="customer_id"
@@ -151,7 +151,7 @@ export function ActivitiesTicketsFormCustomer({ uuid, ticket }: Props) {
             </div>
           </div>
 
-          <div className="mb-4 grid grid-cols-3 gap-4">
+          <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
             <FormField
               control={form.control}
               name="customer_phone_country_code"
@@ -192,7 +192,7 @@ export function ActivitiesTicketsFormCustomer({ uuid, ticket }: Props) {
                 </FormItem>
               )}
             />
-            <div className="col-span-2">
+            <div className="md:col-span-2">
               <FormField
                 control={form.control}
                 name="customer_phone"

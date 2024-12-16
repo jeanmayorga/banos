@@ -55,8 +55,10 @@ export function ActivitiesTicketsSummary({ ticket, activity }: Props) {
   return (
     <Paper className="py-4">
       <Section className="flex justify-center border-b-0 pb-4">
-        <TicketCheckIcon className="mr-2 mt-[-2px] text-gray-500" />
-        <h2 className="text-xl leading-none tracking-tight text-gray-600">Ticket/Entrada</h2>
+        <TicketCheckIcon className="mr-2 mt-[-2px] text-gray-500 dark:text-gray-100" />
+        <h2 className="text-xl leading-none tracking-tight text-gray-600 dark:text-gray-100">
+          Ticket/Entrada
+        </h2>
       </Section>
       <Section className="flex justify-center pb-8">
         <QRCodeSVG value={ticket.uuid} />
@@ -74,7 +76,7 @@ export function ActivitiesTicketsSummary({ ticket, activity }: Props) {
         />
         <div className="flex flex-col justify-center">
           <H3>{activity.fields.title}</H3>
-          <div className="flex items-center text-gray-500">
+          <div className="flex items-center text-gray-500 dark:text-gray-100">
             <Clock className="mr-[3px] h-[14px] w-[14px]" />
             <div className="text-sm">
               Horario {activity.fields.openAt} - {activity.fields.closeAt}
@@ -109,28 +111,28 @@ export function ActivitiesTicketsSummary({ ticket, activity }: Props) {
         )}
       </Section>
       <Section className="flex flex-col">
-        <div className="flex w-full justify-between text-sm text-gray-500">
+        <div className="flex w-full justify-between text-sm text-gray-500 dark:text-gray-300">
           <span>
             Adultos: ({adultsQuantity} x ${adultsPrice.toFixed(2)})
           </span>
           <span>${adultsTotal.toFixed(2)}</span>
         </div>
-        <div className="mb-4 flex w-full justify-between text-sm text-gray-500">
+        <div className="mb-4 flex w-full justify-between text-sm text-gray-500 dark:text-gray-300">
           <span>
             Menores: ({childrenQuantity} x ${childrenPrice.toFixed(2)})
           </span>
           <span>${childrenTotal.toFixed(2)}</span>
         </div>
-        <div className="flex w-full justify-between text-sm text-gray-500">
+        <div className="flex w-full justify-between text-sm text-gray-500 dark:text-gray-300">
           <span>Impuestos:</span>
           <span>${taxAmount.toFixed(2)}</span>
         </div>
-        <div className="mb-4 flex w-full justify-between text-sm text-gray-500">
+        <div className="mb-4 flex w-full justify-between text-sm text-gray-500 dark:text-gray-300">
           <span>Subtotal:</span>
           <span>${subTotalAmount.toFixed(2)}</span>
         </div>
         <Separator className="mb-2" />
-        <div className="flex w-full justify-between text-base font-medium text-gray-900">
+        <div className="flex w-full justify-between text-base font-medium text-gray-900 dark:text-white">
           <span>Total:</span>
           <span>${totalAmount.toFixed(2)}</span>
         </div>

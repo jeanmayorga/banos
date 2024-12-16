@@ -5,6 +5,8 @@ interface Props {
 }
 export function H4({ children }: Props) {
   return (
-    <h4 className="truncate text-base leading-none tracking-tight text-gray-600">{children}</h4>
+    <h4 className="truncate text-base leading-none tracking-tight text-gray-600 dark:text-white">
+      {children}
+    </h4>
   );
 }

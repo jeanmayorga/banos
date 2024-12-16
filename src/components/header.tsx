@@ -18,25 +18,25 @@ export async function Header() {
     <header
       className={cn(
         "sticky top-0 z-30 flex flex-row items-center justify-between bg-white px-8 py-4 shadow-sm dark:border-b dark:border-gray-800 dark:bg-black dark:shadow-black md:top-6 md:mx-auto md:mb-12 md:w-full md:rounded-3xl md:dark:border",
-        session ? "md:max-w-5xl" : "md:max-w-2xl",
+        session ? "pl-4 pr-2 md:max-w-4xl" : "md:max-w-2xl",
       )}
     >
       <Link href="/">
         <Logo size="sm" className="text-[#00a7ac] dark:text-white" />
       </Link>
-      <div className="absolute left-[130px] hidden border-l border-l-gray-100 md:block">
+      <div className={cn("absolute left-1/2 hidden -translate-x-1/2 md:block")}>
         <Link href="/activities">
           <Button variant="ghost" className="rounded-full">
             <TentTree className="h-4 w-4" />
             Actividades
           </Button>
         </Link>
-        <Link href="/tickets">
+        {/* <Link href="/tickets">
           <Button variant="ghost" className="rounded-full">
             <TicketIcon className="h-4 w-4" />
             Mis tickets
           </Button>
-        </Link>
+        </Link> */}
         {session && <HeaderTicketScanButton />}
       </div>
       <div className="flex space-x-4">
