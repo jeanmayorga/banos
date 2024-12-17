@@ -36,12 +36,12 @@ export function AccountWelcome({ user }: Props) {
         </div>
 
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-end">
-          <Button variant="secondary" className="w-full rounded-full md:w-auto">
+          <Button variant="secondary" className="w-full rounded-full md:w-auto" disabled>
             <UserRoundPenIcon />
             Actualizar perfil
           </Button>
           <Button
-            variant="destructive"
+            variant="secondary"
             className="w-full rounded-full md:w-auto"
             onClick={handleSignOut}
           >

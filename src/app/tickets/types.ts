@@ -26,6 +26,7 @@ export interface Ticket {
   whatsapp_message_sent: boolean;
   email_message_sent: boolean;
   created_at: string;
+  used_at: string;
 }
 
 export interface TicketDTO {
@@ -51,4 +52,5 @@ export interface TicketDTO {
   customer_email?: string | null;
   whatsapp_message_sent?: boolean;
   email_message_sent?: boolean;
+  used_at?: string;
 }

@@ -106,7 +106,7 @@ export default async function Page({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <ScrollUp />
-      <Container className="md:my-24">
+      <Container>
         <Breadcrumds
           className="mb-0"
           items={[

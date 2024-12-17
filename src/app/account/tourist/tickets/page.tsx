@@ -1,5 +1,5 @@
 import { getSession } from "@/app/services/session.service";
-import { AccountTickets } from "@/components/account-tickets";
+import { AccountTouristTickets } from "@/components/account-tourist-tickets";
 import { AccountWelcome } from "@/components/account-welcome";
 import { Container } from "@/components/container";
 import { TabLink } from "@/components/tab-link";
@@ -16,7 +16,7 @@ export default async function Page() {
           <TabLink href="/account/tourist">Inicio</TabLink>
           <TabLink href="/account/tourist/tickets">Mis tickets</TabLink>
         </nav>
-        <AccountTickets userUuid={user.uuid} />
+        <AccountTouristTickets userUuid={user.uuid} />
       </Container>
     </div>
   );

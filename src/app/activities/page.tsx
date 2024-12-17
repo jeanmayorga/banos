@@ -33,7 +33,7 @@ interface Props {
 export default async function Page({ searchParams }: Props) {
   return (
     <>
-      <Container className="mt-12 md:mt-24">
+      <Container className="mt-4">
         <Title
           title="Encuentra actividades"
           subtitle="Si estás en Baños y no sabes qué hacer, no te preocupes. Aqui te ayudamos."

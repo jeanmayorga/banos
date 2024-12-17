@@ -61,8 +61,9 @@ export function ActivitiesTicketsFormCustomer({ uuid, ticket, session }: Props) 
     defaultValues: {
       customer_email: session?.user.email || ticket?.customer_email || "",
       customer_name: session?.user.full_name || ticket?.customer_name || "",
-      customer_document: ticket?.customer_document || "cedula_de_identidad",
-      customer_id: ticket?.customer_id || "",
+      customer_document:
+        session?.user.document || ticket?.customer_document || "cedula_de_identidad",
+      customer_id: session?.user.document_id || ticket?.customer_id || "",
       customer_phone_country_code:
         session?.user.phone_country_code || ticket?.customer_phone_country_code || "EC+593",
       customer_phone: session?.user.phone || ticket?.customer_phone || "",

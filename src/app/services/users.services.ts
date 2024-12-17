@@ -9,6 +9,8 @@ export interface User {
   role: string;
   phone_country_code: string;
   phone: string;
+  document: string;
+  document_id: string;
 }
 
 export async function getUserByUuid(uuid: string): Promise<User | null> {

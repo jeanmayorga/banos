@@ -31,30 +31,30 @@ export default async function Page() {
         <div className="grid gap-4 md:grid-cols-3">
           <Paper className="flex p-6">
             <div className="mr-4">
-              <div className="flex items-center justify-center rounded-full bg-orange-200 p-3">
-                <TicketsIcon className="h-5 w-5 text-orange-500" />
+              <div className="flex items-center justify-center rounded-full bg-teal-300 p-3">
+                <TicketsIcon className="h-5 w-5 text-black/50" />
               </div>
             </div>
             <div>
-              <div className="mb-1 text-xs text-gray-500">Tickes creados</div>
+              <div className="mb-1 text-xs text-gray-500">Tickets creados</div>
               <H3 className="text-xl font-medium leading-none">{tickets.length}</H3>
             </div>
           </Paper>
           <Paper className="flex p-6">
             <div className="mr-4">
-              <div className="flex items-center justify-center rounded-full bg-green-200 p-3">
-                <TicketsIcon className="h-5 w-5 text-green-500" />
+              <div className="flex items-center justify-center rounded-full bg-teal-300 p-3">
+                <TicketsIcon className="h-5 w-5 text-black/50" />
               </div>
             </div>
             <div>
-              <div className="mb-1 text-xs text-gray-500">Tickes comprados</div>
+              <div className="mb-1 text-xs text-gray-500">Tickets pagados</div>
               <H3 className="text-xl font-medium leading-none">{totalPaidTickets.length}</H3>
             </div>
           </Paper>
           <Paper className="flex p-6">
             <div className="mr-4">
-              <div className="flex items-center justify-center rounded-full bg-green-200 p-3">
-                <DollarSignIcon className="h-5 w-5 text-green-500" />
+              <div className="flex items-center justify-center rounded-full bg-teal-300 p-3">
+                <DollarSignIcon className="h-5 w-5 text-black/50" />
               </div>
             </div>
             <div>

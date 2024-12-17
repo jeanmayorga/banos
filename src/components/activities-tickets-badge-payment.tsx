@@ -7,8 +7,8 @@ export function ActivitiesTicketsBadgePayment({ status }: { status?: TicketPayme
   return (
     <Badge
       className={cn(
-        status === "pending" && "bg-amber-500 hover:bg-amber-600",
-        status === "paid" && "bg-green-600 hover:bg-green-700",
+        status === "pending" && "bg-amber-200 text-black/60 hover:bg-amber-200",
+        status === "paid" && "bg-green-200 text-black/60 hover:bg-green-200",
       )}
     >
       {(status === "pending" || !status) && "Pendiente de pago"}

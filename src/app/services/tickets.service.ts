@@ -5,7 +5,11 @@ import { Ticket } from "../tickets/types";
 
 export async function getTicketsByUserUuid(uuid: string) {
   const supabase = await createClient();
-  const { data, error } = await supabase.from("tickets").select("*").eq("user_uuid", uuid);
+  const { data, error } = await supabase
+    .from("tickets")
+    .select("*")
+    .eq("user_uuid", uuid)
+    .order("created_at", { ascending: false });
 
   if (error) {
     console.error("getTickets error:", error);
