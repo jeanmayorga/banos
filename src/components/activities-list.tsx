@@ -68,7 +68,7 @@ export function ActivitiesList({ searchParams }: Props) {
   }, [searchParams, refetch]);
 
   return (
-    <div className="mb-24 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+    <div className="mb-24 grid grid-cols-2 gap-4 md:grid-cols-3">
       {isRefetching && <ActivitiesListSkeleton count={DEFAULT_LIMIT_ITEMS} />}
       {data?.pages
         .flat()
