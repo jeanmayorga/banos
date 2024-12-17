@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+import { Paper } from "@/components/paper";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { TypeActivitySkeleton } from "@/contentful";
@@ -33,10 +34,7 @@ export function Card({ activity, idx }: Props) {
   const images = activity.fields.images;
 
   return (
-    <div
-      className="group flex flex-col overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm dark:border-gray-800 dark:bg-black dark:shadow-black"
-      onMouseOver={() => setIsLoaded(true)}
-    >
+    <Paper className="group flex flex-col overflow-hidden" onMouseOver={() => setIsLoaded(true)}>
       <div className="relative w-full overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {images.map((image) => (
@@ -45,7 +43,7 @@ export function Card({ activity, idx }: Props) {
               key={image?.sys.id}
               role="group"
               aria-roledescription="slide"
-              className="relative h-[280px] w-full shrink-0 grow-0 lg:h-[200px]"
+              className="relative aspect-square w-full shrink-0 grow-0 md:aspect-[12/9]"
             >
               <Image
                 src={getImageUrl(image) || ""}
@@ -154,6 +152,6 @@ export function Card({ activity, idx }: Props) {
           )}
         </span>
       </Link>
-    </div>
+    </Paper>
   );
 }

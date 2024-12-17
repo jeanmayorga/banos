@@ -61,7 +61,7 @@ export function ActivitiesTicketsSummary({ ticket, activity }: Props) {
         </h2>
       </Section>
       <Section className="flex justify-center pb-8">
-        <QRCodeSVG value={ticket.uuid} />
+        <QRCodeSVG value={ticket.uuid} size={ticket.payment_status === "paid" ? 256 : 128} />
       </Section>
       <Section className="flex justify-center">
         <ActivitiesTicketsBadgePayment status={ticket.payment_status} />

@@ -19,7 +19,6 @@ export default function Error({
 
   return (
     <>
-      <Header />
       <div className="flex h-60 items-center justify-center">
         <Container>
           <Typography variant="h1" className="text-center text-6xl text-gray-500">

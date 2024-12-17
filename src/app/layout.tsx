@@ -25,7 +25,7 @@ interface Props {
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="es" className={inter.className}>
-      <body className="bg-gray-50 dark:bg-black">
+      <body>
         <LayoutReactQuery>
           <ThemeProvider
             attribute="class"
@@ -36,7 +36,7 @@ export default function RootLayout({ children }: Props) {
             <NuqsAdapter>
               <Header />
               {children}
-              <Footer />
+              {/* <Footer /> */}
               <Toaster />
             </NuqsAdapter>
           </ThemeProvider>

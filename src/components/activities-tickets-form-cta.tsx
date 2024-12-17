@@ -16,20 +16,22 @@ import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import toast from "react-hot-toast";
 
+import { Activity } from "@/app/activities/actions";
+import { DEFAULT_MAX_ADULTS, DEFAULT_MAX_CHILDREN } from "@/app/activities/config";
+import { Session } from "@/app/services/session.service";
 import { createTicket } from "@/app/tickets/actions";
+import { Paper } from "@/components/paper";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
-import { Activity } from "../actions";
-import { DEFAULT_MAX_ADULTS, DEFAULT_MAX_CHILDREN } from "../config";
-
 interface Props {
   activity: Activity;
+  session?: Session | null;
 }
-export function BlockPurchase({ activity }: Props) {
+export function ActivitiesTicketsFormCta({ activity, session }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -60,6 +62,7 @@ export function BlockPurchase({ activity }: Props) {
     }
     setLoading(true);
     const ticket = await createTicket({
+      user_uuid: session?.user?.uuid,
       date: date,
       slug: activity.fields.slug,
       adults_quantity: adults,
@@ -81,11 +84,13 @@ export function BlockPurchase({ activity }: Props) {
   }
 
   return (
-    <div className="relative mb-8 overflow-hidden rounded-3xl bg-white py-8 shadow-sm">
+    <Paper className="relative mb-8 overflow-hidden py-8">
       <div className="mb-6 flex border-b border-dashed px-4 pb-6 md:px-8">
-        <TicketCheckIcon className="mr-2 mt-[-2px] text-gray-500" />
+        <TicketCheckIcon className="mr-2 mt-[-2px] text-gray-500 dark:text-gray-100" />
         <div>
-          <h2 className="text-xl leading-none tracking-tight text-gray-600">Comprar entradas</h2>
+          <h2 className="text-xl leading-none tracking-tight text-gray-600 dark:text-gray-100">
+            Comprar entradas
+          </h2>
           <p className="text-sm tracking-tight text-gray-400">
             Al terminar la compra, recibirás un código QR.
           </p>
@@ -94,7 +99,9 @@ export function BlockPurchase({ activity }: Props) {
 
       <div className="space-y-4 px-4 md:px-8">
         <div className="relative flex flex-col">
-          <div className="mb-1 text-sm tracking-tight text-gray-600">¿Cuándo quieres ir?</div>
+          <div className="mb-1 text-sm tracking-tight text-gray-600 dark:text-gray-200">
+            ¿Cuándo quieres ir?
+          </div>
           <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
             <PopoverTrigger disabled={loading}>
               <Button
@@ -124,14 +131,16 @@ export function BlockPurchase({ activity }: Props) {
         </div>
 
         <div className="flex flex-col">
-          <div className="mb-1 text-sm tracking-tight text-gray-600">¿Cuántas personas son?</div>
+          <div className="mb-1 text-sm tracking-tight text-gray-600 dark:text-gray-100">
+            ¿Cuántas personas son?
+          </div>
           <Popover>
             <PopoverTrigger asChild disabled={loading}>
               <Button
                 disabled={loading}
                 variant="outline"
                 className={cn(
-                  "group w-full justify-start rounded-full bg-white pl-3 font-normal text-gray-400 hover:text-gray-500",
+                  "group w-full justify-start rounded-full pl-3 font-normal text-gray-400 hover:text-gray-500",
                 )}
               >
                 <UsersRoundIcon className="h-4 w-4" />
@@ -214,21 +223,21 @@ export function BlockPurchase({ activity }: Props) {
         <p className="text-center text-xs text-gray-400">No se hará ningún cargo por el momento</p>
 
         <div className="tracking-tight">
-          <div className="flex justify-between text-sm text-gray-500">
+          <div className="flex justify-between text-sm text-gray-500 dark:text-gray-400">
             <span>Total adultos:</span>
             <span>${(adults * adultsPrice).toFixed(2)}</span>
           </div>
-          <div className="mb-4 flex justify-between text-sm text-gray-500">
+          <div className="mb-4 flex justify-between text-sm text-gray-500 dark:text-gray-400">
             <span>Total menores:</span>
             <span>${(children * childPrice).toFixed(2)}</span>
           </div>
           <Separator className="mb-4" />
-          <div className="flex justify-between text-base font-medium text-gray-600">
+          <div className="flex justify-between text-base font-medium text-gray-600 dark:text-gray-300">
             <span>Total con impuestos</span>
             <span>${total.toFixed(2)}</span>
           </div>
         </div>
       </div>
-    </div>
+    </Paper>
   );
 }

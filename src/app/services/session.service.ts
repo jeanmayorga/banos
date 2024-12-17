@@ -1,40 +1,26 @@
 "use server";
 
+import { User as SessionUser } from "@supabase/supabase-js";
+
 import { createClient } from "@/utils/supabase/server";
 
+import { getUserByUuid, User } from "./users.services";
+
 export interface Session {
-  id: string;
-  firstName: string;
-  lastName: string;
-  businessName: string;
-  email: string;
-  role: "admin" | "business" | "visitor";
+  session: SessionUser;
+  user: User;
 }
 export async function getSession(): Promise<Session | null> {
-  console.log("-> getSession()");
   const supabase = await createClient();
-  const { data: userData, error: userError } = await supabase.auth.getUser();
-  const { data: profileData, error: profileError } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", userData.user?.id)
-    .single();
+  const session = await supabase.auth.getUser();
+  if (!session.data || session.error) return null;
 
-  if (userError || profileError) {
-    console.log(`Error getSession`, { userError, profileError });
-    return null;
-  }
+  const user = await getUserByUuid(session.data.user.id);
+  if (!user) return null;
 
-  if (profileData && userData.user && userData.user.email) {
-    return {
-      id: userData.user.id,
-      firstName: profileData.first_name,
-      lastName: profileData.last_name,
-      businessName: profileData.business_name,
-      email: userData.user.email,
-      role: profileData.role,
-    };
-  }
-
-  return null;
+  console.log(`getSession() ->`, session.data.user);
+  return {
+    session: session.data.user,
+    user,
+  };
 }

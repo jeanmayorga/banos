@@ -5,7 +5,12 @@ import { Badge } from "./ui/badge";
 
 export function ActivitiesTicketsBadgePayment({ status }: { status?: TicketPaymentStatus }) {
   return (
-    <Badge className={cn(status === "pending" && "bg-amber-500 hover:bg-amber-600")}>
+    <Badge
+      className={cn(
+        status === "pending" && "bg-amber-500 hover:bg-amber-600",
+        status === "paid" && "bg-green-600 hover:bg-green-700",
+      )}
+    >
       {(status === "pending" || !status) && "Pendiente de pago"}
       {status === "paid" && "Pagada"}
       {status === "cancel" && "Cancelada"}

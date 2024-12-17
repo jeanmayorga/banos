@@ -15,12 +15,12 @@ export const createTicket = async (ticket: TicketDTO) => {
   return data as unknown as Ticket;
 };
 
-export const updateTicket = async (uuid: string, ticket: TicketDTO) => {
+export const updateTicket = async (dto: TicketDTO) => {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("tickets")
-    .update(ticket)
-    .eq("uuid", uuid)
+    .update(dto)
+    .eq("uuid", dto.uuid)
     .select("*")
     .single();
 
@@ -29,6 +29,7 @@ export const updateTicket = async (uuid: string, ticket: TicketDTO) => {
     return null;
   }
 
+  console.log(`updateTicket() ->`, data);
   return data as unknown as Ticket;
 };
 

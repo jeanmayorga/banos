@@ -1,13 +1,14 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 
+import { ActivitiesList } from "@/components/activities-list";
 import { Container } from "@/components/container";
+import { Paper } from "@/components/paper";
 import { Search } from "@/components/search";
 import { Title } from "@/components/Title";
 
 import { PlacesSelect } from "../places/components/PlacesSelect";
 
-import { ListActivities } from "./components/ListActivities";
 import { Tabs } from "./components/Tabs";
 
 export const metadata: Metadata = {
@@ -38,18 +39,18 @@ export default async function Page({ searchParams }: Props) {
           subtitle="Si estás en Baños y no sabes qué hacer, no te preocupes. Aqui te ayudamos."
         />
 
-        <div className="mb-4 grid gap-4 rounded-3xl border border-transparent bg-white p-4 shadow-sm dark:border-gray-800 dark:bg-black md:grid-cols-2">
+        <Paper className="mb-4 grid gap-4 p-4 md:grid-cols-2">
           <Suspense>
             <Search />
             <PlacesSelect />
           </Suspense>
-        </div>
-        <div className="mb-4 rounded-3xl border border-transparent bg-white p-4 shadow-sm dark:border-gray-800 dark:bg-black">
+        </Paper>
+        <Paper className="mb-4 p-4">
           <Suspense>
             <Tabs />
           </Suspense>
-        </div>
-        <ListActivities searchParams={searchParams} />
+        </Paper>
+        <ActivitiesList searchParams={searchParams} />
       </Container>
     </>
   );

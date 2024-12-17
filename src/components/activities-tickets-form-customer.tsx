@@ -3,10 +3,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRightIcon, Loader2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { Session } from "@/app/services/session.service";
+import { updateUser } from "@/app/services/users.services";
 import { updateTicket } from "@/app/tickets/actions";
 import { Ticket } from "@/app/tickets/types";
 import countries from "@/components/countries.json";
@@ -29,6 +31,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { Checkbox } from "./ui/checkbox";
+
 const FormSchema = z.object({
   customer_email: z
     .string()
@@ -39,31 +43,63 @@ const FormSchema = z.object({
   customer_id: z.string().min(2, { message: "Mínimo debe tener 2 caracteres." }),
   customer_phone_country_code: z.string(),
   customer_phone: z.string().min(2, { message: "Mínimo debe tener 2 caracteres." }),
+  save_phone: z.boolean(),
+  save_document: z.boolean(),
 });
 
 interface Props {
   uuid: string;
   ticket?: Ticket | null;
+  session?: Session | null;
 }
-export function ActivitiesTicketsFormCustomer({ uuid, ticket }: Props) {
+export function ActivitiesTicketsFormCustomer({ uuid, ticket, session }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      customer_email: ticket?.customer_email || "",
-      customer_name: ticket?.customer_name || "",
+      customer_email: session?.user.email || ticket?.customer_email || "",
+      customer_name: session?.user.full_name || ticket?.customer_name || "",
       customer_document: ticket?.customer_document || "cedula_de_identidad",
       customer_id: ticket?.customer_id || "",
-      customer_phone_country_code: ticket?.customer_phone_country_code || "EC+593",
-      customer_phone: ticket?.customer_phone || "",
+      customer_phone_country_code:
+        session?.user.phone_country_code || ticket?.customer_phone_country_code || "EC+593",
+      customer_phone: session?.user.phone || ticket?.customer_phone || "",
+      save_phone: true,
+      save_document: true,
     },
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setLoading(true);
-    await updateTicket(uuid, data);
+    await updateTicket({
+      uuid: uuid,
+      customer_email: data.customer_email,
+      customer_name: data.customer_name,
+      customer_document: data.customer_document,
+      customer_id: data.customer_id,
+      customer_phone_country_code: data.customer_phone_country_code,
+      customer_phone: data.customer_phone,
+    });
+
+    if (session) {
+      if (data.save_phone) {
+        await updateUser({
+          uuid: session?.user.uuid,
+          phone_country_code: data.customer_phone_country_code,
+          phone: data.customer_phone,
+        });
+      }
+      if (data.save_document) {
+        await updateUser({
+          uuid: session?.user.uuid,
+          document: data.customer_document,
+          document_id: data.customer_id,
+        });
+      }
+    }
+
     router.push(`/activities/tickets/${uuid}/payment`);
   }
 
@@ -75,13 +111,13 @@ export function ActivitiesTicketsFormCustomer({ uuid, ticket }: Props) {
             ¿A dónde enviamos tus tickets?
           </h2>
           <p className="mb-4 text-sm text-gray-400">
-            El email que elijas será fundamental para que gestiones tu reserva.
+            El email o whatsapp que elijas será fundamental para que gestiones tu reserva.
           </p>
           <FormField
             control={form.control}
             name="customer_email"
             render={({ field }) => (
-              <FormItem className="space-y-0">
+              <FormItem className="mb-4 space-y-0">
                 <FormLabel className="text-gray-600">Correo electrónico</FormLabel>
                 <FormControl>
                   <Input placeholder="ejemplo@gmail.com" {...field} />
@@ -90,6 +126,80 @@ export function ActivitiesTicketsFormCustomer({ uuid, ticket }: Props) {
               </FormItem>
             )}
           />
+
+          <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <FormField
+              control={form.control}
+              name="customer_phone_country_code"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-gray-600">Código de país</FormLabel>
+
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {countries.map((country) => (
+                        <SelectItem
+                          key={`${country.code}${country.phone_code}`}
+                          value={`${country.code}${country.phone_code}`}
+                        >
+                          <div className="flex items-center">
+                            <img
+                              alt={country.name}
+                              src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${country.code}.svg`}
+                              width={20}
+                              height={15}
+                              className="mr-1 rounded-sm"
+                            />
+                            <span>
+                              {country.name} ({country.phone_code})
+                            </span>
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="md:col-span-2">
+              <FormField
+                control={form.control}
+                name="customer_phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-gray-600">Número de whatsapp</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+          {session && (
+            <FormField
+              control={form.control}
+              name="save_phone"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 px-0">
+                  <FormControl>
+                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>Guardar mi número de whatsapp para futuras compras</FormLabel>
+                  </div>
+                </FormItem>
+              )}
+            />
+          )}
         </Paper>
         <Paper className="mb-8 p-8">
           <h2 className="mb-4 text-xl leading-none tracking-tight text-gray-600">
@@ -151,63 +261,22 @@ export function ActivitiesTicketsFormCustomer({ uuid, ticket }: Props) {
             </div>
           </div>
 
-          <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
+          {session && (
             <FormField
               control={form.control}
-              name="customer_phone_country_code"
+              name="save_document"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-gray-600">Código de país</FormLabel>
-
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {countries.map((country) => (
-                        <SelectItem
-                          key={`${country.code}${country.phone_code}`}
-                          value={`${country.code}${country.phone_code}`}
-                        >
-                          <div className="flex items-center">
-                            <img
-                              alt={country.name}
-                              src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${country.code}.svg`}
-                              width={20}
-                              height={15}
-                              className="mr-1 rounded-sm"
-                            />
-                            <span>
-                              {country.name} ({country.phone_code})
-                            </span>
-                          </div>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-
-                  <FormMessage />
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 px-0">
+                  <FormControl>
+                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>Guardar mi número de documento</FormLabel>
+                  </div>
                 </FormItem>
               )}
             />
-            <div className="md:col-span-2">
-              <FormField
-                control={form.control}
-                name="customer_phone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-gray-600">Número de teléfono</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-          </div>
+          )}
         </Paper>
         <div className="flex justify-end">
           <Button type="submit" className="rounded-3xl" disabled={loading}>

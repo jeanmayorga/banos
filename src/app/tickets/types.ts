@@ -4,6 +4,7 @@ export type TicketPaymentStatus = "pending" | "cancel" | "paid";
 export interface Ticket {
   id: number;
   uuid: string;
+  user_uuid: string | null;
   status: TicketStatus;
   payment_status: TicketPaymentStatus;
   payment_id: number;
@@ -22,10 +23,14 @@ export interface Ticket {
   customer_phone_country_code: string | null;
   customer_phone: string | null;
   customer_email: string | null;
+  whatsapp_message_sent: boolean;
+  email_message_sent: boolean;
   created_at: string;
 }
 
 export interface TicketDTO {
+  uuid?: string;
+  user_uuid?: string;
   status?: TicketStatus;
   payment_status?: TicketPaymentStatus;
   payment_id?: number;
@@ -44,4 +49,6 @@ export interface TicketDTO {
   customer_phone_country_code?: string | null;
   customer_phone?: string | null;
   customer_email?: string | null;
+  whatsapp_message_sent?: boolean;
+  email_message_sent?: boolean;
 }

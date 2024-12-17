@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { isProduction } from "@/api/contentful";
+import { getSession } from "@/app/services/session.service";
+import { ActivitiesTicketsFormCta } from "@/components/activities-tickets-form-cta";
 import ScrollUp from "@/components/ScrollUp";
 import { getImageUrl } from "@/lib/get-image-url";
 
@@ -14,7 +16,6 @@ import { getActivityBySlug, getActivities, addVisit } from "../actions";
 import { BlockDescription } from "../components/BlockDescription";
 import { BlockGoogleMaps } from "../components/BlockGoogleMaps";
 import { BlockImages } from "../components/BlockImages";
-import { BlockPurchase } from "../components/BlockPurchase";
 import { BlockYoutubeVideo } from "../components/BlockYoutubeVideo";
 
 export const dynamicParams = true;
@@ -66,6 +67,8 @@ export async function generateStaticParams() {
 export default async function Page({ params }: Props) {
   const activity = await getActivityBySlug(params.slug);
   if (!activity) return notFound();
+
+  const session = await getSession();
 
   const title = activity.fields.title;
   const place = activity.fields.place;
@@ -189,7 +192,9 @@ export default async function Page({ params }: Props) {
               )} */}
             </div>
 
-            {isPurchaseEnabled && <BlockPurchase activity={activity} />}
+            {isPurchaseEnabled && (
+              <ActivitiesTicketsFormCta session={session} activity={activity} />
+            )}
 
             <BlockDescription document={description} />
             <BlockYoutubeVideo youtubeVideo={youtubeVideo} />

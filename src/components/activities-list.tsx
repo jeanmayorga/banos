@@ -3,14 +3,13 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 
+import { GetActivityOptionsTab, getActivities } from "@/app/activities/actions";
+import { Card } from "@/app/activities/components/Card";
+import { DEFAULT_LIMIT_ITEMS } from "@/app/activities/config";
+import { getActivitiesIdsSaved } from "@/app/activities/hooks/useActivitySave";
 import { useObserver } from "@/hooks/useObserver";
 
-import { getActivities, GetActivityOptionsTab } from "../actions";
-import { DEFAULT_LIMIT_ITEMS } from "../config";
-import { getActivitiesIdsSaved } from "../hooks/useActivitySave";
-
-import { Card } from "./Card";
-import { ListActivitiesSkeleton } from "./ListActivitiesSkeleton";
+import { ActivitiesListSkeleton } from "./activities-list-skeleton";
 
 interface Props {
   searchParams: {
@@ -20,7 +19,7 @@ interface Props {
   };
   // initialData: Activity[];
 }
-export function ListActivities({ searchParams }: Props) {
+export function ActivitiesList({ searchParams }: Props) {
   const { data, isFetching, isRefetching, refetch, fetchNextPage } = useInfiniteQuery({
     // initialData: () => {
     //   return {
@@ -69,12 +68,12 @@ export function ListActivities({ searchParams }: Props) {
   }, [searchParams, refetch]);
 
   return (
-    <div className="mb-24 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-      {isRefetching && <ListActivitiesSkeleton />}
+    <div className="mb-24 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+      {isRefetching && <ActivitiesListSkeleton count={DEFAULT_LIMIT_ITEMS} />}
       {data?.pages
         .flat()
         .map((activity, idx) => <Card key={activity.fields.slug} activity={activity} idx={idx} />)}
-      {isFetching && <ListActivitiesSkeleton />}
+      {isFetching && <ActivitiesListSkeleton count={DEFAULT_LIMIT_ITEMS} />}
       <div ref={ref} />
     </div>
   );

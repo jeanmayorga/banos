@@ -1,5 +1,6 @@
 import { formatDate } from "date-fns";
 import { es } from "date-fns/locale";
+import { MailIcon } from "lucide-react";
 import { notFound } from "next/navigation";
 import { ReactNode } from "react";
 
@@ -7,8 +8,10 @@ import { getActivityBySlug } from "@/app/activities/actions";
 import { getTicket } from "@/app/tickets/actions";
 import { ActivitiesTicketsSummary } from "@/components/activities-tickets-summary";
 import { Container } from "@/components/container";
+import { WhatsappIcon } from "@/components/icon-whatsapp";
 import ScrollUp from "@/components/ScrollUp";
 import { Title } from "@/components/Title";
+import { Button } from "@/components/ui/button";
 import { capitalize } from "@/utils/capitalize";
 
 interface Props {
@@ -27,6 +30,25 @@ export default async function Layout({ params, children }: Props) {
 
   if (!ticket || !activity) return notFound();
 
+  if (ticket.payment_status === "paid") {
+    return (
+      <>
+        <ScrollUp />
+        <Container className="my-8 max-w-xl md:my-14">
+          <div className="mb-8 flex space-x-4">
+            <Button variant="outline" className="w-full rounded-full">
+              <MailIcon /> Reenviar a mi correo
+            </Button>
+            <Button variant="outline" className="w-full rounded-full">
+              <WhatsappIcon /> Reenviar a mi whatsapp
+            </Button>
+          </div>
+          <ActivitiesTicketsSummary ticket={ticket} activity={activity} />
+        </Container>
+      </>
+    );
+  }
+
   return (
     <>
       <ScrollUp />
@@ -43,7 +65,9 @@ export default async function Layout({ params, children }: Props) {
         /> */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <div className="mb-4 md:col-span-2 md:mb-0">{children}</div>
-          <ActivitiesTicketsSummary ticket={ticket} activity={activity} />
+          <div>
+            <ActivitiesTicketsSummary ticket={ticket} activity={activity} />
+          </div>
         </div>
       </Container>
     </>

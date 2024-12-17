@@ -9,13 +9,13 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 
-export function HeaderTicketScanButton() {
+export function AccountTicketScanButton() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      <Button className="rounded-full" variant="ghost" onClick={() => setOpen(true)}>
+      <Button className="rounded-full" variant="outline" onClick={() => setOpen(true)}>
         <ScanQrCodeIcon className="h-4 w-4" /> Escanear ticket
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
@@ -33,7 +33,7 @@ export function HeaderTicketScanButton() {
             }}
             onScan={(result) => {
               const uuid = result[0].rawValue;
-              router.push(`/dashboard/activities/tickets/${uuid}`);
+              router.push(`/activities/tickets/${uuid}`);
               console.log(uuid);
             }}
           />

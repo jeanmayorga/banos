@@ -22,7 +22,7 @@ export function BlockGoogleMaps({ location }: Props) {
   useEffect(() => {
     async function loadMap() {
       const loader = new Loader({
-        apiKey: "AIzaSyBn6Gu0M2bZgVZ-NioKAVtrrGc1yKraYk0",
+        apiKey: "AIzaSyBYhXZ5Mdf9GnpuxP_aOSsIFiLLtJgSH5I",
         version: "weekly",
         id: "__googleMapsScriptId",
         libraries: ["maps", "marker"],

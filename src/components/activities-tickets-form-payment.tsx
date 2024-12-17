@@ -1,7 +1,12 @@
-import { ArrowRightIcon, MailIcon, PhoneIcon } from "lucide-react";
+"use client";
+
+import { ArrowRightIcon, CopyIcon, MailIcon, PhoneIcon } from "lucide-react";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 import { Ticket } from "@/app/tickets/types";
 
+import { H3 } from "./h3";
 import { H4 } from "./h4";
 import { WhatsappIcon } from "./icon-whatsapp";
 import { Paper } from "./paper";
@@ -15,10 +20,22 @@ interface Props {
   ticket?: Ticket | null;
 }
 export function ActivitiesFormTicketPayment({ uuid, ticket }: Props) {
+  useEffect(() => {
+    const whatsappNumber = `${ticket?.customer_phone_country_code?.split(
+      "+",
+    )[1]}${ticket?.customer_phone}`;
+    console.log(`Send whatsapp message -> ${whatsappNumber}`);
+  }, [ticket?.customer_phone, ticket?.customer_phone_country_code]);
+
+  async function copyBankAccount() {
+    await navigator.clipboard.writeText("2204219584");
+    toast.success("Copiado en el portapapeles");
+  }
+
   return (
     <>
-      <Paper className="mb-8 p-8">
-        <h2 className="mb-8 text-xl leading-none tracking-tight text-gray-600 dark:text-gray-100">
+      <Paper className="mb-8 px-4 py-6 md:p-8">
+        <h2 className="mb-2 text-xl leading-none tracking-tight text-gray-600 dark:text-gray-100 md:mb-8">
           ¿Cómo te gustaría pagar?
         </h2>
         <div>
@@ -34,23 +51,40 @@ export function ActivitiesFormTicketPayment({ uuid, ticket }: Props) {
                 </span>
               </AccordionTrigger>
               <AccordionContent>
-                <div className="mb-4 rounded-3xl bg-gray-50 p-6 dark:bg-gray-900">
-                  <TitleMini className="mb-4">Datos para la transferencia</TitleMini>
-                  <p>Daniel Esteban Chávez</p>
-                  <p>Cuenta de ahorro transaccional</p>
-                  <p>2204592801</p>
-                </div>
-                <div>
-                  <a
-                    href={`https://wa.me/593996658237?text=Hola+mi+ticket+es+${uuid}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Button variant="secondary" className="rounded-full">
-                      <WhatsappIcon />
-                      Compartir comprobante de pago
+                <div className="mb-4 grid rounded-3xl border border-dashed md:grid-cols-2">
+                  <div className="border-b border-dashed p-6 md:border-b-0 md:border-r">
+                    <TitleMini className="mb-2">Total:</TitleMini>
+                    <p className="mb-4 text-base font-semibold leading-none tracking-tight">
+                      $ {ticket?.total_amount.toFixed(2)} USD
+                    </p>
+                    <TitleMini className="mb-2">Datos para la transferencia</TitleMini>
+
+                    <p className="text-base font-semibold leading-none tracking-tight">
+                      Daniel Esteban Chávez
+                    </p>
+                    <p className="text-sm leading-none">Cuenta de ahorro</p>
+                    <p className="mb-4 text-sm leading-none">2204219584</p>
+                    <Button
+                      className="w-full rounded-full"
+                      variant="outline"
+                      onClick={copyBankAccount}
+                    >
+                      2204219584 <CopyIcon />
                     </Button>
-                  </a>
+                  </div>
+                  <div className="flex items-center justify-center p-6">
+                    <a
+                      href={`https://wa.me/593996658237?text=Hola+mi+ticket+es+${uuid}+aqui+esta+mi+transferencia`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full"
+                    >
+                      <Button variant="outline" className="w-full rounded-full">
+                        <WhatsappIcon />
+                        Compartir comprobante
+                      </Button>
+                    </a>
+                  </div>
                 </div>
               </AccordionContent>
             </AccordionItem>
@@ -72,10 +106,10 @@ export function ActivitiesFormTicketPayment({ uuid, ticket }: Props) {
 
       <Paper className="mb-8 p-8">
         <h2 className="mb-8 text-xl leading-none tracking-tight text-gray-600 dark:text-gray-100">
-          Persona asignada para el pago manual
+          Persona de soporte para el pago manual
         </h2>
-        <div className="flex justify-between">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col justify-between md:flex-row">
+          <div className="mb-4 flex items-center gap-2 md:mb-0">
             <Avatar>
               <AvatarImage src="/daniel.jpg" />
               <AvatarFallback>DC</AvatarFallback>
@@ -89,7 +123,7 @@ export function ActivitiesFormTicketPayment({ uuid, ticket }: Props) {
           </div>
           <div className="flex gap-2">
             <a
-              href={`https://wa.me/593996658237?text=Hola+mi+ticket+es+${uuid}`}
+              href={`https://wa.me/593996658237?text=Hola+mi+ticket+es+${uuid}+aqui+esta+mi+transferencia`}
               target="_blank"
               rel="noopener noreferrer"
             >
