@@ -46,7 +46,6 @@ export function HeaderAccountButton({ session }: Props) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-full min-w-56 rounded-xl" align="end" sideOffset={4}>
-          <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
           <DropdownMenuLabel className="p-0 font-normal">
             <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
               <Avatar className="h-7 w-7 rounded-full">
@@ -64,14 +63,6 @@ export function HeaderAccountButton({ session }: Props) {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <Link href="/account">
-            <DropdownMenuItem>
-              <UserIcon className="mr-2 h-4 w-4" />
-              Mi cuenta
-            </DropdownMenuItem>
-          </Link>
-          <DropdownMenuSeparator />
-
           <DropdownMenuItem onClick={handleSignOut}>
             <LogOutIcon className="mr-2 h-4 w-4" />
             Cerrar sesión

@@ -1,12 +1,10 @@
 "use client";
-import { LogOutIcon, TicketsIcon, UserRoundPenIcon } from "lucide-react";
-import Link from "next/link";
+import { LogOutIcon, UserRoundPenIcon } from "lucide-react";
 
 import { signOut } from "@/app/services/auth.services";
 import { User } from "@/app/services/users.services";
 import { getUserRole } from "@/utils/get-user-role";
 
-import { AccountTicketScanButton } from "./account-ticket-scan-button";
 import { H2 } from "./h2";
 import { Paper } from "./paper";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -22,10 +20,10 @@ export function AccountWelcome({ user }: Props) {
   }
 
   return (
-    <Paper className="mb-12 p-8">
+    <Paper className="mb-8 p-4">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center border-b border-dashed pb-4 md:border-0 md:pb-0">
-          <Avatar className="mr-4 h-14 w-14 rounded-full">
+          <Avatar className="mr-4 h-12 w-12 rounded-full">
             <AvatarImage src={user.picture} alt={user.full_name} />
             <AvatarFallback className="rounded-lg">
               {user.full_name.slice(0, 2).toLocaleUpperCase()}
@@ -51,15 +49,6 @@ export function AccountWelcome({ user }: Props) {
             Cerrar sesión
           </Button>
         </div>
-      </div>
-      <div className="flex pt-8">
-        {user.role === "admin" && <AccountTicketScanButton />}
-        <Link href="/account/tickets">
-          <Button className="rounded-full" variant="outline">
-            <TicketsIcon />
-            Tus tickets
-          </Button>
-        </Link>
       </div>
     </Paper>
   );

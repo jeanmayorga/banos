@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const activity = await getActivityBySlug(params.slug);
   if (!activity) return notFound();
 
-  const title = `${activity.fields.title} | Baños de agua santa | Ecuador`;
+  const title = `Comprar entradas | ${activity.fields.title} | Baños | Ecuador`;
   const description = activity.fields.seoDescription;
   const keywords = activity?.fields.seoKeywords;
   const url = `https://banos.app/activities/${activity.fields.slug}`;

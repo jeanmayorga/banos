@@ -18,7 +18,7 @@ export async function getSession(): Promise<Session | null> {
   const user = await getUserByUuid(session.data.user.id);
   if (!user) return null;
 
-  console.log(`getSession() ->`, session.data.user);
+  console.log(`getSession()`);
   return {
     session: session.data.user,
     user,

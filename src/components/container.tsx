@@ -7,7 +7,5 @@ interface Props {
   className?: string;
 }
 export function Container({ children, className }: Props) {
-  return (
-    <div className={cn("ms:px-0 container mx-auto max-w-5xl px-4", className)}>{children}</div>
-  );
+  return <div className={cn("container mx-auto max-w-5xl p-4 md:p-0", className)}>{children}</div>;
 }
